@@ -7,8 +7,17 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { sanitizeError, checkRateLimit, isValidEmail } from "@/lib/security";
+import { useAuth } from "@/hooks/useAuth";
 
 export default function LoginPage() {
+  const { user, loading: authLoading } = useAuth();
+  const router2 = useRouter();
+
+  // Redirect if already logged in
+  if (!authLoading && user) {
+    router2.push("/dashboard");
+    return null;
+  }
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);

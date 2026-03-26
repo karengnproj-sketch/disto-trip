@@ -6,8 +6,18 @@ import Link from "next/link";
 import { useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { sanitizeError, checkRateLimit, isValidEmail, sanitizeText } from "@/lib/security";
+import { useAuth } from "@/hooks/useAuth";
+import { useRouter as useRouter2 } from "next/navigation";
 
 export default function SignUpPage() {
+  const { user, loading: authLoading } = useAuth();
+  const nav = useRouter2();
+
+  // Redirect if already logged in
+  if (!authLoading && user) {
+    nav.push("/dashboard");
+    return null;
+  }
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
