@@ -5,6 +5,7 @@ import { Mail, Lock, User, Eye, EyeOff, CheckCircle, AlertCircle } from "lucide-
 import Link from "next/link";
 import { useState } from "react";
 import { createClient } from "@/lib/supabase/client";
+import { sanitizeError, checkRateLimit, isValidEmail, sanitizeText } from "@/lib/security";
 
 export default function SignUpPage() {
   const [name, setName] = useState("");
@@ -19,23 +20,36 @@ export default function SignUpPage() {
     setLoading(true);
     setMessage(null);
 
+    const rateCheck = checkRateLimit(`signup-${email}`, 3, 15 * 60 * 1000);
+    if (!rateCheck.allowed) {
+      setMessage({ type: "error", text: `Too many attempts. Try again in ${rateCheck.retryAfterSeconds} seconds.` });
+      setLoading(false);
+      return;
+    }
+
+    if (!isValidEmail(email)) {
+      setMessage({ type: "error", text: "Please enter a valid email address." });
+      setLoading(false);
+      return;
+    }
+
     try {
       const supabase = createClient();
       const { error } = await supabase.auth.signUp({
         email,
         password,
         options: {
-          data: { full_name: name },
+          data: { full_name: sanitizeText(name, 100) },
         },
       });
 
       if (error) {
-        setMessage({ type: "error", text: error.message });
+        setMessage({ type: "error", text: sanitizeError(error) });
       } else {
         setMessage({ type: "success", text: "Account created! Check your email to verify." });
       }
-    } catch {
-      setMessage({ type: "error", text: "Something went wrong. Please try again." });
+    } catch (err) {
+      setMessage({ type: "error", text: sanitizeError(err) });
     } finally {
       setLoading(false);
     }

@@ -20,12 +20,14 @@ import {
   GitBranch,
   ExternalLink,
   ShieldCheck,
+  Shield,
 } from "lucide-react";
 import Link from "next/link";
 import { hotels } from "@/data/seed-hotels";
 import { attractions } from "@/data/seed-attractions";
 import { cities } from "@/data/seed-cities";
 import { formatPrice } from "@/lib/utils/format";
+import { useAuth } from "@/hooks/useAuth";
 
 type Tab = "hotels" | "attractions" | "cities" | "bookings";
 
@@ -91,6 +93,24 @@ const statusIcons: Record<string, React.ReactNode> = {
 
 export default function AdminPage() {
   const [activeTab, setActiveTab] = useState<Tab>("hotels");
+  const { user, isAdmin, loading } = useAuth();
+
+  // Auth guard - only admins can access
+  if (loading) {
+    return <div className="min-h-screen pt-24 flex items-center justify-center text-[#666]">Loading...</div>;
+  }
+  if (!user || !isAdmin) {
+    return (
+      <div className="min-h-screen pt-24 flex flex-col items-center justify-center">
+        <Shield className="w-16 h-16 text-[#FF4444] mb-4" />
+        <h1 className="text-2xl font-bold text-white mb-2">Access Denied</h1>
+        <p className="text-[#666] mb-6">You need admin privileges to access this page.</p>
+        <Link href="/" className="px-6 py-3 bg-gradient-to-r from-[#39FF14] to-[#00E676] text-black font-semibold rounded-xl">
+          Go Home
+        </Link>
+      </div>
+    );
+  }
 
   const stats = [
     { label: "Total Hotels", value: hotels.length, icon: Hotel, color: "#39FF14" },

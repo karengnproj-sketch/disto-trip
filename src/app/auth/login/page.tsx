@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { createClient } from "@/lib/supabase/client";
+import { sanitizeError, checkRateLimit, isValidEmail } from "@/lib/security";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -20,18 +21,32 @@ export default function LoginPage() {
     setLoading(true);
     setMessage(null);
 
+    // Rate limit check
+    const rateCheck = checkRateLimit(`login-${email}`, 5, 15 * 60 * 1000);
+    if (!rateCheck.allowed) {
+      setMessage({ type: "error", text: `Too many attempts. Try again in ${rateCheck.retryAfterSeconds} seconds.` });
+      setLoading(false);
+      return;
+    }
+
+    if (!isValidEmail(email)) {
+      setMessage({ type: "error", text: "Please enter a valid email address." });
+      setLoading(false);
+      return;
+    }
+
     try {
       const supabase = createClient();
       const { error } = await supabase.auth.signInWithPassword({ email, password });
 
       if (error) {
-        setMessage({ type: "error", text: error.message });
+        setMessage({ type: "error", text: sanitizeError(error) });
       } else {
         setMessage({ type: "success", text: "Logged in! Redirecting..." });
-        setTimeout(() => router.push("/"), 1000);
+        setTimeout(() => router.push("/dashboard"), 1000);
       }
-    } catch {
-      setMessage({ type: "error", text: "Something went wrong. Please try again." });
+    } catch (err) {
+      setMessage({ type: "error", text: sanitizeError(err) });
     } finally {
       setLoading(false);
     }
