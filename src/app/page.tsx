@@ -3,9 +3,11 @@
 import { motion } from "framer-motion";
 import { Search, MapPin, Hotel, Compass, Shield, ChevronRight, Star, Clock, Users } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { cities } from "@/data/seed-cities";
 import { attractions } from "@/data/seed-attractions";
+import { hotels } from "@/data/seed-hotels";
 
 const interests = [
   { name: "Food", emoji: "🍽️", color: "from-orange-500 to-red-500", href: "/attractions?category=food" },
@@ -27,7 +29,26 @@ const fadeUp = {
 
 export default function HomePage() {
   const [searchQuery, setSearchQuery] = useState("");
+  const [showResults, setShowResults] = useState(false);
+  const router = useRouter();
   const topAttractions = attractions.slice(0, 4);
+
+  // Search across all data
+  const searchResults = searchQuery.length > 1
+    ? [
+        ...cities.filter(c => c.name.toLowerCase().includes(searchQuery.toLowerCase())).map(c => ({ type: "city" as const, name: c.name, href: `/hotels?city=${c.slug}`, sub: "City" })),
+        ...hotels.filter(h => h.name.toLowerCase().includes(searchQuery.toLowerCase())).map(h => ({ type: "hotel" as const, name: h.name, href: "/hotels", sub: "Hotel" })),
+        ...attractions.filter(a => a.name.toLowerCase().includes(searchQuery.toLowerCase())).map(a => ({ type: "attraction" as const, name: a.name, href: `/attractions/${a.id}`, sub: a.category })),
+      ].slice(0, 8)
+    : [];
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      router.push(`/attractions?search=${encodeURIComponent(searchQuery)}`);
+      setShowResults(false);
+    }
+  };
 
   return (
     <div className="min-h-screen">
@@ -76,16 +97,40 @@ export default function HomePage() {
             transition={{ delay: 0.5, duration: 0.6 }}
             className="relative max-w-xl mx-auto"
           >
-            <div className="relative group">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#666] group-focus-within:text-[#39FF14] transition-colors" />
+            <form onSubmit={handleSearch} className="relative group">
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#666] group-focus-within:text-[#39FF14] transition-colors z-10" />
               <input
                 type="text"
                 placeholder="Place where to go, things to do, hotels...etc"
                 value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
+                onChange={(e) => { setSearchQuery(e.target.value); setShowResults(true); }}
+                onFocus={() => setShowResults(true)}
+                onBlur={() => setTimeout(() => setShowResults(false), 200)}
                 className="w-full pl-12 pr-4 py-4 bg-[#1a1a1a]/80 backdrop-blur-xl border border-[#333]/50 rounded-2xl text-white placeholder-[#666] focus:outline-none focus:border-[#39FF14] focus:ring-2 focus:ring-[#39FF14]/20 transition-all text-sm md:text-base"
               />
-            </div>
+            </form>
+            {/* Search Results Dropdown */}
+            {showResults && searchResults.length > 0 && (
+              <div className="absolute top-full left-0 right-0 mt-2 bg-[#1a1a1a] border border-[#333] rounded-xl overflow-hidden z-50 shadow-2xl">
+                {searchResults.map((r, i) => (
+                  <Link
+                    key={i}
+                    href={r.href}
+                    onClick={() => { setShowResults(false); setSearchQuery(""); }}
+                    className="flex items-center justify-between px-4 py-3 hover:bg-[#2a2a2a] transition-colors border-b border-[#333]/30 last:border-0"
+                  >
+                    <div className="flex items-center gap-3">
+                      <MapPin className="w-4 h-4 text-[#39FF14]" />
+                      <span className="text-white text-sm">{r.name}</span>
+                    </div>
+                    <span className="text-[#666] text-xs capitalize">{r.sub}</span>
+                  </Link>
+                ))}
+                <div className="px-4 py-2 bg-[#0f0f0f] text-[#666] text-xs text-center">
+                  Press Enter to search all results
+                </div>
+              </div>
+            )}
           </motion.div>
 
           {/* Quick Links */}

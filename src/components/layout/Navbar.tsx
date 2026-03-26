@@ -3,13 +3,14 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X, MapPin, Shield } from "lucide-react";
+import { Menu, X, MapPin, Shield, Wallet } from "lucide-react";
 
 const navLinks = [
   { href: "/", label: "Home" },
   { href: "/discover", label: "Discover" },
   { href: "/hotels", label: "Hotels" },
   { href: "/attractions", label: "Attractions" },
+  { href: "/budget", label: "Budget", icon: Wallet },
   { href: "/emergency", label: "Emergency", icon: Shield },
 ];
 
