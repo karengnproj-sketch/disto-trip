@@ -10,8 +10,7 @@ export const attractions: Attraction[] = [
     description_ar: "آخر عجائب الدنيا السبع القديمة الباقية. ثلاثة أهرامات ضخمة بنيت كمقابر للفراعنة.",
     category: "historical",
     image_urls: [
-      "https://images.unsplash.com/photo-1503177119275-0aa32b3a9368?w=800",
-      "https://images.unsplash.com/photo-1539650116574-8efeb43e2750?w=800",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Kheops-Pyramid.jpg/800px-Kheops-Pyramid.jpg",
     ],
     latitude: 29.9792,
     longitude: 31.1342,
@@ -34,7 +33,7 @@ export const attractions: Attraction[] = [
     description_ar: "تمثال الحجر الجيري الأسطوري لمخلوق أسطوري برأس إنسان وجسم أسد.",
     category: "historical",
     image_urls: [
-      "https://images.unsplash.com/photo-1568322445389-f64b0f36ecd4?w=800",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Great_Sphinx_of_Giza_-_20080716a.jpg/800px-Great_Sphinx_of_Giza_-_20080716a.jpg",
     ],
     latitude: 29.9753,
     longitude: 31.1376,
@@ -57,7 +56,7 @@ export const attractions: Attraction[] = [
     description_ar: "أكبر متحف أثري في العالم، موطن كنوز توت عنخ آمون وأكثر من 100,000 قطعة أثرية.",
     category: "cultural",
     image_urls: [
-      "https://images.unsplash.com/photo-1553913861-c0fddf2619ee?w=800",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/Grand_Egyptian_Museum_-_exterior.jpg/800px-Grand_Egyptian_Museum_-_exterior.jpg",
     ],
     latitude: 30.0176,
     longitude: 31.1306,
@@ -80,7 +79,7 @@ export const attractions: Attraction[] = [
     description_ar: "سوق القاهرة الشهير من العصور الوسطى، متاهة من الأزقة الضيقة مليئة بالمتاجر والمقاهي التقليدية.",
     category: "cultural",
     image_urls: [
-      "https://images.unsplash.com/photo-1572252009286-268acec5ca0a?w=800",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Khan_El-Khalili_market_-_Cairo.jpg/800px-Khan_El-Khalili_market_-_Cairo.jpg",
     ],
     latitude: 30.0477,
     longitude: 31.2626,
@@ -103,7 +102,7 @@ export const attractions: Attraction[] = [
     description_ar: "وادي في مصر حيث نُحتت المقابر الصخرية للفراعنة والنبلاء لمدة 500 عام.",
     category: "historical",
     image_urls: [
-      "https://images.unsplash.com/photo-1539650116574-8efeb43e2750?w=800",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Valley_of_the_Kings_panorama.jpg/800px-Valley_of_the_Kings_panorama.jpg",
     ],
     latitude: 25.7402,
     longitude: 32.6014,
@@ -126,7 +125,7 @@ export const attractions: Attraction[] = [
     description_ar: "أكبر مجمع ديني قديم في العالم، بُني على مدار 2000 عام. قاعة الأعمدة مع 134 عموداً ضخماً.",
     category: "historical",
     image_urls: [
-      "https://images.unsplash.com/photo-1568322445389-f64b0f36ecd4?w=800",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Karnak_temple_-_panoramio.jpg/800px-Karnak_temple_-_panoramio.jpg",
     ],
     latitude: 25.7188,
     longitude: 32.6573,
@@ -149,7 +148,7 @@ export const attractions: Attraction[] = [
     description_ar: "معبدان توأمان منحوتان في جبل بواسطة رمسيس الثاني، نُقلا بالكامل لإنقاذهما من الفيضان.",
     category: "historical",
     image_urls: [
-      "https://images.unsplash.com/photo-1590059390047-f5e617a5e931?w=800",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/Abu_Simbel%2C_Ramesses_Temple%2C_front%2C_Egypt%2C_Oct_2004.jpg/800px-Abu_Simbel%2C_Ramesses_Temple%2C_front%2C_Egypt%2C_Oct_2004.jpg",
     ],
     latitude: 22.3369,
     longitude: 31.6256,
@@ -172,7 +171,7 @@ export const attractions: Attraction[] = [
     description_ar: "معبد جزيرة جميل مكرس للإلهة إيزيس، يُصل إليه بقارب بمحرك.",
     category: "historical",
     image_urls: [
-      "https://images.unsplash.com/photo-1590059390047-f5e617a5e931?w=800",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Philae%2C_seen_from_the_water%2C_Aswan%2C_Egypt%2C_Oct_2004.jpg/800px-Philae%2C_seen_from_the_water%2C_Aswan%2C_Egypt%2C_Oct_2004.jpg",
     ],
     latitude: 24.0236,
     longitude: 32.8843,
@@ -195,7 +194,7 @@ export const attractions: Attraction[] = [
     description_ar: "محمية وطنية مذهلة في الطرف الجنوبي لشبه جزيرة سيناء، مشهورة بالشعاب المرجانية.",
     category: "nature",
     image_urls: [
-      "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Ras_um_sid.jpg/800px-Ras_um_sid.jpg",
     ],
     latitude: 27.7340,
     longitude: 34.2521,
@@ -218,7 +217,7 @@ export const attractions: Attraction[] = [
     description_ar: "موقع غوص عالمي شهير — حفرة غارقة بعمق 130 متراً في البحر الأحمر.",
     category: "adventure",
     image_urls: [
-      "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Blue_Hole_Dahab.jpg/800px-Blue_Hole_Dahab.jpg",
     ],
     latitude: 28.5722,
     longitude: 34.5389,
@@ -241,7 +240,7 @@ export const attractions: Attraction[] = [
     description_ar: "أبحر في النيل على قارب شراعي خشبي مصري تقليدي. شاهد غروب الشمس فوق القرى النوبية.",
     category: "adventure",
     image_urls: [
-      "https://images.unsplash.com/photo-1590059390047-f5e617a5e931?w=800",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Aswan%2C_Pair_of_Feluccas.jpg/800px-Aswan%2C_Pair_of_Feluccas.jpg",
     ],
     latitude: 24.0875,
     longitude: 32.8991,
@@ -264,7 +263,7 @@ export const attractions: Attraction[] = [
     description_ar: "رحلة بالقارب ليوم كامل إلى جزيرة جفتون مع مياه صافية وشعاب مرجانية ودلافين.",
     category: "water_sports",
     image_urls: [
-      "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Hurghada_coast.jpg/800px-Hurghada_coast.jpg",
     ],
     latitude: 27.2295,
     longitude: 33.9423,
@@ -287,7 +286,7 @@ export const attractions: Attraction[] = [
     description_ar: "قلعة دفاعية من القرن الخامس عشر على ساحل البحر المتوسط، بنيت على موقع فنار الإسكندرية القديم.",
     category: "historical",
     image_urls: [
-      "https://images.unsplash.com/photo-1569230919100-d3fd5e1132f4?w=800",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Qaitbay_Citadel_2.jpg/800px-Qaitbay_Citadel_2.jpg",
     ],
     latitude: 31.2139,
     longitude: 29.8853,
@@ -310,7 +309,7 @@ export const attractions: Attraction[] = [
     description_ar: "تذوق المأكولات المصرية الأصيلة — كشري وفلافل وشاورما وفول مدمس والمزيد.",
     category: "food",
     image_urls: [
-      "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Kushari.jpg/800px-Kushari.jpg",
     ],
     latitude: 30.0500,
     longitude: 31.2500,
