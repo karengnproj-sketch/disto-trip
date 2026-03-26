@@ -18,7 +18,7 @@ export async function createServerSupabaseClient() {
               cookieStore.set(name, value, options)
             );
           } catch {
-            // Server component — can't set cookies
+            // Server component - can't set cookies
           }
         },
       },

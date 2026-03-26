@@ -3,26 +3,36 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X, MapPin, Shield, Wallet, Globe, LayoutDashboard, Settings } from "lucide-react";
+import { Menu, X, MapPin, Shield, Wallet, Globe, LayoutDashboard, Settings, User, LogOut } from "lucide-react";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
+import { useAuth } from "@/hooks/useAuth";
+import { createClient } from "@/lib/supabase/client";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
   const { locale, setLocale, t } = useLanguage();
   const isAr = locale === "ar";
+  const { user, isAdmin, loading } = useAuth();
 
   const navLinks = [
     { href: "/", label: t("home") },
     { href: "/discover", label: t("discover") },
     { href: "/hotels", label: t("hotels") },
     { href: "/attractions", label: t("attractions") },
-    { href: "/budget", label: locale === "en" ? "Budget" : "الميزانية", icon: Wallet },
+    { href: "/budget", label: isAr ? "الميزانية" : "Budget", icon: Wallet },
     { href: "/emergency", label: t("emergency"), icon: Shield },
+    { href: "/about", label: isAr ? "من نحن" : "About" },
   ];
 
   const toggleLanguage = () => {
     setLocale(locale === "en" ? "ar" : "en");
+  };
+
+  const handleLogout = async () => {
+    const supabase = createClient();
+    await supabase.auth.signOut();
+    window.location.href = "/";
   };
 
   return (
@@ -48,7 +58,7 @@ export default function Navbar() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
+                  className={`px-3 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
                     isActive
                       ? "bg-[#39FF14]/10 text-[#39FF14]"
                       : "text-[#B0B0B0] hover:text-white hover:bg-[#2a2a2a]"
@@ -63,8 +73,8 @@ export default function Navbar() {
             })}
           </div>
 
-          {/* Right Side: Language Toggle + Auth */}
-          <div className="hidden md:flex items-center gap-3">
+          {/* Right Side */}
+          <div className="hidden md:flex items-center gap-2">
             {/* Language Toggle */}
             <button
               onClick={toggleLanguage}
@@ -74,35 +84,60 @@ export default function Navbar() {
               {locale === "en" ? "عربي" : "EN"}
             </button>
 
-            <Link
-              href="/dashboard"
-              className="px-3 py-1.5 text-xs font-medium text-[#B0B0B0] hover:text-[#39FF14] transition-colors flex items-center gap-1"
-            >
-              <LayoutDashboard className="w-3.5 h-3.5" />
-              {isAr ? "لوحتي" : "My Panel"}
-            </Link>
-            <Link
-              href="/admin"
-              className="px-3 py-1.5 text-xs font-medium text-[#B0B0B0] hover:text-[#39FF14] transition-colors flex items-center gap-1"
-            >
-              <Settings className="w-3.5 h-3.5" />
-              {isAr ? "الادارة" : "Admin"}
-            </Link>
-            <Link
-              href="/auth/login"
-              className="px-4 py-2 text-sm font-medium text-[#B0B0B0] hover:text-white transition-colors"
-            >
-              {t("login")}
-            </Link>
-            <Link
-              href="/auth/signup"
-              className="px-5 py-2 text-sm font-semibold bg-gradient-to-r from-[#39FF14] to-[#00E676] text-black rounded-full hover:shadow-lg hover:shadow-[#39FF14]/25 transition-all duration-300 hover:scale-105"
-            >
-              {t("signup")}
-            </Link>
+            {!loading && user ? (
+              <>
+                {/* User Dashboard */}
+                <Link
+                  href="/dashboard"
+                  className="px-3 py-1.5 text-xs font-medium text-[#B0B0B0] hover:text-[#39FF14] transition-colors flex items-center gap-1"
+                >
+                  <LayoutDashboard className="w-3.5 h-3.5" />
+                  {isAr ? "لوحتي" : "My Panel"}
+                </Link>
+
+                {/* Admin - only for admin users */}
+                {isAdmin && (
+                  <Link
+                    href="/admin"
+                    className="px-3 py-1.5 text-xs font-medium text-[#FFB300] hover:text-[#FFB300] transition-colors flex items-center gap-1"
+                  >
+                    <Settings className="w-3.5 h-3.5" />
+                    {isAr ? "الادارة" : "Admin"}
+                  </Link>
+                )}
+
+                {/* User Info + Logout */}
+                <div className="flex items-center gap-2 pl-2 border-l border-[#333]">
+                  <Link href="/profile" className="flex items-center gap-1.5 text-xs text-[#B0B0B0] hover:text-white transition-colors">
+                    <div className="w-6 h-6 rounded-full bg-gradient-to-r from-[#39FF14] to-[#00E676] flex items-center justify-center">
+                      <User className="w-3 h-3 text-black" />
+                    </div>
+                    {user.name}
+                  </Link>
+                  <button onClick={handleLogout} className="text-[#666] hover:text-[#FF4444] transition-colors" title="Log out">
+                    <LogOut className="w-3.5 h-3.5" />
+                  </button>
+                </div>
+              </>
+            ) : !loading ? (
+              <>
+                <Link
+                  href="/auth/login"
+                  className="px-4 py-2 text-sm font-medium text-[#B0B0B0] hover:text-white transition-colors"
+                >
+                  {t("login")}
+                </Link>
+                <Link
+                  href="/auth/signup"
+                  className="px-5 py-2 text-sm font-semibold bg-gradient-to-r from-[#39FF14] to-[#00E676] text-black rounded-full hover:shadow-lg hover:shadow-[#39FF14]/25 transition-all duration-300 hover:scale-105"
+                >
+                  {t("signup")}
+                </Link>
+              </>
+            ) : null}
           </div>
 
-          {/* Mobile: Language + Menu */}
+          {/* Mobile */}
           <div className="md:hidden flex items-center gap-2">
             <button
               onClick={toggleLanguage}
@@ -145,21 +180,38 @@ export default function Navbar() {
                 </Link>
               );
             })}
+
+            {user && (
+              <Link href="/dashboard" onClick={() => setIsOpen(false)}
+                className="block px-4 py-3 rounded-xl text-sm font-medium text-[#B0B0B0] hover:text-white hover:bg-[#2a2a2a]">
+                <span className="flex items-center gap-2"><LayoutDashboard className="w-4 h-4" /> {isAr ? "لوحتي" : "My Panel"}</span>
+              </Link>
+            )}
+            {isAdmin && (
+              <Link href="/admin" onClick={() => setIsOpen(false)}
+                className="block px-4 py-3 rounded-xl text-sm font-medium text-[#FFB300] hover:bg-[#2a2a2a]">
+                <span className="flex items-center gap-2"><Settings className="w-4 h-4" /> {isAr ? "الادارة" : "Admin"}</span>
+              </Link>
+            )}
+
             <div className="pt-4 border-t border-[#333]/50 flex gap-3">
-              <Link
-                href="/auth/login"
-                onClick={() => setIsOpen(false)}
-                className="flex-1 py-3 text-center text-sm font-medium border border-[#333] rounded-xl text-[#B0B0B0] hover:text-white transition-colors"
-              >
-                {t("login")}
-              </Link>
-              <Link
-                href="/auth/signup"
-                onClick={() => setIsOpen(false)}
-                className="flex-1 py-3 text-center text-sm font-semibold bg-gradient-to-r from-[#39FF14] to-[#00E676] text-black rounded-xl"
-              >
-                {t("signup")}
-              </Link>
+              {user ? (
+                <button onClick={() => { handleLogout(); setIsOpen(false); }}
+                  className="flex-1 py-3 text-center text-sm font-medium border border-[#FF4444]/30 rounded-xl text-[#FF4444] hover:bg-[#FF4444]/10 transition-colors">
+                  {isAr ? "تسجيل خروج" : "Log Out"}
+                </button>
+              ) : (
+                <>
+                  <Link href="/auth/login" onClick={() => setIsOpen(false)}
+                    className="flex-1 py-3 text-center text-sm font-medium border border-[#333] rounded-xl text-[#B0B0B0] hover:text-white transition-colors">
+                    {t("login")}
+                  </Link>
+                  <Link href="/auth/signup" onClick={() => setIsOpen(false)}
+                    className="flex-1 py-3 text-center text-sm font-semibold bg-gradient-to-r from-[#39FF14] to-[#00E676] text-black rounded-xl">
+                    {t("signup")}
+                  </Link>
+                </>
+              )}
             </div>
           </div>
         </div>

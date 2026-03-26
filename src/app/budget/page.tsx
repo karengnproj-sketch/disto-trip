@@ -121,7 +121,7 @@ export default function BudgetPage() {
           <select value={currency} onChange={(e) => setCurrency(e.target.value)}
             className="w-full py-3 px-4 bg-[#2a2a2a] border border-[#333] rounded-xl text-white text-sm mb-4 focus:outline-none focus:border-[#39FF14]">
             {Object.entries(exchangeRates).map(([code, { name, symbol }]) => (
-              <option key={code} value={code}>{symbol} {code} — {name}</option>
+              <option key={code} value={code}>{symbol} {code} - {name}</option>
             ))}
           </select>
 
@@ -148,7 +148,7 @@ export default function BudgetPage() {
                   {convertDirection === "to_egp" ? "EGP" : `${currency}`}
                 </label>
                 <div className="w-full px-4 py-3 bg-[#0a0a0a] border border-[#333] rounded-xl text-[#39FF14] text-sm font-semibold">
-                  {converted ? (convertDirection === "to_egp" ? `${Number(converted).toLocaleString()} EGP` : `${symbol}${converted}`) : "—"}
+                  {converted ? (convertDirection === "to_egp" ? `${Number(converted).toLocaleString()} EGP` : `${symbol}${converted}`) : "-"}
                 </div>
               </div>
             </div>

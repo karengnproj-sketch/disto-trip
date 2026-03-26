@@ -17,7 +17,7 @@ const playfair = Playfair_Display({
 
 export const metadata: Metadata = {
   title: "Disto-Trip | Your Egypt Travel Companion",
-  description: "Discover Egypt like never before. Book hotels, explore attractions, navigate with live maps, and stay safe with emergency services — all in one app.",
+  description: "Discover Egypt like never before. Book hotels, explore attractions, navigate with live maps, and stay safe with emergency services - all in one app.",
   keywords: ["Egypt", "travel", "tourism", "hotels", "pyramids", "Cairo", "Luxor", "booking"],
 };
 

@@ -16,7 +16,12 @@ import {
   CheckCircle,
   XCircle,
   AlertCircle,
+  FileText,
+  GitBranch,
+  ExternalLink,
+  ShieldCheck,
 } from "lucide-react";
+import Link from "next/link";
 import { hotels } from "@/data/seed-hotels";
 import { attractions } from "@/data/seed-attractions";
 import { cities } from "@/data/seed-cities";
@@ -120,6 +125,25 @@ export default function AdminPage() {
           <button className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-[#39FF14] to-[#00E676] text-black font-semibold rounded-xl hover:shadow-lg hover:shadow-[#39FF14]/25 hover:scale-[1.02] transition-all duration-300 text-sm">
             <Plus className="w-4 h-4" /> Add New
           </button>
+        </div>
+
+        {/* Admin-only documentation links */}
+        <div className="flex flex-wrap gap-3 mt-4">
+          <Link href="/design-system.html" target="_blank"
+            className="flex items-center gap-2 px-4 py-2 bg-[#1a1a1a] border border-[#333]/50 rounded-xl text-xs font-medium text-[#B0B0B0] hover:text-[#39FF14] hover:border-[#39FF14]/30 transition-all">
+            <FileText className="w-3.5 h-3.5" /> Design System
+            <ExternalLink className="w-3 h-3" />
+          </Link>
+          <Link href="/uml-diagrams.html" target="_blank"
+            className="flex items-center gap-2 px-4 py-2 bg-[#1a1a1a] border border-[#333]/50 rounded-xl text-xs font-medium text-[#B0B0B0] hover:text-[#39FF14] hover:border-[#39FF14]/30 transition-all">
+            <GitBranch className="w-3.5 h-3.5" /> UML Diagrams
+            <ExternalLink className="w-3 h-3" />
+          </Link>
+          <Link href="https://github.com/karengnproj-sketch/disto-trip" target="_blank"
+            className="flex items-center gap-2 px-4 py-2 bg-[#1a1a1a] border border-[#333]/50 rounded-xl text-xs font-medium text-[#B0B0B0] hover:text-[#39FF14] hover:border-[#39FF14]/30 transition-all">
+            <ShieldCheck className="w-3.5 h-3.5" /> GitHub Repo
+            <ExternalLink className="w-3 h-3" />
+          </Link>
         </div>
       </motion.div>
 

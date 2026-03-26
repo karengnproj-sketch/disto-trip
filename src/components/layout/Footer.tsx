@@ -86,10 +86,9 @@ export default function Footer() {
             <h4 className="font-semibold text-white mb-4">{t("support")}</h4>
             <ul className="space-y-2">
               {[
-                { href: "/#about", en: "About Us", ar: "من نحن" },
-                { href: "/emergency", en: "Contact Us", ar: "اتصل بنا" },
-                { href: "/design-system.html", en: "Design System", ar: "نظام التصميم" },
-                { href: "/uml-diagrams.html", en: "UML Diagrams", ar: "مخططات UML" },
+                { href: "/about", en: "About Us", ar: "من نحن" },
+                { href: "/about", en: "Contact Us", ar: "اتصل بنا" },
+                { href: "/emergency", en: "Safety Info", ar: "معلومات السلامة" },
               ].map((item) => (
                 <li key={item.href}>
                   <Link href={item.href} className="text-sm text-text-secondary hover:text-accent-primary transition-colors">

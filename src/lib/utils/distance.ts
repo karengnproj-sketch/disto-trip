@@ -1,4 +1,4 @@
-// Haversine formula — distance between two lat/lng points in km
+// Haversine formula - distance between two lat/lng points in km
 export function getDistance(
   lat1: number,
   lon1: number,

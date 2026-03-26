@@ -206,7 +206,7 @@ function BookingContent() {
                 <label className="block text-sm text-white mb-3"><CreditCard className="w-3.5 h-3.5 inline mr-1" /> Payment Method</label>
                 <div className="space-y-2">
                   {[
-                    { value: "instapay", label: "InstaPay", desc: "Pay via InstaPay — details sent after confirmation" },
+                    { value: "instapay", label: "InstaPay", desc: "Pay via InstaPay - details sent after confirmation" },
                     { value: "cash", label: "Cash on Arrival", desc: "Pay in EGP at the hotel front desk" },
                     { value: "card", label: "Credit/Debit Card", desc: "Pay with Visa/Mastercard at check-in" },
                   ].map((method) => (

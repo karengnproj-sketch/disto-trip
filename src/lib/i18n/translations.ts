@@ -98,7 +98,7 @@ export const translations = {
     tip2: "Save emergency contacts on your phone before traveling",
     tip3: "Tourist Police (126) speaks English and can assist foreign visitors",
     tip4: "Most major hospitals in tourist areas have English-speaking staff",
-    tip5: "Stay hydrated — Egypt's climate can be very hot, especially in summer",
+    tip5: "Stay hydrated - Egypt's climate can be very hot, especially in summer",
     tip6: "Use registered taxis or ride-sharing apps like Uber/Careem",
 
     // Auth
@@ -275,7 +275,7 @@ export const translations = {
     tip2: "احفظ أرقام الطوارئ في هاتفك قبل السفر",
     tip3: "شرطة السياحة (126) تتحدث الإنجليزية وتساعد الزوار الأجانب",
     tip4: "معظم المستشفيات الكبرى في المناطق السياحية لديها طاقم يتحدث الإنجليزية",
-    tip5: "اشرب الماء بكثرة — مناخ مصر حار جداً خاصة في الصيف",
+    tip5: "اشرب الماء بكثرة - مناخ مصر حار جداً خاصة في الصيف",
     tip6: "استخدم سيارات الأجرة المسجلة أو تطبيقات مثل أوبر/كريم",
 
     // Auth
