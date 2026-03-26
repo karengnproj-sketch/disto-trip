@@ -21,6 +21,11 @@ import {
   ExternalLink,
   ShieldCheck,
   Shield,
+  UserCog,
+  MessageSquareWarning,
+  Ban,
+  Eye,
+  AlertTriangle,
 } from "lucide-react";
 import Link from "next/link";
 import { hotels } from "@/data/seed-hotels";
@@ -29,7 +34,22 @@ import { cities } from "@/data/seed-cities";
 import { formatPrice } from "@/lib/utils/format";
 import { useAuth } from "@/hooks/useAuth";
 
-type Tab = "hotels" | "attractions" | "cities" | "bookings";
+type Tab = "hotels" | "attractions" | "cities" | "bookings" | "users" | "complaints";
+
+const mockUsers = [
+  { id: "u1", name: "Ahmed Hassan", email: "ahmed@gmail.com", role: "user", status: "active", joined: "2026-03-20" },
+  { id: "u2", name: "Sarah Miller", email: "sarah.m@outlook.com", role: "user", status: "active", joined: "2026-03-22" },
+  { id: "u3", name: "John Smith", email: "john.smith@yahoo.com", role: "user", status: "active", joined: "2026-03-24" },
+  { id: "u4", name: "Fatma Ali", email: "fatma.ali@gmail.com", role: "user", status: "banned", joined: "2026-03-18" },
+  { id: "u5", name: "Admin", email: "admin@distotrip.com", role: "admin", status: "active", joined: "2026-03-26" },
+];
+
+const mockComplaints = [
+  { id: "c1", user: "Ahmed Hassan", email: "ahmed@gmail.com", category: "scam", subject: "Taxi driver overcharged at airport", status: "pending", date: "2026-03-25", location: "Cairo Airport" },
+  { id: "c2", user: "Sarah Miller", email: "sarah.m@outlook.com", category: "hotel", subject: "Room not as advertised", status: "in_review", date: "2026-03-24", location: "Marriott Mena House" },
+  { id: "c3", user: "John Smith", email: "john.smith@yahoo.com", category: "safety", subject: "Harassment near Khan El Khalili", status: "forwarded", date: "2026-03-23", location: "Khan El Khalili" },
+  { id: "c4", user: "Maria Garcia", email: "maria.g@gmail.com", category: "transport", subject: "Uber driver refused meter", status: "resolved", date: "2026-03-22", location: "Downtown Cairo" },
+];
 
 const mockBookings = [
   {
@@ -123,7 +143,9 @@ export default function AdminPage() {
     { key: "hotels", label: "Hotels", icon: <Hotel className="w-4 h-4" /> },
     { key: "attractions", label: "Attractions", icon: <Landmark className="w-4 h-4" /> },
     { key: "cities", label: "Cities", icon: <MapPin className="w-4 h-4" /> },
-    { key: "bookings", label: "Bookings", icon: <Users className="w-4 h-4" /> },
+    { key: "bookings", label: "Bookings", icon: <Clock className="w-4 h-4" /> },
+    { key: "users", label: "Users", icon: <UserCog className="w-4 h-4" /> },
+    { key: "complaints", label: "Complaints", icon: <MessageSquareWarning className="w-4 h-4" /> },
   ];
 
   const getCityName = (cityId: string) => {
@@ -419,6 +441,101 @@ export default function AdminPage() {
                 ))}
               </tbody>
             </table>
+          </div>
+        )}
+
+        {/* Users Tab */}
+        {activeTab === "users" && (
+          <div className="space-y-3">
+            {mockUsers.map((user) => (
+              <div key={user.id} className="flex items-center gap-4 p-4 bg-[#0a0a0a] rounded-xl border border-[#333]/30">
+                <div className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold ${
+                  user.role === "admin" ? "bg-[#FFB300]/20 text-[#FFB300]" : "bg-[#39FF14]/20 text-[#39FF14]"
+                }`}>
+                  {user.name.charAt(0)}
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-white text-sm font-medium">{user.name}</p>
+                  <p className="text-[#666] text-xs">{user.email}</p>
+                </div>
+                <span className={`px-2 py-1 rounded-full text-[10px] font-bold ${
+                  user.role === "admin" ? "bg-[#FFB300]/20 text-[#FFB300]" : "bg-[#39FF14]/20 text-[#39FF14]"
+                }`}>
+                  {user.role.toUpperCase()}
+                </span>
+                <span className={`px-2 py-1 rounded-full text-[10px] font-bold ${
+                  user.status === "active" ? "bg-green-500/20 text-green-400" : "bg-red-500/20 text-red-400"
+                }`}>
+                  {user.status.toUpperCase()}
+                </span>
+                <p className="text-[#666] text-xs hidden md:block">{user.joined}</p>
+                <div className="flex items-center gap-2">
+                  {user.role !== "admin" && (
+                    <>
+                      <button className="px-3 py-1.5 text-[10px] font-medium bg-[#FFB300]/10 text-[#FFB300] rounded-lg hover:bg-[#FFB300]/20 transition-all">
+                        Make Admin
+                      </button>
+                      <button className={`px-3 py-1.5 text-[10px] font-medium rounded-lg transition-all ${
+                        user.status === "banned"
+                          ? "bg-green-500/10 text-green-400 hover:bg-green-500/20"
+                          : "bg-red-500/10 text-red-400 hover:bg-red-500/20"
+                      }`}>
+                        {user.status === "banned" ? "Unban" : "Ban"}
+                      </button>
+                    </>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* Complaints Tab */}
+        {activeTab === "complaints" && (
+          <div className="space-y-3">
+            {mockComplaints.map((complaint) => {
+              const statusColors: Record<string, string> = {
+                pending: "bg-yellow-500/20 text-yellow-400",
+                in_review: "bg-blue-500/20 text-blue-400",
+                forwarded: "bg-purple-500/20 text-purple-400",
+                resolved: "bg-green-500/20 text-green-400",
+                dismissed: "bg-[#666]/20 text-[#666]",
+              };
+              return (
+                <div key={complaint.id} className="p-4 bg-[#0a0a0a] rounded-xl border border-[#333]/30">
+                  <div className="flex items-start gap-4">
+                    <div className="w-10 h-10 rounded-full bg-[#FF4444]/20 flex items-center justify-center flex-shrink-0">
+                      <AlertTriangle className="w-5 h-5 text-[#FF4444]" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2 mb-1">
+                        <h3 className="text-white text-sm font-semibold">{complaint.subject}</h3>
+                        <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${statusColors[complaint.status] || ""}`}>
+                          {complaint.status.replace("_", " ").toUpperCase()}
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-3 text-xs text-[#666] mb-2">
+                        <span>{complaint.user} ({complaint.email})</span>
+                        <span>{complaint.date}</span>
+                        <span className="flex items-center gap-1"><MapPin className="w-3 h-3" /> {complaint.location}</span>
+                      </div>
+                      <span className="px-2 py-1 bg-[#2a2a2a] rounded-lg text-[10px] text-[#B0B0B0]">{complaint.category}</span>
+                    </div>
+                    <div className="flex items-center gap-2 flex-shrink-0">
+                      <button className="px-3 py-1.5 text-[10px] font-medium bg-blue-500/10 text-blue-400 rounded-lg hover:bg-blue-500/20 transition-all flex items-center gap-1">
+                        <Eye className="w-3 h-3" /> Review
+                      </button>
+                      <button className="px-3 py-1.5 text-[10px] font-medium bg-purple-500/10 text-purple-400 rounded-lg hover:bg-purple-500/20 transition-all">
+                        Forward
+                      </button>
+                      <button className="px-3 py-1.5 text-[10px] font-medium bg-green-500/10 text-green-400 rounded-lg hover:bg-green-500/20 transition-all">
+                        Resolve
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         )}
       </motion.div>

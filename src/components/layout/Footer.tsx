@@ -89,6 +89,7 @@ export default function Footer() {
                 { href: "/about", en: "About Us", ar: "من نحن" },
                 { href: "/about", en: "Contact Us", ar: "اتصل بنا" },
                 { href: "/emergency", en: "Safety Info", ar: "معلومات السلامة" },
+                { href: "/complaint", en: "File a Complaint", ar: "تقديم شكوى" },
               ].map((item) => (
                 <li key={item.href}>
                   <Link href={item.href} className="text-sm text-text-secondary hover:text-accent-primary transition-colors">
