@@ -502,7 +502,7 @@ export const hotels: Hotel[] = [
     address: "399 El Geish Road, San Stefano, Alexandria",
     amenities: ["wifi", "pool", "spa", "gym", "restaurant", "bar", "beach", "sea_view", "concierge"],
     image_urls: [
-      "https://images.unsplash.com/photo-1551016043-37e97a7b7e39?w=800",
+      "https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=800",
     ],
     booking_url: "https://www.booking.com/hotel/eg/four-seasons-alexandria-san-stefano.html",
     rating: 4.7,

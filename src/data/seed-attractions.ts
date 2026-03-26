@@ -33,7 +33,7 @@ export const attractions: Attraction[] = [
     description_ar: "تمثال الحجر الجيري الأسطوري لمخلوق أسطوري برأس إنسان وجسم أسد.",
     category: "historical",
     image_urls: [
-      "https://images.unsplash.com/photo-1568322445389-f64b0f36ecd4?w=800",
+      "https://images.unsplash.com/photo-1573052905904-34ad8c27f0cc?w=800",
     ],
     latitude: 29.9753,
     longitude: 31.1376,
@@ -125,7 +125,7 @@ export const attractions: Attraction[] = [
     description_ar: "أكبر مجمع ديني قديم في العالم، بُني على مدار 2000 عام. قاعة الأعمدة مع 134 عموداً ضخماً.",
     category: "historical",
     image_urls: [
-      "https://images.unsplash.com/photo-1568322445389-f64b0f36ecd4?w=800",
+      "https://images.unsplash.com/photo-1573052905904-34ad8c27f0cc?w=800",
     ],
     latitude: 25.7188,
     longitude: 32.6573,
@@ -286,7 +286,7 @@ export const attractions: Attraction[] = [
     description_ar: "قلعة دفاعية من القرن الخامس عشر على ساحل البحر المتوسط، بنيت على موقع فنار الإسكندرية القديم.",
     category: "historical",
     image_urls: [
-      "https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=800",
+      "https://images.unsplash.com/photo-1569230919100-d3fd5e1132f4?w=800",
     ],
     latitude: 31.2139,
     longitude: 29.8853,
@@ -402,7 +402,7 @@ export const attractions: Attraction[] = [
     description_ar: "تحصين إسلامي من العصور الوسطى على تل المقطم، بناه صلاح الدين في القرن الثاني عشر. يضم مسجد محمد علي الرائع.",
     category: "historical",
     image_urls: [
-      "https://images.unsplash.com/photo-1562679299-39c5e7d48880?w=800",
+      "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=800",
     ],
     latitude: 30.0288,
     longitude: 31.2599,
@@ -425,7 +425,7 @@ export const attractions: Attraction[] = [
     description_ar: "رحلة مسائية على النيل مع عشاء بوفيه ورقص شرقي حي وعرض تنورة وإطلالات على أفق القاهرة المضيء.",
     category: "food",
     image_urls: [
-      "https://images.unsplash.com/photo-1596627116790-af6f46dddbf4?w=800",
+      "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?w=800",
     ],
     latitude: 30.0448,
     longitude: 31.2270,
@@ -471,7 +471,7 @@ export const attractions: Attraction[] = [
     description_ar: "معبد مصري قديم كبير على الضفة الشرقية للنيل، مضاء بشكل جميل في الليل. متصل بمعبد الكرنك بطريق الكباش.",
     category: "historical",
     image_urls: [
-      "https://images.unsplash.com/photo-1568322445389-f64b0f36ecd4?w=800",
+      "https://images.unsplash.com/photo-1573052905904-34ad8c27f0cc?w=800",
     ],
     latitude: 25.6995,
     longitude: 32.6390,
@@ -517,7 +517,7 @@ export const attractions: Attraction[] = [
     description_ar: "أحد أكبر السدود الركامية في العالم، بُني في الستينيات. أنشأ بحيرة ناصر وغير الزراعة والاقتصاد المصري.",
     category: "cultural",
     image_urls: [
-      "https://images.unsplash.com/photo-1596627116790-af6f46dddbf4?w=800",
+      "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?w=800",
     ],
     latitude: 23.9708,
     longitude: 32.8781,

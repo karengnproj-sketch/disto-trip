@@ -74,7 +74,7 @@ export const cities: City[] = [
     slug: "alexandria",
     description: "Egypt's Mediterranean jewel, known for its ancient library legacy, Citadel of Qaitbay, and stunning corniche.",
     description_ar: "جوهرة مصر المتوسطية، معروفة بتراث المكتبة القديمة وقلعة قايتباي والكورنيش الرائع.",
-    image_url: "https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=800",
+    image_url: "https://images.unsplash.com/photo-1569230919100-d3fd5e1132f4?w=800",
     latitude: 31.2001,
     longitude: 29.9187,
   },

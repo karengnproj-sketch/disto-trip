@@ -162,9 +162,9 @@ function AttractionsContent() {
                   "https://images.unsplash.com/photo-1503177119275-0aa32b3a9368?w=800",
                   "https://images.unsplash.com/photo-1539650116574-8efeb43e2750?w=800",
                   "https://images.unsplash.com/photo-1553913861-c0fddf2619ee?w=800",
-                  "https://images.unsplash.com/photo-1568322445389-f64b0f36ecd4?w=800",
+                  "https://images.unsplash.com/photo-1573052905904-34ad8c27f0cc?w=800",
                   "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800",
-                  "https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=800",
+                  "https://images.unsplash.com/photo-1569230919100-d3fd5e1132f4?w=800",
                 ];
                 const img = attrImages[i % attrImages.length];
 
