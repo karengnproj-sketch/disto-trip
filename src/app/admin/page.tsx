@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import {
   Hotel,
@@ -33,6 +33,7 @@ import { attractions } from "@/data/seed-attractions";
 import { cities } from "@/data/seed-cities";
 import { formatPrice } from "@/lib/utils/format";
 import { useAuth } from "@/hooks/useAuth";
+import { createClient } from "@/lib/supabase/client";
 
 type Tab = "hotels" | "attractions" | "cities" | "bookings" | "users" | "complaints";
 
@@ -114,6 +115,65 @@ const statusIcons: Record<string, React.ReactNode> = {
 export default function AdminPage() {
   const [activeTab, setActiveTab] = useState<Tab>("hotels");
   const { user, isAdmin, loading } = useAuth();
+  const [liveUsers, setLiveUsers] = useState(mockUsers);
+  const [liveComplaints, setLiveComplaints] = useState(mockComplaints);
+  const [actionLoading, setActionLoading] = useState<string | null>(null);
+
+  // Load real users from Supabase
+  useEffect(() => {
+    if (!isAdmin) return;
+    const supabase = createClient();
+    supabase.from("profiles").select("*").then(({ data }) => {
+      if (data && data.length > 0) {
+        setLiveUsers(data.map((u: any) => ({
+          id: u.id,
+          name: u.full_name || "User",
+          email: u.id.slice(0, 8) + "...",
+          role: u.role || "user",
+          status: u.is_banned ? "banned" : "active",
+          joined: new Date(u.created_at).toISOString().split("T")[0],
+        })));
+      }
+    });
+    supabase.from("complaints").select("*").order("created_at", { ascending: false }).then(({ data }) => {
+      if (data && data.length > 0) {
+        setLiveComplaints(data.map((c: any) => ({
+          id: c.id,
+          user: c.user_name || "Anonymous",
+          email: c.user_email || "",
+          category: c.category,
+          subject: c.subject,
+          status: c.status,
+          date: new Date(c.created_at).toISOString().split("T")[0],
+          location: c.location || "",
+        })));
+      }
+    });
+  }, [isAdmin]);
+
+  const handleBanUser = async (userId: string, currentlyBanned: boolean) => {
+    setActionLoading(userId);
+    const supabase = createClient();
+    await supabase.from("profiles").update({ is_banned: !currentlyBanned }).eq("id", userId);
+    setLiveUsers(prev => prev.map(u => u.id === userId ? { ...u, status: currentlyBanned ? "active" : "banned" } : u));
+    setActionLoading(null);
+  };
+
+  const handleMakeAdmin = async (userId: string) => {
+    setActionLoading(userId);
+    const supabase = createClient();
+    await supabase.from("profiles").update({ role: "admin" }).eq("id", userId);
+    setLiveUsers(prev => prev.map(u => u.id === userId ? { ...u, role: "admin" } : u));
+    setActionLoading(null);
+  };
+
+  const handleComplaintStatus = async (complaintId: string, newStatus: string) => {
+    setActionLoading(complaintId);
+    const supabase = createClient();
+    await supabase.from("complaints").update({ status: newStatus, updated_at: new Date().toISOString() }).eq("id", complaintId);
+    setLiveComplaints(prev => prev.map(c => c.id === complaintId ? { ...c, status: newStatus } : c));
+    setActionLoading(null);
+  };
 
   // Auth guard - only admins can access
   if (loading) {
@@ -447,7 +507,7 @@ export default function AdminPage() {
         {/* Users Tab */}
         {activeTab === "users" && (
           <div className="space-y-3">
-            {mockUsers.map((user) => (
+            {liveUsers.map((user) => (
               <div key={user.id} className="flex items-center gap-4 p-4 bg-[#0a0a0a] rounded-xl border border-[#333]/30">
                 <div className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold ${
                   user.role === "admin" ? "bg-[#FFB300]/20 text-[#FFB300]" : "bg-[#39FF14]/20 text-[#39FF14]"
@@ -472,15 +532,21 @@ export default function AdminPage() {
                 <div className="flex items-center gap-2">
                   {user.role !== "admin" && (
                     <>
-                      <button className="px-3 py-1.5 text-[10px] font-medium bg-[#FFB300]/10 text-[#FFB300] rounded-lg hover:bg-[#FFB300]/20 transition-all">
-                        Make Admin
+                      <button
+                        onClick={() => handleMakeAdmin(user.id)}
+                        disabled={actionLoading === user.id}
+                        className="px-3 py-1.5 text-[10px] font-medium bg-[#FFB300]/10 text-[#FFB300] rounded-lg hover:bg-[#FFB300]/20 transition-all disabled:opacity-50">
+                        {actionLoading === user.id ? "..." : "Make Admin"}
                       </button>
-                      <button className={`px-3 py-1.5 text-[10px] font-medium rounded-lg transition-all ${
+                      <button
+                        onClick={() => handleBanUser(user.id, user.status === "banned")}
+                        disabled={actionLoading === user.id}
+                        className={`px-3 py-1.5 text-[10px] font-medium rounded-lg transition-all disabled:opacity-50 ${
                         user.status === "banned"
                           ? "bg-green-500/10 text-green-400 hover:bg-green-500/20"
                           : "bg-red-500/10 text-red-400 hover:bg-red-500/20"
                       }`}>
-                        {user.status === "banned" ? "Unban" : "Ban"}
+                        {actionLoading === user.id ? "..." : user.status === "banned" ? "Unban" : "Ban"}
                       </button>
                     </>
                   )}
@@ -493,7 +559,7 @@ export default function AdminPage() {
         {/* Complaints Tab */}
         {activeTab === "complaints" && (
           <div className="space-y-3">
-            {mockComplaints.map((complaint) => {
+            {liveComplaints.map((complaint) => {
               const statusColors: Record<string, string> = {
                 pending: "bg-yellow-500/20 text-yellow-400",
                 in_review: "bg-blue-500/20 text-blue-400",
@@ -522,14 +588,23 @@ export default function AdminPage() {
                       <span className="px-2 py-1 bg-[#2a2a2a] rounded-lg text-[10px] text-[#B0B0B0]">{complaint.category}</span>
                     </div>
                     <div className="flex items-center gap-2 flex-shrink-0">
-                      <button className="px-3 py-1.5 text-[10px] font-medium bg-blue-500/10 text-blue-400 rounded-lg hover:bg-blue-500/20 transition-all flex items-center gap-1">
-                        <Eye className="w-3 h-3" /> Review
+                      <button
+                        onClick={() => handleComplaintStatus(complaint.id, "in_review")}
+                        disabled={actionLoading === complaint.id || complaint.status === "in_review"}
+                        className="px-3 py-1.5 text-[10px] font-medium bg-blue-500/10 text-blue-400 rounded-lg hover:bg-blue-500/20 transition-all disabled:opacity-50 flex items-center gap-1">
+                        <Eye className="w-3 h-3" /> {actionLoading === complaint.id ? "..." : "Review"}
                       </button>
-                      <button className="px-3 py-1.5 text-[10px] font-medium bg-purple-500/10 text-purple-400 rounded-lg hover:bg-purple-500/20 transition-all">
-                        Forward
+                      <button
+                        onClick={() => handleComplaintStatus(complaint.id, "forwarded")}
+                        disabled={actionLoading === complaint.id || complaint.status === "forwarded"}
+                        className="px-3 py-1.5 text-[10px] font-medium bg-purple-500/10 text-purple-400 rounded-lg hover:bg-purple-500/20 transition-all disabled:opacity-50">
+                        {actionLoading === complaint.id ? "..." : "Forward"}
                       </button>
-                      <button className="px-3 py-1.5 text-[10px] font-medium bg-green-500/10 text-green-400 rounded-lg hover:bg-green-500/20 transition-all">
-                        Resolve
+                      <button
+                        onClick={() => handleComplaintStatus(complaint.id, "resolved")}
+                        disabled={actionLoading === complaint.id || complaint.status === "resolved"}
+                        className="px-3 py-1.5 text-[10px] font-medium bg-green-500/10 text-green-400 rounded-lg hover:bg-green-500/20 transition-all disabled:opacity-50">
+                        {actionLoading === complaint.id ? "..." : "Resolve"}
                       </button>
                     </div>
                   </div>
