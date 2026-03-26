@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Disto-Trip — Design System & UX Rationale</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',sans-serif;background:#0a0a0a;color:#fff;line-height:1.6}
+.container{max-width:1400px;margin:0 auto;padding:0 24px}
+
+/* Header */
+.header{background:#0a0a0a;border-bottom:1px solid #333;padding:20px 0;position:sticky;top:0;z-index:100;backdrop-filter:blur(20px)}
+.header .container{display:flex;align-items:center;justify-content:space-between}
+.logo{font-size:22px;font-weight:800}
+.logo span:first-child{color:#39FF14}
+.nav-links{display:flex;gap:8px}
+.nav-links a{color:#B0B0B0;text-decoration:none;font-size:12px;padding:6px 14px;border-radius:20px;border:1px solid #333;transition:all 0.2s}
+.nav-links a:hover{color:#39FF14;border-color:#39FF14}
+
+/* Sections */
+.section{padding:60px 0;border-bottom:1px solid #1a1a1a}
+.section-badge{display:inline-block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;padding:4px 12px;border-radius:20px;background:rgba(57,255,20,0.1);color:#39FF14;border:1px solid rgba(57,255,20,0.2);margin-bottom:12px}
+.section-title{font-size:32px;font-weight:800;margin-bottom:8px}
+.section-sub{color:#666;font-size:14px;margin-bottom:40px;max-width:700px}
+.rationale{background:#1a1a1a;border:1px solid #333;border-left:3px solid #39FF14;border-radius:0 12px 12px 0;padding:16px 20px;font-size:13px;color:#B0B0B0;margin-bottom:32px;max-width:800px}
+.rationale strong{color:#39FF14}
+
+/* Color Grid */
+.color-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:16px;margin-bottom:24px}
+.color-card{border-radius:14px;overflow:hidden;border:1px solid #333;transition:transform 0.2s}
+.color-card:hover{transform:translateY(-2px)}
+.color-swatch{height:100px}
+.color-info{padding:12px;background:#1a1a1a}
+.color-name{font-size:12px;font-weight:600;margin-bottom:2px}
+.color-hex{font-size:11px;color:#666;font-family:monospace}
+.color-why{font-size:10px;color:#555;margin-top:4px}
+
+/* Type Scale */
+.type-row{display:flex;align-items:baseline;gap:24px;padding:16px 0;border-bottom:1px solid #1a1a1a}
+.type-meta{min-width:200px;font-size:10px;color:#39FF14;font-weight:500}
+.type-sample{color:#fff}
+
+/* Component Cards */
+.comp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(380px,1fr));gap:20px}
+.comp-card{background:#1a1a1a;border:1px solid #333;border-radius:16px;overflow:hidden;transition:border-color 0.2s}
+.comp-card:hover{border-color:#39FF14}
+.comp-header{padding:16px 20px;border-bottom:1px solid #2a2a2a;display:flex;align-items:center;gap:10px}
+.comp-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px}
+.comp-title{font-size:15px;font-weight:700}
+.comp-body{padding:16px 20px}
+.comp-body p{font-size:12px;color:#B0B0B0;margin-bottom:8px}
+.comp-tag{display:inline-block;font-size:9px;font-weight:600;padding:3px 8px;border-radius:10px;margin-right:4px;margin-bottom:4px}
+.tag-green{background:rgba(57,255,20,0.1);color:#39FF14;border:1px solid rgba(57,255,20,0.2)}
+.tag-blue{background:rgba(59,130,246,0.1);color:#3B82F6;border:1px solid rgba(59,130,246,0.2)}
+.tag-orange{background:rgba(249,115,22,0.1);color:#F97316;border:1px solid rgba(249,115,22,0.2)}
+
+/* Spacing */
+.spacing-row{display:flex;align-items:center;gap:16px;margin-bottom:8px}
+.spacing-bar{height:20px;background:rgba(57,255,20,0.15);border:1px solid rgba(57,255,20,0.3);border-radius:4px}
+.spacing-label{font-size:11px;color:#666;min-width:60px;font-family:monospace}
+
+/* Site Map */
+.sitemap{display:flex;flex-direction:column;align-items:center;gap:12px}
+.sitemap-level{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+.sitemap-node{padding:8px 18px;border-radius:10px;font-size:12px;font-weight:600;font-family:monospace;border:1px solid #333;background:#1a1a1a;transition:all 0.2s}
+.sitemap-node:hover{border-color:#39FF14;color:#39FF14}
+.sitemap-node.primary{border-color:#39FF14;background:rgba(57,255,20,0.05);color:#39FF14}
+.sitemap-connector{width:2px;height:20px;background:#333;margin:0 auto}
+
+/* Screen Flow */
+.flow-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:24px}
+.screen-card{background:#1a1a1a;border:1px solid #333;border-radius:16px;overflow:hidden}
+.screen-preview{height:200px;background:#0a0a0a;display:flex;align-items:center;justify-content:center;border-bottom:1px solid #2a2a2a;position:relative;overflow:hidden}
+.screen-preview .mock{width:80%;height:80%;border-radius:8px;border:1px solid #333}
+.screen-info{padding:16px}
+.screen-name{font-size:14px;font-weight:700;margin-bottom:4px}
+.screen-route{font-size:11px;color:#39FF14;font-family:monospace;margin-bottom:8px}
+.screen-desc{font-size:11px;color:#888}
+
+/* Decisions */
+.decision-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(350px,1fr));gap:16px}
+.decision{background:#1a1a1a;border:1px solid #333;border-radius:14px;padding:20px;transition:border-color 0.2s}
+.decision:hover{border-color:#39FF14}
+.decision h4{font-size:14px;font-weight:700;color:#39FF14;margin-bottom:8px}
+.decision p{font-size:12px;color:#B0B0B0}
+
+/* Footer */
+.footer{text-align:center;padding:40px;color:#444;font-size:11px;border-top:1px solid #1a1a1a}
+
+@media(max-width:768px){
+  .color-grid{grid-template-columns:repeat(3,1fr)}
+  .comp-grid,.decision-grid,.flow-grid{grid-template-columns:1fr}
+  .type-row{flex-direction:column;gap:8px}
+  .section-title{font-size:24px}
+}
+@media print{
+  body{background:#fff;color:#333}
+  .header{position:static}
+  .section{border-bottom:1px solid #eee}
+  .comp-card,.decision,.color-card{border:1px solid #ddd}
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="container">
+    <div class="logo"><span>Disto</span><span style="color:#fff">-Trip</span></div>
+    <div class="nav-links">
+      <a href="#colors">Colors</a>
+      <a href="#typography">Typography</a>
+      <a href="#components">Components</a>
+      <a href="#screens">Screens</a>
+      <a href="#decisions">UX Decisions</a>
+      <a href="#sitemap">Site Map</a>
+      <a href="/uml-diagrams.html">UML Diagrams</a>
+      <a href="/">Back to Site</a>
+    </div>
+  </div>
+</div>
+
+<!-- INTRO -->
+<div class="section">
+  <div class="container">
+    <div class="section-badge">Design System v1.0</div>
+    <h1 class="section-title">Disto-Trip Design System & UX Rationale</h1>
+    <p class="section-sub">Complete documentation of design decisions, component specifications, and user experience rationale for the Egypt Travel Companion web application.</p>
+    <div class="rationale">
+      <strong>Why this matters:</strong> This document explains not just <em>what</em> was built, but <em>why</em> each design decision was made. Every color, component, and interaction pattern was chosen to serve the needs of foreign tourists exploring Egypt — making their journey safer, easier, and more enjoyable.
+    </div>
+    <div style="display:flex;gap:12px;flex-wrap:wrap">
+      <span class="comp-tag tag-green">Next.js 15</span>
+      <span class="comp-tag tag-green">Tailwind CSS</span>
+      <span class="comp-tag tag-green">Framer Motion</span>
+      <span class="comp-tag tag-blue">Supabase</span>
+      <span class="comp-tag tag-blue">Leaflet Maps</span>
+      <span class="comp-tag tag-blue">OpenStreetMap</span>
+      <span class="comp-tag tag-orange">Wikipedia API</span>
+      <span class="comp-tag tag-orange">OpenWeatherMap</span>
+      <span class="comp-tag tag-orange">Overpass API</span>
+    </div>
+  </div>
+</div>
+
+<!-- COLORS -->
+<div class="section" id="colors">
+  <div class="container">
+    <div class="section-badge">Visual Identity</div>
+    <h2 class="section-title">Color Palette</h2>
+    <p class="section-sub">11 carefully chosen colors that create a premium, high-contrast dark theme</p>
+    <div class="rationale">
+      <strong>Why dark theme?</strong> (1) Reduces eye strain for travelers browsing at night or in bright sunlight, (2) Makes vibrant Egypt photography pop against the background, (3) Creates a premium feel matching luxury travel brands, (4) Lower battery usage on OLED mobile devices. <strong>Why neon green (#39FF14)?</strong> High contrast against dark bg (exceeds WCAG AAA 7:1 ratio), connotes 'go/explore/adventure' energy, instantly recognizable brand color.
+    </div>
+    <div class="color-grid">
+      <div class="color-card"><div class="color-swatch" style="background:#0a0a0a"></div><div class="color-info"><div class="color-name">BG Primary</div><div class="color-hex">#0a0a0a</div><div class="color-why">Near-black for maximum depth</div></div></div>
+      <div class="color-card"><div class="color-swatch" style="background:#1a1a1a"></div><div class="color-info"><div class="color-name">BG Secondary</div><div class="color-hex">#1a1a1a</div><div class="color-why">Cards, elevated surfaces</div></div></div>
+      <div class="color-card"><div class="color-swatch" style="background:#2a2a2a"></div><div class="color-info"><div class="color-name">BG Tertiary</div><div class="color-hex">#2a2a2a</div><div class="color-why">Inputs, hover states</div></div></div>
+      <div class="color-card"><div class="color-swatch" style="background:#39FF14"></div><div class="color-info"><div class="color-name">Accent Primary</div><div class="color-hex">#39FF14</div><div class="color-why">CTAs, active states, brand identity</div></div></div>
+      <div class="color-card"><div class="color-swatch" style="background:#00E676"></div><div class="color-info"><div class="color-name">Accent Secondary</div><div class="color-hex">#00E676</div><div class="color-why">Gradient endpoint, success</div></div></div>
+      <div class="color-card"><div class="color-swatch" style="background:#fff;border:1px solid #333"></div><div class="color-info"><div class="color-name">Text Primary</div><div class="color-hex">#FFFFFF</div><div class="color-why">Headings, critical text</div></div></div>
+      <div class="color-card"><div class="color-swatch" style="background:#B0B0B0"></div><div class="color-info"><div class="color-name">Text Secondary</div><div class="color-hex">#B0B0B0</div><div class="color-why">Body text, descriptions</div></div></div>
+      <div class="color-card"><div class="color-swatch" style="background:#666"></div><div class="color-info"><div class="color-name">Text Muted</div><div class="color-hex">#666666</div><div class="color-why">Placeholders, disabled</div></div></div>
+      <div class="color-card"><div class="color-swatch" style="background:#FF4444"></div><div class="color-info"><div class="color-name">Danger</div><div class="color-hex">#FF4444</div><div class="color-why">Errors, Emergency SOS</div></div></div>
+      <div class="color-card"><div class="color-swatch" style="background:#FFB300"></div><div class="color-info"><div class="color-name">Warning</div><div class="color-hex">#FFB300</div><div class="color-why">Crowd alerts, cautions</div></div></div>
+      <div class="color-card"><div class="color-swatch" style="background:#333"></div><div class="color-info"><div class="color-name">Border</div><div class="color-hex">#333333</div><div class="color-why">Subtle card borders</div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- TYPOGRAPHY -->
+<div class="section" id="typography">
+  <div class="container">
+    <div class="section-badge">Typography</div>
+    <h2 class="section-title">Type Scale</h2>
+    <p class="section-sub">Inter for everything — readable, multilingual, free</p>
+    <div class="rationale">
+      <strong>Why Inter?</strong> (1) Excellent screen readability at all sizes, (2) Supports Latin + Arabic character sets, (3) Variable weight from 300-800 for flexibility, (4) Free and open-source (no licensing cost). <strong>Why Playfair Display for hero?</strong> Serif headings add editorial elegance to the "Where to go?" hero text, creating a premium travel magazine aesthetic.
+    </div>
+    <div class="type-row"><div class="type-meta">Display H1 — 48px Bold</div><div class="type-sample" style="font-size:42px;font-weight:800">Where to go?</div></div>
+    <div class="type-row"><div class="type-meta">Section H2 — 32px Bold</div><div class="type-sample" style="font-size:28px;font-weight:700">Popular Destinations</div></div>
+    <div class="type-row"><div class="type-meta">Card Title H3 — 16px SemiBold</div><div class="type-sample" style="font-size:16px;font-weight:600">Marriott Mena House, Giza</div></div>
+    <div class="type-row"><div class="type-meta">Body — 14px Regular</div><div class="type-sample" style="font-size:14px;font-weight:400;color:#B0B0B0">Discover the magic of Egypt. Book hotels, explore ancient wonders.</div></div>
+    <div class="type-row"><div class="type-meta">Caption — 12px Medium</div><div class="type-sample" style="font-size:12px;font-weight:500;color:#888">52,100 reviews · 4.8 rating · 3h duration</div></div>
+    <div class="type-row"><div class="type-meta">Badge — 10px SemiBold</div><div class="type-sample" style="font-size:10px;font-weight:600;color:#39FF14">HISTORICAL · LOW CROWD · $15 ENTRY</div></div>
+  </div>
+</div>
+
+<!-- SPACING -->
+<div class="section">
+  <div class="container">
+    <div class="section-badge">Layout</div>
+    <h2 class="section-title">Spacing Scale & Grid</h2>
+    <p class="section-sub">8px base unit for consistent visual rhythm</p>
+    <div class="rationale"><strong>Why 8px base?</strong> Industry standard. Divisible into halves (4px) for fine detail. All spacing tokens are multiples: 4, 8, 12, 16, 24, 32, 48, 64px. Creates mathematical harmony in layouts.</div>
+    <div style="margin-bottom:24px">
+      <div class="spacing-row"><div class="spacing-label">4px</div><div class="spacing-bar" style="width:16px"></div></div>
+      <div class="spacing-row"><div class="spacing-label">8px</div><div class="spacing-bar" style="width:32px"></div></div>
+      <div class="spacing-row"><div class="spacing-label">12px</div><div class="spacing-bar" style="width:48px"></div></div>
+      <div class="spacing-row"><div class="spacing-label">16px</div><div class="spacing-bar" style="width:64px"></div></div>
+      <div class="spacing-row"><div class="spacing-label">24px</div><div class="spacing-bar" style="width:96px"></div></div>
+      <div class="spacing-row"><div class="spacing-label">32px</div><div class="spacing-bar" style="width:128px"></div></div>
+      <div class="spacing-row"><div class="spacing-label">48px</div><div class="spacing-bar" style="width:192px"></div></div>
+      <div class="spacing-row"><div class="spacing-label">64px</div><div class="spacing-bar" style="width:256px"></div></div>
+    </div>
+    <div class="rationale"><strong>Grid:</strong> Max-width 1400px container. CSS Grid for card layouts (auto-fill, minmax). Responsive breakpoints: 375px (mobile), 768px (tablet), 1280px (desktop). Border-radius: 16px (cards), 20px+ (buttons), 12px (inputs).</div>
+  </div>
+</div>
+
+<!-- COMPONENTS -->
+<div class="section" id="components">
+  <div class="container">
+    <div class="section-badge">Component Library</div>
+    <h2 class="section-title">Component Patterns</h2>
+    <p class="section-sub">Reusable components with consistent behavior</p>
+    <div class="comp-grid">
+      <div class="comp-card">
+        <div class="comp-header"><div class="comp-icon" style="background:rgba(57,255,20,0.1)">🟢</div><div class="comp-title">Primary Button (CTA)</div></div>
+        <div class="comp-body">
+          <p><strong>Style:</strong> rounded-full, gradient bg (#39FF14 → #00E676), black text, font-semibold</p>
+          <p><strong>States:</strong> hover: scale(1.05) + shadow-lg + glow | active: scale(0.95) | disabled: opacity-50</p>
+          <p><strong>Why:</strong> Pill shape stands out in dark UI. Gradient creates luminous glow effect. Scale animation mimics physical button press.</p>
+          <span class="comp-tag tag-green">hover:scale-105</span><span class="comp-tag tag-green">shadow-accent/25</span>
+        </div>
+      </div>
+      <div class="comp-card">
+        <div class="comp-header"><div class="comp-icon" style="background:rgba(59,130,246,0.1)">🔵</div><div class="comp-title">Card Component</div></div>
+        <div class="comp-body">
+          <p><strong>Style:</strong> bg-#1a1a1a, rounded-2xl (16px), border #333/50, overflow-hidden</p>
+          <p><strong>Hover:</strong> border-color → green/30, shadow-lg, scale(1.02), translateY(-4px)</p>
+          <p><strong>Why:</strong> Large radius feels modern + friendly. Hover lift gives tactile depth. Subtle green glow guides attention to interactive elements.</p>
+          <span class="comp-tag tag-blue">rounded-2xl</span><span class="comp-tag tag-blue">hover:-translate-y-1</span>
+        </div>
+      </div>
+      <div class="comp-card">
+        <div class="comp-header"><div class="comp-icon" style="background:rgba(249,115,22,0.1)">🟠</div><div class="comp-title">Search with Autocomplete</div></div>
+        <div class="comp-body">
+          <p><strong>Style:</strong> pl-12 (icon space), rounded-2xl, bg-secondary/80 backdrop-blur</p>
+          <p><strong>Behavior:</strong> Type 2+ chars → dropdown shows cities, hotels, attractions. Enter → full search page.</p>
+          <p><strong>Why:</strong> Instant results reduce friction + bounce rate. Mixed results (cities+hotels+attractions) help users discover. Dropdown closes on blur.</p>
+          <span class="comp-tag tag-orange">onFocus</span><span class="comp-tag tag-orange">autocomplete</span>
+        </div>
+      </div>
+      <div class="comp-card">
+        <div class="comp-header"><div class="comp-icon" style="background:rgba(255,68,68,0.1)">🔴</div><div class="comp-title">Emergency SOS Button</div></div>
+        <div class="comp-body">
+          <p><strong>Style:</strong> Large tap target (48px+), red accent override, pulse animation</p>
+          <p><strong>Behavior:</strong> One-tap → tel: link for instant calling. No confirmation needed.</p>
+          <p><strong>Why:</strong> Emergencies require speed. Red overrides green brand color for urgency. Numbers hardcoded (works offline). Large targets prevent mis-taps.</p>
+          <span class="comp-tag" style="background:rgba(255,68,68,0.1);color:#FF4444;border:1px solid rgba(255,68,68,0.2)">animate-pulse</span>
+        </div>
+      </div>
+      <div class="comp-card">
+        <div class="comp-header"><div class="comp-icon" style="background:rgba(57,255,20,0.1)">🗺️</div><div class="comp-title">Interactive Map (Leaflet)</div></div>
+        <div class="comp-body">
+          <p><strong>Basemap:</strong> CartoDB dark tiles (matches app theme, free, no API key)</p>
+          <p><strong>Markers:</strong> Color-coded DivIcons — Blue (hotels), Orange (attractions), Yellow (food), Green (pharmacies), Red (emergency)</p>
+          <p><strong>Why:</strong> Dark basemap is cohesive with theme. Standard OSM would clash. CartoDB is free. Custom markers are instantly recognizable by color.</p>
+          <span class="comp-tag tag-green">Leaflet</span><span class="comp-tag tag-green">react-leaflet</span>
+        </div>
+      </div>
+      <div class="comp-card">
+        <div class="comp-header"><div class="comp-icon" style="background:rgba(255,179,0,0.1)">📊</div><div class="comp-title">Crowd Level Badge</div></div>
+        <div class="comp-body">
+          <p><strong>Levels:</strong> Low (green #00E676), Moderate (yellow #FFB300), Busy (orange #FF6D00), Very Busy (red #FF4444)</p>
+          <p><strong>Algorithm:</strong> Time of day + day of week + season heuristic. No real-time API exists.</p>
+          <p><strong>Why:</strong> Tourists need crowd awareness for planning. Color-coding is instantly readable. Badge format is compact for cards.</p>
+          <span class="comp-tag tag-orange">heuristic</span><span class="comp-tag tag-orange">color-coded</span>
+        </div>
+      </div>
+      <div class="comp-card">
+        <div class="comp-header"><div class="comp-icon" style="background:rgba(57,255,20,0.1)">🌐</div><div class="comp-title">Language Toggle (EN/AR)</div></div>
+        <div class="comp-body">
+          <p><strong>Style:</strong> Globe icon + label. Shows "عربي" in EN mode, "EN" in AR mode.</p>
+          <p><strong>Behavior:</strong> React Context provider. Sets dir="rtl" on &lt;html&gt;. All flexbox/grid auto-flips.</p>
+          <p><strong>Why:</strong> Egypt receives Arabic + English-speaking tourists. RTL must work natively. Cairo font loaded for Arabic glyphs.</p>
+          <span class="comp-tag tag-green">Context API</span><span class="comp-tag tag-green">RTL auto-flip</span>
+        </div>
+      </div>
+      <div class="comp-card">
+        <div class="comp-header"><div class="comp-icon" style="background:rgba(59,130,246,0.1)">💳</div><div class="comp-title">3-Step Booking Wizard</div></div>
+        <div class="comp-body">
+          <p><strong>Steps:</strong> 1) Stay Details (dates, guests) → 2) Contact (name, email, WhatsApp) → 3) Payment (InstaPay/Cash/Card)</p>
+          <p><strong>Progress:</strong> Numbered steps with green fill. Back button available.</p>
+          <p><strong>Why:</strong> Breaking into steps reduces cognitive load. InstaPay is Egypt's most popular payment. WhatsApp field for local communication.</p>
+          <span class="comp-tag tag-blue">multi-step</span><span class="comp-tag tag-blue">InstaPay</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SCREENS -->
+<div class="section" id="screens">
+  <div class="container">
+    <div class="section-badge">Screen Inventory</div>
+    <h2 class="section-title">All Screens & Routes</h2>
+    <p class="section-sub">16 routes covering the complete tourist journey</p>
+    <div class="flow-grid">
+      <div class="screen-card">
+        <div class="screen-preview" style="background:linear-gradient(135deg,#0a0a0a,#1a1a1a)"><div style="text-align:center"><div style="font-size:32px;font-weight:800;color:#39FF14">Where</div><div style="font-size:32px;font-weight:800;color:#fff">to go?</div></div></div>
+        <div class="screen-info"><div class="screen-name">Home / Landing Page</div><div class="screen-route">/</div><div class="screen-desc">Hero + search autocomplete, featured destinations carousel, top attractions, interest grid, CTA banner, about section. Entry point for all users.</div></div>
+      </div>
+      <div class="screen-card">
+        <div class="screen-preview" style="background:#1a3a1a"><div style="width:80%;height:80%;border-radius:8px;background:#0a0a0a;border:1px solid #39FF14"></div></div>
+        <div class="screen-info"><div class="screen-name">Interactive Map / Discover</div><div class="screen-route">/discover</div><div class="screen-desc">Full-screen Leaflet map with category filters (Hotels, Attractions, Food, Pharmacies, Emergency). City selector. Live POIs from Overpass API.</div></div>
+      </div>
+      <div class="screen-card">
+        <div class="screen-preview" style="background:linear-gradient(135deg,#1a1a1a,#0a0a0a)"><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;width:80%"><div style="height:60px;background:#2a2a2a;border-radius:8px"></div><div style="height:60px;background:#2a2a2a;border-radius:8px"></div><div style="height:60px;background:#2a2a2a;border-radius:8px"></div><div style="height:60px;background:#2a2a2a;border-radius:8px"></div></div></div>
+        <div class="screen-info"><div class="screen-name">Hotels Page</div><div class="screen-route">/hotels</div><div class="screen-desc">12 curated Egypt hotels with filters (city, stars, price, sort). Each card shows image, rating, price, amenities. "Book Now" → internal booking.</div></div>
+      </div>
+      <div class="screen-card">
+        <div class="screen-preview" style="background:linear-gradient(135deg,#1a1a0a,#0a0a0a)"><div style="display:flex;gap:8px;width:80%"><div style="padding:6px 16px;background:#39FF14;border-radius:20px;font-size:11px;color:#000;font-weight:600">All</div><div style="padding:6px 16px;background:#2a2a2a;border-radius:20px;font-size:11px;color:#888">Historical</div><div style="padding:6px 16px;background:#2a2a2a;border-radius:20px;font-size:11px;color:#888">Cultural</div></div></div>
+        <div class="screen-info"><div class="screen-name">Attractions Page</div><div class="screen-route">/attractions</div><div class="screen-desc">14 attractions with category tabs. Cards show crowd level badges, ratings, duration, entry fee. Search bar for filtering.</div></div>
+      </div>
+      <div class="screen-card">
+        <div class="screen-preview" style="background:linear-gradient(135deg,#0a0a1a,#0a0a0a)"><div style="text-align:center"><div style="font-size:24px;font-weight:700;color:#fff;margin-bottom:8px">Great Pyramids</div><div style="font-size:11px;color:#39FF14">Wikipedia Landmark Guide</div></div></div>
+        <div class="screen-info"><div class="screen-name">Attraction Detail + Landmark</div><div class="screen-route">/attractions/[id]</div><div class="screen-desc">Full detail page with hero image, Wikipedia explainer, opening hours grid, crowd level, "Get Tickets" + "Navigate Here" buttons.</div></div>
+      </div>
+      <div class="screen-card">
+        <div class="screen-preview" style="background:linear-gradient(135deg,#1a0a0a,#0a0a0a)"><div style="text-align:center"><div style="font-size:36px">🚨</div><div style="font-size:18px;font-weight:700;color:#FF4444;margin-top:8px">Emergency SOS</div></div></div>
+        <div class="screen-info"><div class="screen-name">Emergency SOS</div><div class="screen-route">/emergency</div><div class="screen-desc">One-tap call buttons (Police 122, Ambulance 123, Fire 180, Tourist Police 126). Nearest hospitals. Embassy contacts. Safety tips. Works offline.</div></div>
+      </div>
+      <div class="screen-card">
+        <div class="screen-preview" style="background:linear-gradient(135deg,#0a1a0a,#0a0a0a)"><div style="text-align:center"><div style="font-size:11px;color:#666">Budget</div><div style="font-size:24px;font-weight:700;color:#39FF14">15,000 EGP</div><div style="font-size:11px;color:#666">$297 USD</div></div></div>
+        <div class="screen-info"><div class="screen-name">Budget Planner</div><div class="screen-route">/budget</div><div class="screen-desc">Currency converter (7 currencies → EGP), trip expense tracker, budget progress bar, typical daily cost estimates for 3 travel tiers.</div></div>
+      </div>
+      <div class="screen-card">
+        <div class="screen-preview" style="background:linear-gradient(135deg,#1a1a1a,#0a0a0a)"><div style="display:flex;gap:12px;align-items:center"><div style="width:30px;height:30px;border-radius:50%;background:#39FF14;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#000">1</div><div style="flex:1;height:4px;background:#39FF14;border-radius:2px"></div><div style="width:30px;height:30px;border-radius:50%;background:#2a2a2a;display:flex;align-items:center;justify-content:center;font-size:14px;color:#666">2</div><div style="flex:1;height:4px;background:#333;border-radius:2px"></div><div style="width:30px;height:30px;border-radius:50%;background:#2a2a2a;display:flex;align-items:center;justify-content:center;font-size:14px;color:#666">3</div></div></div>
+        <div class="screen-info"><div class="screen-name">Booking Flow</div><div class="screen-route">/book?hotel=X</div><div class="screen-desc">3-step wizard: Dates & guests → Contact info (email, WhatsApp) → Payment method (InstaPay, cash, card). Price summary in EGP + USD.</div></div>
+      </div>
+      <div class="screen-card">
+        <div class="screen-preview" style="background:linear-gradient(135deg,#1a1a1a,#0a0a0a)"><div style="text-align:center"><div style="font-size:24px;font-weight:700;color:#fff">LOG IN</div><div style="font-size:11px;color:#888;margin-top:4px">Welcome back!</div></div></div>
+        <div class="screen-info"><div class="screen-name">Login</div><div class="screen-route">/auth/login</div><div class="screen-desc">Email/password login with Supabase Auth. Google OAuth button. Error/success messages. Forgot password link. Split layout with Egypt image on desktop.</div></div>
+      </div>
+      <div class="screen-card">
+        <div class="screen-preview" style="background:linear-gradient(135deg,#1a1a1a,#0a0a0a)"><div style="text-align:center"><div style="font-size:24px;font-weight:700;color:#fff">SIGN UP</div><div style="font-size:11px;color:#39FF14;margin-top:4px">Join the adventure</div></div></div>
+        <div class="screen-info"><div class="screen-name">Sign Up</div><div class="screen-route">/auth/signup</div><div class="screen-desc">Name, email, password registration. Google OAuth. Terms agreement. Success → email verification. Error handling with visual feedback.</div></div>
+      </div>
+      <div class="screen-card">
+        <div class="screen-preview" style="background:linear-gradient(135deg,#1a0a1a,#0a0a0a)"><div style="text-align:center"><div style="width:40px;height:40px;border-radius:8px;background:purple;margin:0 auto 8px"></div><div style="font-size:11px;color:#fff">Card: **** 4242</div></div></div>
+        <div class="screen-info"><div class="screen-name">Payment UI</div><div class="screen-route">/payment</div><div class="screen-desc">Credit card form with live card preview. Number formatting, expiry, CVV. Purple gradient card visual. Presentational — actual payments via booking flow.</div></div>
+      </div>
+      <div class="screen-card">
+        <div class="screen-preview" style="background:linear-gradient(135deg,#1a1a1a,#0a0a0a)"><div style="text-align:center"><div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#39FF14,#00E676);margin:0 auto 8px"></div><div style="font-size:14px;font-weight:600;color:#fff">Traveler</div></div></div>
+        <div class="screen-info"><div class="screen-name">Profile</div><div class="screen-route">/profile</div><div class="screen-desc">User profile with saved hotels/attractions. Settings: language toggle, dark mode. Log out button. Tab navigation between saved places and settings.</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- UX DECISIONS -->
+<div class="section" id="decisions">
+  <div class="container">
+    <div class="section-badge">UX Rationale</div>
+    <h2 class="section-title">Key Design Decisions & Why</h2>
+    <p class="section-sub">Every decision serves the core user: a foreign tourist exploring Egypt</p>
+    <div class="decision-grid">
+      <div class="decision"><h4>Dark Theme Over Light</h4><p>Tourists browse while traveling — at night in hotels, in bright sunlight outdoors. Dark theme works in both conditions. It also makes Egypt's golden/warm photography pop dramatically against the dark background.</p></div>
+      <div class="decision"><h4>Emergency First, Always Accessible</h4><p>Emergency page is always one tap away in the navbar. Numbers are hardcoded (no API dependency, works offline). Red color overrides green brand for urgency. Tourist Police (126) is highlighted — they speak English.</p></div>
+      <div class="decision"><h4>In-Site Booking vs External Redirect</h4><p>Redirecting to Booking.com breaks the experience. Instead, we built an internal booking form with InstaPay (Egypt's most used payment), cash at hotel, or card at check-in. Keeps users in the ecosystem.</p></div>
+      <div class="decision"><h4>Bilingual EN/AR with RTL</h4><p>Egypt's tourists are split between English and Arabic speakers. One-click toggle in navbar. RTL layout flips automatically via CSS logical properties and flexbox direction. Arabic font (Cairo) loaded for proper rendering.</p></div>
+      <div class="decision"><h4>Budget-First Planning</h4><p>Many tourists to Egypt are budget-conscious. The budget planner with 7-currency converter helps them plan costs in their home currency. Typical daily cost tiers (Budget/Mid/Luxury) set expectations before arrival.</p></div>
+      <div class="decision"><h4>Crowd Heuristics Over Real-Time</h4><p>No free real-time crowd API exists for Egypt. We use time-of-day + day-of-week + season heuristics to estimate crowd levels. Not perfect, but gives tourists useful guidance on when to visit popular sites.</p></div>
+      <div class="decision"><h4>Wikipedia for Landmark Content</h4><p>Free, comprehensive, multilingual, and always up-to-date. When a user views an attraction, we fetch the Wikipedia summary via REST API. Zero cost, high quality content. Includes thumbnail images.</p></div>
+      <div class="decision"><h4>OpenStreetMap for Live POIs</h4><p>Google Places API has strict free limits. Overpass API (OpenStreetMap) is completely free and has excellent Egypt coverage for restaurants, pharmacies, banks, mosques. Real-time queries by location.</p></div>
+      <div class="decision"><h4>Framer Motion Animations</h4><p>Subtle fade-up animations on scroll make the site feel polished without being distracting. Hero section has floating glow orbs. Cards lift on hover. Page transitions are smooth. All animations respect prefers-reduced-motion.</p></div>
+      <div class="decision"><h4>Supabase Over Custom Backend</h4><p>Supabase provides Auth, PostgreSQL, Row-Level Security, and real-time subscriptions out of the box — all free tier. No need to build and maintain a custom API server. Scales automatically.</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- SITE MAP -->
+<div class="section" id="sitemap">
+  <div class="container">
+    <div class="section-badge">Information Architecture</div>
+    <h2 class="section-title">Site Map & Navigation</h2>
+    <p class="section-sub">Hub-and-spoke pattern with the homepage as the central hub</p>
+    <div class="rationale"><strong>Navigation philosophy:</strong> The tourist journey flows: Discover → Explore → Book → Navigate → Stay Safe. Every major section is accessible from the persistent top navbar. No page is more than 2 clicks from home.</div>
+    <div class="sitemap">
+      <div class="sitemap-level"><div class="sitemap-node primary">/ Home</div></div>
+      <div class="sitemap-connector"></div>
+      <div class="sitemap-level">
+        <div class="sitemap-node">/discover</div>
+        <div class="sitemap-node">/hotels</div>
+        <div class="sitemap-node">/attractions</div>
+        <div class="sitemap-node">/budget</div>
+        <div class="sitemap-node">/emergency</div>
+        <div class="sitemap-node">/auth</div>
+        <div class="sitemap-node">/profile</div>
+      </div>
+      <div class="sitemap-connector"></div>
+      <div class="sitemap-level">
+        <div class="sitemap-node">/hotels?city=X</div>
+        <div class="sitemap-node">/attractions/[id]</div>
+        <div class="sitemap-node">/book?hotel=X</div>
+        <div class="sitemap-node">/auth/login</div>
+        <div class="sitemap-node">/auth/signup</div>
+        <div class="sitemap-node">/payment</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TECH STACK -->
+<div class="section">
+  <div class="container">
+    <div class="section-badge">Technical Architecture</div>
+    <h2 class="section-title">Tech Stack & Justification</h2>
+    <div class="decision-grid">
+      <div class="decision"><h4>Next.js 15 (App Router)</h4><p>Server-side rendering for SEO. File-based routing for simplicity. API routes for proxying weather/POI requests. Static generation for fast page loads. Vercel-native deployment.</p></div>
+      <div class="decision"><h4>Tailwind CSS</h4><p>Utility-first for rapid development. No context-switching between CSS files. Dark mode built-in. Responsive prefixes (md:, lg:). Purged in production for tiny bundle size.</p></div>
+      <div class="decision"><h4>Supabase (PostgreSQL + Auth)</h4><p>Free tier: 500MB DB, 50K auth users, unlimited API requests. Row-Level Security for data protection. Built-in email auth + Google OAuth. Real-time subscriptions for future features.</p></div>
+      <div class="decision"><h4>Leaflet + OpenStreetMap</h4><p>100% free, no API key needed. Good Egypt coverage. Dark CartoDB tiles match theme. React-Leaflet for React integration. Custom DivIcon markers for category colors.</p></div>
+      <div class="decision"><h4>Framer Motion</h4><p>React-native animation library. Scroll-triggered animations (whileInView). Spring physics for natural feel. Layout animations for page transitions. Small bundle impact.</p></div>
+      <div class="decision"><h4>Vercel (Deployment)</h4><p>Zero-config Next.js deployment. Automatic HTTPS. Global CDN. Preview deployments for PRs. Free tier: 100GB bandwidth, 1M edge requests. Auto-deploys on git push.</p></div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  &copy; 2026 Disto-Trip — Design System & UX Documentation<br>
+  <a href="/" style="color:#39FF14;text-decoration:none">Back to Disto-Trip</a> · <a href="/uml-diagrams.html" style="color:#39FF14;text-decoration:none">View UML Diagrams</a>
+</div>
+
+</body>
+</html>
