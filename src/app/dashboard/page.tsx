@@ -24,6 +24,7 @@ import { attractions } from "@/data/seed-attractions";
 import { cities } from "@/data/seed-cities";
 import { formatPrice } from "@/lib/utils/format";
 import Link from "next/link";
+import { useLanguage } from "@/lib/i18n/LanguageContext";
 
 const mockBookings = [
   {
@@ -77,23 +78,26 @@ const savedItems = [
   })),
 ];
 
-const quickActions = [
-  { label: "Browse Hotels", href: "/hotels", icon: Hotel, color: "from-[#39FF14] to-[#00E676]" },
-  { label: "Explore Map", href: "/discover", icon: Compass, color: "from-blue-500 to-cyan-500" },
-  { label: "Emergency SOS", href: "/emergency", icon: Shield, color: "from-red-500 to-orange-500" },
-  { label: "Budget Planner", href: "/budget", icon: Wallet, color: "from-purple-500 to-pink-500" },
-];
-
 const statusStyles: Record<string, string> = {
   Confirmed: "bg-green-500/20 text-green-400",
   Pending: "bg-yellow-500/20 text-yellow-400",
 };
 
 export default function DashboardPage() {
+  const { locale } = useLanguage();
+  const isAr = locale === "ar";
+
+  const quickActions = [
+    { label: isAr ? "تصفح الفنادق" : "Browse Hotels", href: "/hotels", icon: Hotel, color: "from-[#39FF14] to-[#00E676]" },
+    { label: isAr ? "استكشف الخريطة" : "Explore Map", href: "/discover", icon: Compass, color: "from-blue-500 to-cyan-500" },
+    { label: isAr ? "طوارئ SOS" : "Emergency SOS", href: "/emergency", icon: Shield, color: "from-red-500 to-orange-500" },
+    { label: isAr ? "مخطط الميزانية" : "Budget Planner", href: "/budget", icon: Wallet, color: "from-purple-500 to-pink-500" },
+  ];
+
   const userStats = [
-    { label: "Saved Places", value: 5, icon: Heart, color: "#39FF14" },
-    { label: "Bookings", value: 2, icon: CalendarDays, color: "#00E676" },
-    { label: "Reviews", value: 0, icon: MessageSquare, color: "#39FF14" },
+    { label: isAr ? "الأماكن المحفوظة" : "Saved Places", value: 5, icon: Heart, color: "#39FF14" },
+    { label: isAr ? "الحجوزات" : "Bookings", value: 2, icon: CalendarDays, color: "#00E676" },
+    { label: isAr ? "التقييمات" : "Reviews", value: 0, icon: MessageSquare, color: "#39FF14" },
   ];
 
   return (

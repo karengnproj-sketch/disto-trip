@@ -7,11 +7,14 @@ import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { hotels } from "@/data/seed-hotels";
 import { cities } from "@/data/seed-cities";
+import { useLanguage } from "@/lib/i18n/LanguageContext";
 
 function BookingContent() {
   const searchParams = useSearchParams();
   const hotelId = searchParams.get("hotel");
   const hotel = hotelId ? hotels.find((h) => h.id === hotelId) : null;
+  const { locale } = useLanguage();
+  const isAr = locale === "ar";
 
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
@@ -50,7 +53,7 @@ function BookingContent() {
           <div className="w-20 h-20 rounded-full bg-[#39FF14]/20 flex items-center justify-center mx-auto mb-6">
             <Check className="w-10 h-10 text-[#39FF14]" />
           </div>
-          <h1 className="text-3xl font-bold text-white mb-4">Booking Request Sent!</h1>
+          <h1 className="text-3xl font-bold text-white mb-4">{isAr ? "تم إرسال طلب الحجز!" : "Booking Request Sent!"}</h1>
           <p className="text-[#B0B0B0] mb-2">
             Your booking request for <span className="text-white font-medium">{hotel?.name || "your hotel"}</span> has been submitted.
           </p>
@@ -80,7 +83,7 @@ function BookingContent() {
 
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
         <h1 className="text-3xl font-display font-bold mb-2">
-          <span className="text-[#39FF14]">Book</span> Your Stay
+          <span className="text-[#39FF14]">{isAr ? "احجز" : "Book"}</span> {isAr ? "إقامتك" : "Your Stay"}
         </h1>
         {hotel && (
           <p className="text-[#B0B0B0] mb-8">{hotel.name} · {cities.find(c => c.id === hotel.city_id)?.name}</p>

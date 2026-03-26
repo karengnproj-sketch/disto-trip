@@ -11,7 +11,7 @@ import { cities } from "@/data/seed-cities";
 import { fetchNearbyPOIs, OverpassPOI } from "@/lib/api/overpass";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 
-const MapComponent = dynamic(() => import("@/components/map/MapView"), { ssr: false });
+const MapComponent = dynamic(() => import("@/components/map/GoogleMapView"), { ssr: false });
 
 type Category = "all" | "hotels" | "attractions" | "emergency" | "restaurants" | "pharmacies";
 
