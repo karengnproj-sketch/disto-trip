@@ -9,6 +9,7 @@ import { formatPrice } from "@/lib/utils/format";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Suspense } from "react";
+import { useLanguage } from "@/lib/i18n/LanguageContext";
 
 const amenityIcons: Record<string, React.ReactNode> = {
   wifi: <Wifi className="w-3.5 h-3.5" />,
@@ -21,6 +22,8 @@ const amenityIcons: Record<string, React.ReactNode> = {
 function HotelsContent() {
   const searchParams = useSearchParams();
   const initialCity = searchParams.get("city") || "";
+  const { t, locale } = useLanguage();
+  const isAr = locale === "ar";
 
   const [search, setSearch] = useState("");
   const [cityFilter, setCityFilter] = useState(initialCity);
@@ -48,9 +51,9 @@ function HotelsContent() {
       {/* Header */}
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-10">
         <h1 className="text-4xl md:text-5xl font-display font-bold mb-4">
-          <span className="text-[#39FF14]">Book</span> Your Hotel Now
+          <span className="text-[#39FF14]">{t("bookHotelNow")}</span> {t("yourHotelNow")}
         </h1>
-        <p className="text-[#B0B0B0] text-lg">Enjoy more than 50,000 Hotels in Egypt</p>
+        <p className="text-[#B0B0B0] text-lg">{t("enjoyHotels")}</p>
       </motion.div>
 
       {/* Filters */}
@@ -63,25 +66,25 @@ function HotelsContent() {
           </div>
           <select value={cityFilter} onChange={(e) => setCityFilter(e.target.value)}
             className="py-3 px-4 bg-[#2a2a2a] border border-[#333] rounded-xl text-white text-sm focus:outline-none focus:border-[#39FF14] appearance-none cursor-pointer">
-            <option value="">All Cities</option>
+            <option value="">{t("allCities")}</option>
             {cities.map((c) => <option key={c.id} value={c.slug}>{c.name}</option>)}
           </select>
           <select value={starFilter?.toString() || ""} onChange={(e) => setStarFilter(e.target.value ? Number(e.target.value) : null)}
             className="py-3 px-4 bg-[#2a2a2a] border border-[#333] rounded-xl text-white text-sm focus:outline-none focus:border-[#39FF14] appearance-none cursor-pointer">
-            <option value="">All Stars</option>
+            <option value="">{t("allStars")}</option>
             {[5, 4, 3, 2].map((s) => <option key={s} value={s}>{s} Stars</option>)}
           </select>
           <select value={sortBy} onChange={(e) => setSortBy(e.target.value)}
             className="py-3 px-4 bg-[#2a2a2a] border border-[#333] rounded-xl text-white text-sm focus:outline-none focus:border-[#39FF14] appearance-none cursor-pointer">
-            <option value="rating">Sort by Rating</option>
-            <option value="price_low">Price: Low to High</option>
-            <option value="price_high">Price: High to Low</option>
+            <option value="rating">{t("sortByRating")}</option>
+            <option value="price_low">{t("priceLowHigh")}</option>
+            <option value="price_high">{t("priceHighLow")}</option>
           </select>
         </div>
       </motion.div>
 
       {/* Results Count */}
-      <p className="text-[#666] text-sm mb-6">{filtered.length} hotels found</p>
+      <p className="text-[#666] text-sm mb-6">{filtered.length} {t("hotelsFound")}</p>
 
       {/* Hotel Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -104,7 +107,7 @@ function HotelsContent() {
                 {/* Content */}
                 <div className="p-5">
                   <div className="flex items-start justify-between mb-2">
-                    <h3 className="font-semibold text-white text-base leading-tight flex-1 mr-2">{hotel.name}</h3>
+                    <h3 className="font-semibold text-white text-base leading-tight flex-1 mr-2">{isAr && hotel.name_ar ? hotel.name_ar : hotel.name}</h3>
                     <div className="flex items-center gap-1 text-[#39FF14] text-sm font-medium flex-shrink-0">
                       <Star className="w-3.5 h-3.5 fill-current" /> {hotel.rating}
                     </div>
@@ -134,7 +137,7 @@ function HotelsContent() {
                     href={`/book?hotel=${hotel.id}`}
                     className="w-full flex items-center justify-center gap-2 py-3 bg-gradient-to-r from-[#39FF14] to-[#00E676] text-black font-semibold rounded-xl hover:shadow-lg hover:shadow-[#39FF14]/25 hover:scale-[1.02] transition-all duration-300 text-sm"
                   >
-                    Book Now <ExternalLink className="w-3.5 h-3.5" />
+                    {t("bookNow")} <ExternalLink className="w-3.5 h-3.5" />
                   </Link>
                 </div>
               </div>
@@ -145,9 +148,9 @@ function HotelsContent() {
 
       {filtered.length === 0 && (
         <div className="text-center py-20">
-          <p className="text-[#666] text-lg">No hotels found matching your criteria.</p>
+          <p className="text-[#666] text-lg">{t("noHotelsFound")}</p>
           <button onClick={() => { setSearch(""); setCityFilter(""); setStarFilter(null); setPriceFilter(""); }}
-            className="mt-4 text-[#39FF14] hover:underline">Clear filters</button>
+            className="mt-4 text-[#39FF14] hover:underline">{t("clearFilters")}</button>
         </div>
       )}
     </div>

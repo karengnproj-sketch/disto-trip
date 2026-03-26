@@ -9,6 +9,7 @@ import { formatPrice, getCategoryLabel, getCategoryEmoji } from "@/lib/utils/for
 import { estimateCrowdLevel } from "@/lib/utils/crowd-estimator";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
+import { useLanguage } from "@/lib/i18n/LanguageContext";
 
 const categories = [
   { value: "", label: "All" },
@@ -23,6 +24,8 @@ const categories = [
 function AttractionsContent() {
   const searchParams = useSearchParams();
   const initialCategory = searchParams.get("category") || "";
+  const { t, locale } = useLanguage();
+  const isAr = locale === "ar";
 
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState(initialCategory);
@@ -41,9 +44,9 @@ function AttractionsContent() {
     <div className="min-h-screen pt-24 pb-16 px-4 max-w-7xl mx-auto">
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-10">
         <h1 className="text-4xl md:text-5xl font-display font-bold mb-4">
-          Explore <span className="text-[#39FF14]">Attractions</span>
+          {t("exploreAttractions")} <span className="text-[#39FF14]">{t("attractionsTitle")}</span>
         </h1>
-        <p className="text-[#B0B0B0] text-lg">Discover ancient wonders and thrilling adventures</p>
+        <p className="text-[#B0B0B0] text-lg">{t("attractionsSubtitle")}</p>
       </motion.div>
 
       {/* Search */}
@@ -70,7 +73,7 @@ function AttractionsContent() {
         ))}
       </motion.div>
 
-      <p className="text-[#666] text-sm mb-6">{filtered.length} attractions found</p>
+      <p className="text-[#666] text-sm mb-6">{filtered.length} {t("attractionsFound")}</p>
 
       {/* Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -90,7 +93,7 @@ function AttractionsContent() {
                   </div>
                 </div>
                 <div className="p-5">
-                  <h3 className="font-semibold text-white text-base mb-2">{attr.name}</h3>
+                  <h3 className="font-semibold text-white text-base mb-2">{isAr && attr.name_ar ? attr.name_ar : attr.name}</h3>
                   <div className="flex items-center gap-3 text-xs text-[#B0B0B0] mb-3">
                     <span className="flex items-center gap-1"><MapPin className="w-3 h-3" /> {city?.name}</span>
                     <span className="flex items-center gap-1 text-[#39FF14]"><Star className="w-3 h-3 fill-current" /> {attr.rating}</span>

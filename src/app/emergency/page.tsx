@@ -5,6 +5,7 @@ import { Phone, MapPin, Shield, HeartPulse, Flame, BadgeAlert, Building2, Pill, 
 import { emergencyNumbers, embassies, emergencyFacilities } from "@/data/emergency-numbers";
 import { cities } from "@/data/seed-cities";
 import { useState } from "react";
+import { useLanguage } from "@/lib/i18n/LanguageContext";
 
 const iconMap: Record<string, React.ReactNode> = {
   shield: <Shield className="w-6 h-6" />,
@@ -24,6 +25,8 @@ const typeIcons: Record<string, React.ReactNode> = {
 
 export default function EmergencyPage() {
   const [selectedCity, setSelectedCity] = useState("city-cairo");
+  const { t, locale } = useLanguage();
+  const isAr = locale === "ar";
 
   const facilities = emergencyFacilities.filter((f) => f.city_id === selectedCity);
 
@@ -35,15 +38,15 @@ export default function EmergencyPage() {
           <AlertTriangle className="w-10 h-10 text-red-500" />
         </div>
         <h1 className="text-4xl md:text-5xl font-display font-bold mb-2">
-          <span className="text-red-500">Emergency</span> SOS
+          <span className="text-red-500">{t("emergencySOS")}</span> {t("sos")}
         </h1>
-        <p className="text-[#B0B0B0]">One-tap emergency contacts for Egypt. Stay safe.</p>
+        <p className="text-[#B0B0B0]">{t("emergencySubtitle")}</p>
       </motion.div>
 
       {/* Emergency Numbers */}
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="mb-10">
         <h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
-          <Phone className="w-5 h-5 text-red-500" /> Emergency Numbers
+          <Phone className="w-5 h-5 text-red-500" /> {t("emergencyNumbers")}
         </h2>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
           {emergencyNumbers.map((item) => (
@@ -56,7 +59,7 @@ export default function EmergencyPage() {
                 {iconMap[item.icon]}
               </div>
               <div>
-                <p className="font-semibold text-white text-sm">{item.name}</p>
+                <p className="font-semibold text-white text-sm">{isAr ? item.name_ar : item.name}</p>
                 <p className="text-red-500 text-lg font-bold">{item.number}</p>
               </div>
             </a>
@@ -68,7 +71,7 @@ export default function EmergencyPage() {
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="mb-10">
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-xl font-bold text-white flex items-center gap-2">
-            <MapPin className="w-5 h-5 text-[#39FF14]" /> Nearby Facilities
+            <MapPin className="w-5 h-5 text-[#39FF14]" /> {t("nearbyFacilities")}
           </h2>
           <select
             value={selectedCity}
@@ -93,7 +96,7 @@ export default function EmergencyPage() {
                 {typeIcons[facility.type]}
               </div>
               <div className="flex-1 min-w-0">
-                <p className="font-semibold text-white text-sm">{facility.name}</p>
+                <p className="font-semibold text-white text-sm">{isAr && facility.name_ar ? facility.name_ar : facility.name}</p>
                 <p className="text-[#666] text-xs">{facility.address}</p>
                 {facility.is_24h && <span className="text-[#39FF14] text-xs font-medium">24 Hours</span>}
               </div>
@@ -120,7 +123,7 @@ export default function EmergencyPage() {
       {/* Embassies */}
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
         <h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
-          <Building2 className="w-5 h-5 text-yellow-500" /> Embassies in Cairo
+          <Building2 className="w-5 h-5 text-yellow-500" /> {t("embassiesInCairo")}
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           {embassies.map((embassy) => (
@@ -142,14 +145,14 @@ export default function EmergencyPage() {
 
       {/* Safety Tips */}
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }} className="mt-10 bg-[#1a1a1a] rounded-2xl border border-[#333]/50 p-6">
-        <h2 className="text-xl font-bold text-white mb-4">Safety Tips</h2>
+        <h2 className="text-xl font-bold text-white mb-4">{t("safetyTips")}</h2>
         <ul className="space-y-2 text-[#B0B0B0] text-sm">
-          <li>- Keep a photocopy of your passport separate from the original</li>
-          <li>- Save emergency contacts on your phone before traveling</li>
-          <li>- Tourist Police (126) speaks English and can assist foreign visitors</li>
-          <li>- Most major hospitals in tourist areas have English-speaking staff</li>
-          <li>- Stay hydrated — Egypt&apos;s climate can be very hot, especially in summer</li>
-          <li>- Use registered taxis or ride-sharing apps like Uber/Careem</li>
+          <li>- {t("tip1")}</li>
+          <li>- {t("tip2")}</li>
+          <li>- {t("tip3")}</li>
+          <li>- {t("tip4")}</li>
+          <li>- {t("tip5")}</li>
+          <li>- {t("tip6")}</li>
         </ul>
       </motion.div>
     </div>

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Disto-Trip — Design System & UX Rationale</title>
+<title>Disto-Trip - Design System & UX Rationale</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 *{margin:0;padding:0;box-sizing:border-box}
@@ -128,7 +128,7 @@ body{font-family:'Inter',sans-serif;background:#0a0a0a;color:#fff;line-height:1.
     <h1 class="section-title">Disto-Trip Design System & UX Rationale</h1>
     <p class="section-sub">Complete documentation of design decisions, component specifications, and user experience rationale for the Egypt Travel Companion web application.</p>
     <div class="rationale">
-      <strong>Why this matters:</strong> This document explains not just <em>what</em> was built, but <em>why</em> each design decision was made. Every color, component, and interaction pattern was chosen to serve the needs of foreign tourists exploring Egypt — making their journey safer, easier, and more enjoyable.
+      <strong>Why this matters:</strong> This document explains not just <em>what</em> was built, but <em>why</em> each design decision was made. Every color, component, and interaction pattern was chosen to serve the needs of foreign tourists exploring Egypt - making their journey safer, easier, and more enjoyable.
     </div>
     <div style="display:flex;gap:12px;flex-wrap:wrap">
       <span class="comp-tag tag-green">Next.js 15</span>
@@ -174,16 +174,16 @@ body{font-family:'Inter',sans-serif;background:#0a0a0a;color:#fff;line-height:1.
   <div class="container">
     <div class="section-badge">Typography</div>
     <h2 class="section-title">Type Scale</h2>
-    <p class="section-sub">Inter for everything — readable, multilingual, free</p>
+    <p class="section-sub">Inter for everything - readable, multilingual, free</p>
     <div class="rationale">
       <strong>Why Inter?</strong> (1) Excellent screen readability at all sizes, (2) Supports Latin + Arabic character sets, (3) Variable weight from 300-800 for flexibility, (4) Free and open-source (no licensing cost). <strong>Why Playfair Display for hero?</strong> Serif headings add editorial elegance to the "Where to go?" hero text, creating a premium travel magazine aesthetic.
     </div>
-    <div class="type-row"><div class="type-meta">Display H1 — 48px Bold</div><div class="type-sample" style="font-size:42px;font-weight:800">Where to go?</div></div>
-    <div class="type-row"><div class="type-meta">Section H2 — 32px Bold</div><div class="type-sample" style="font-size:28px;font-weight:700">Popular Destinations</div></div>
-    <div class="type-row"><div class="type-meta">Card Title H3 — 16px SemiBold</div><div class="type-sample" style="font-size:16px;font-weight:600">Marriott Mena House, Giza</div></div>
-    <div class="type-row"><div class="type-meta">Body — 14px Regular</div><div class="type-sample" style="font-size:14px;font-weight:400;color:#B0B0B0">Discover the magic of Egypt. Book hotels, explore ancient wonders.</div></div>
-    <div class="type-row"><div class="type-meta">Caption — 12px Medium</div><div class="type-sample" style="font-size:12px;font-weight:500;color:#888">52,100 reviews · 4.8 rating · 3h duration</div></div>
-    <div class="type-row"><div class="type-meta">Badge — 10px SemiBold</div><div class="type-sample" style="font-size:10px;font-weight:600;color:#39FF14">HISTORICAL · LOW CROWD · $15 ENTRY</div></div>
+    <div class="type-row"><div class="type-meta">Display H1 - 48px Bold</div><div class="type-sample" style="font-size:42px;font-weight:800">Where to go?</div></div>
+    <div class="type-row"><div class="type-meta">Section H2 - 32px Bold</div><div class="type-sample" style="font-size:28px;font-weight:700">Popular Destinations</div></div>
+    <div class="type-row"><div class="type-meta">Card Title H3 - 16px SemiBold</div><div class="type-sample" style="font-size:16px;font-weight:600">Marriott Mena House, Giza</div></div>
+    <div class="type-row"><div class="type-meta">Body - 14px Regular</div><div class="type-sample" style="font-size:14px;font-weight:400;color:#B0B0B0">Discover the magic of Egypt. Book hotels, explore ancient wonders.</div></div>
+    <div class="type-row"><div class="type-meta">Caption - 12px Medium</div><div class="type-sample" style="font-size:12px;font-weight:500;color:#888">52,100 reviews · 4.8 rating · 3h duration</div></div>
+    <div class="type-row"><div class="type-meta">Badge - 10px SemiBold</div><div class="type-sample" style="font-size:10px;font-weight:600;color:#39FF14">HISTORICAL · LOW CROWD · $15 ENTRY</div></div>
   </div>
 </div>
 
@@ -255,7 +255,7 @@ body{font-family:'Inter',sans-serif;background:#0a0a0a;color:#fff;line-height:1.
         <div class="comp-header"><div class="comp-icon" style="background:rgba(57,255,20,0.1)">🗺️</div><div class="comp-title">Interactive Map (Leaflet)</div></div>
         <div class="comp-body">
           <p><strong>Basemap:</strong> CartoDB dark tiles (matches app theme, free, no API key)</p>
-          <p><strong>Markers:</strong> Color-coded DivIcons — Blue (hotels), Orange (attractions), Yellow (food), Green (pharmacies), Red (emergency)</p>
+          <p><strong>Markers:</strong> Color-coded DivIcons - Blue (hotels), Orange (attractions), Yellow (food), Green (pharmacies), Red (emergency)</p>
           <p><strong>Why:</strong> Dark basemap is cohesive with theme. Standard OSM would clash. CartoDB is free. Custom markers are instantly recognizable by color.</p>
           <span class="comp-tag tag-green">Leaflet</span><span class="comp-tag tag-green">react-leaflet</span>
         </div>
@@ -340,7 +340,7 @@ body{font-family:'Inter',sans-serif;background:#0a0a0a;color:#fff;line-height:1.
       </div>
       <div class="screen-card">
         <div class="screen-preview" style="background:linear-gradient(135deg,#1a0a1a,#0a0a0a)"><div style="text-align:center"><div style="width:40px;height:40px;border-radius:8px;background:purple;margin:0 auto 8px"></div><div style="font-size:11px;color:#fff">Card: **** 4242</div></div></div>
-        <div class="screen-info"><div class="screen-name">Payment UI</div><div class="screen-route">/payment</div><div class="screen-desc">Credit card form with live card preview. Number formatting, expiry, CVV. Purple gradient card visual. Presentational — actual payments via booking flow.</div></div>
+        <div class="screen-info"><div class="screen-name">Payment UI</div><div class="screen-route">/payment</div><div class="screen-desc">Credit card form with live card preview. Number formatting, expiry, CVV. Purple gradient card visual. Presentational - actual payments via booking flow.</div></div>
       </div>
       <div class="screen-card">
         <div class="screen-preview" style="background:linear-gradient(135deg,#1a1a1a,#0a0a0a)"><div style="text-align:center"><div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#39FF14,#00E676);margin:0 auto 8px"></div><div style="font-size:14px;font-weight:600;color:#fff">Traveler</div></div></div>
@@ -357,8 +357,8 @@ body{font-family:'Inter',sans-serif;background:#0a0a0a;color:#fff;line-height:1.
     <h2 class="section-title">Key Design Decisions & Why</h2>
     <p class="section-sub">Every decision serves the core user: a foreign tourist exploring Egypt</p>
     <div class="decision-grid">
-      <div class="decision"><h4>Dark Theme Over Light</h4><p>Tourists browse while traveling — at night in hotels, in bright sunlight outdoors. Dark theme works in both conditions. It also makes Egypt's golden/warm photography pop dramatically against the dark background.</p></div>
-      <div class="decision"><h4>Emergency First, Always Accessible</h4><p>Emergency page is always one tap away in the navbar. Numbers are hardcoded (no API dependency, works offline). Red color overrides green brand for urgency. Tourist Police (126) is highlighted — they speak English.</p></div>
+      <div class="decision"><h4>Dark Theme Over Light</h4><p>Tourists browse while traveling - at night in hotels, in bright sunlight outdoors. Dark theme works in both conditions. It also makes Egypt's golden/warm photography pop dramatically against the dark background.</p></div>
+      <div class="decision"><h4>Emergency First, Always Accessible</h4><p>Emergency page is always one tap away in the navbar. Numbers are hardcoded (no API dependency, works offline). Red color overrides green brand for urgency. Tourist Police (126) is highlighted - they speak English.</p></div>
       <div class="decision"><h4>In-Site Booking vs External Redirect</h4><p>Redirecting to Booking.com breaks the experience. Instead, we built an internal booking form with InstaPay (Egypt's most used payment), cash at hotel, or card at check-in. Keeps users in the ecosystem.</p></div>
       <div class="decision"><h4>Bilingual EN/AR with RTL</h4><p>Egypt's tourists are split between English and Arabic speakers. One-click toggle in navbar. RTL layout flips automatically via CSS logical properties and flexbox direction. Arabic font (Cairo) loaded for proper rendering.</p></div>
       <div class="decision"><h4>Budget-First Planning</h4><p>Many tourists to Egypt are budget-conscious. The budget planner with 7-currency converter helps them plan costs in their home currency. Typical daily cost tiers (Budget/Mid/Luxury) set expectations before arrival.</p></div>
@@ -366,7 +366,7 @@ body{font-family:'Inter',sans-serif;background:#0a0a0a;color:#fff;line-height:1.
       <div class="decision"><h4>Wikipedia for Landmark Content</h4><p>Free, comprehensive, multilingual, and always up-to-date. When a user views an attraction, we fetch the Wikipedia summary via REST API. Zero cost, high quality content. Includes thumbnail images.</p></div>
       <div class="decision"><h4>OpenStreetMap for Live POIs</h4><p>Google Places API has strict free limits. Overpass API (OpenStreetMap) is completely free and has excellent Egypt coverage for restaurants, pharmacies, banks, mosques. Real-time queries by location.</p></div>
       <div class="decision"><h4>Framer Motion Animations</h4><p>Subtle fade-up animations on scroll make the site feel polished without being distracting. Hero section has floating glow orbs. Cards lift on hover. Page transitions are smooth. All animations respect prefers-reduced-motion.</p></div>
-      <div class="decision"><h4>Supabase Over Custom Backend</h4><p>Supabase provides Auth, PostgreSQL, Row-Level Security, and real-time subscriptions out of the box — all free tier. No need to build and maintain a custom API server. Scales automatically.</p></div>
+      <div class="decision"><h4>Supabase Over Custom Backend</h4><p>Supabase provides Auth, PostgreSQL, Row-Level Security, and real-time subscriptions out of the box - all free tier. No need to build and maintain a custom API server. Scales automatically.</p></div>
     </div>
   </div>
 </div>
@@ -420,7 +420,7 @@ body{font-family:'Inter',sans-serif;background:#0a0a0a;color:#fff;line-height:1.
 </div>
 
 <div class="footer">
-  &copy; 2026 Disto-Trip — Design System & UX Documentation<br>
+  &copy; 2026 Disto-Trip - Design System & UX Documentation<br>
   <a href="/" style="color:#39FF14;text-decoration:none">Back to Disto-Trip</a> · <a href="/uml-diagrams.html" style="color:#39FF14;text-decoration:none">View UML Diagrams</a>
 </div>
 
