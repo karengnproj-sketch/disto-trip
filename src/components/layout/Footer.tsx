@@ -43,13 +43,17 @@ export default function Footer() {
           <div>
             <h4 className="font-semibold text-white mb-4">{t("explore")}</h4>
             <ul className="space-y-2">
-              {(isAr ? ["الفنادق", "المعالم", "اكتشف الخريطة", "الطوارئ"] : ["Hotels", "Attractions", "Discover Map", "Emergency"]).map((item, idx) => (
-                <li key={item}>
-                  <Link
-                    href={`/${item.toLowerCase().replace(" ", "-")}`}
-                    className="text-sm text-text-secondary hover:text-accent-primary transition-colors"
-                  >
-                    {item}
+              {[
+                { href: "/hotels", en: "Hotels", ar: "الفنادق" },
+                { href: "/attractions", en: "Attractions", ar: "المعالم" },
+                { href: "/discover", en: "Discover Map", ar: "اكتشف الخريطة" },
+                { href: "/budget", en: "Budget Planner", ar: "مخطط الميزانية" },
+                { href: "/emergency", en: "Emergency", ar: "الطوارئ" },
+                { href: "/dashboard", en: "My Dashboard", ar: "لوحتي" },
+              ].map((item) => (
+                <li key={item.href}>
+                  <Link href={item.href} className="text-sm text-text-secondary hover:text-accent-primary transition-colors">
+                    {isAr ? item.ar : item.en}
                   </Link>
                 </li>
               ))}
@@ -60,11 +64,18 @@ export default function Footer() {
           <div>
             <h4 className="font-semibold text-white mb-4">{isAr ? "الوجهات" : "Destinations"}</h4>
             <ul className="space-y-2">
-              {(isAr ? ["القاهرة", "الجيزة", "الأقصر", "أسوان", "الغردقة", "شرم الشيخ"] : ["Cairo", "Giza", "Luxor", "Aswan", "Hurghada", "Sharm El Sheikh"]).map((city) => (
-                <li key={city}>
-                  <span className="text-sm text-text-secondary hover:text-accent-primary transition-colors cursor-pointer">
-                    {city}
-                  </span>
+              {[
+                { slug: "cairo", en: "Cairo", ar: "القاهرة" },
+                { slug: "giza", en: "Giza", ar: "الجيزة" },
+                { slug: "luxor", en: "Luxor", ar: "الأقصر" },
+                { slug: "aswan", en: "Aswan", ar: "أسوان" },
+                { slug: "hurghada", en: "Hurghada", ar: "الغردقة" },
+                { slug: "sharm-el-sheikh", en: "Sharm El Sheikh", ar: "شرم الشيخ" },
+              ].map((city) => (
+                <li key={city.slug}>
+                  <Link href={`/hotels?city=${city.slug}`} className="text-sm text-text-secondary hover:text-accent-primary transition-colors">
+                    {isAr ? city.ar : city.en}
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -74,11 +85,16 @@ export default function Footer() {
           <div>
             <h4 className="font-semibold text-white mb-4">{t("support")}</h4>
             <ul className="space-y-2">
-              {(isAr ? ["من نحن", "اتصل بنا", "سياسة الخصوصية", "شروط الخدمة"] : ["About Us", "Contact Us", "Privacy Policy", "Terms of Service"]).map((item) => (
-                <li key={item}>
-                  <span className="text-sm text-text-secondary hover:text-accent-primary transition-colors cursor-pointer">
-                    {item}
-                  </span>
+              {[
+                { href: "/#about", en: "About Us", ar: "من نحن" },
+                { href: "/emergency", en: "Contact Us", ar: "اتصل بنا" },
+                { href: "/design-system.html", en: "Design System", ar: "نظام التصميم" },
+                { href: "/uml-diagrams.html", en: "UML Diagrams", ar: "مخططات UML" },
+              ].map((item) => (
+                <li key={item.href}>
+                  <Link href={item.href} className="text-sm text-text-secondary hover:text-accent-primary transition-colors">
+                    {isAr ? item.ar : item.en}
+                  </Link>
                 </li>
               ))}
             </ul>

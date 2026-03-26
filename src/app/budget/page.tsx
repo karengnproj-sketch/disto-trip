@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from "react";
 import { motion } from "framer-motion";
-import { Calculator, DollarSign, ArrowRightLeft, Plus, Trash2, MapPin, Clock, TrendingDown, Wallet } from "lucide-react";
+import { Calculator, DollarSign, ArrowRightLeft, Plus, Trash2, MapPin, Clock, TrendingDown, Wallet, Navigation } from "lucide-react";
 import { attractions } from "@/data/seed-attractions";
 import { hotels } from "@/data/seed-hotels";
 import { cities } from "@/data/seed-cities";
@@ -25,6 +25,8 @@ interface TripItem {
   type: "hotel" | "attraction" | "transport" | "food" | "other";
   cost_egp: number;
   nights?: number;
+  latitude?: number;
+  longitude?: number;
 }
 
 const typicalCosts = {
@@ -68,6 +70,8 @@ export default function BudgetPage() {
       type: "hotel",
       cost_egp: Math.round(costEGP),
       nights,
+      latitude: hotel.latitude,
+      longitude: hotel.longitude,
     }]);
   };
 
@@ -78,6 +82,8 @@ export default function BudgetPage() {
       name: attr.name,
       type: "attraction",
       cost_egp: Math.round(costEGP),
+      latitude: attr.latitude,
+      longitude: attr.longitude,
     }]);
   };
 
@@ -292,6 +298,17 @@ export default function BudgetPage() {
                       <p className="text-white text-sm font-semibold">{(item.cost_egp * (item.nights || 1)).toLocaleString()} EGP</p>
                       <p className="text-[#666] text-xs">{symbol}{((item.cost_egp * (item.nights || 1)) / rate).toFixed(0)}</p>
                     </div>
+                    {item.latitude && item.longitude && (
+                      <a
+                        href={`https://www.google.com/maps/dir/?api=1&destination=${item.latitude},${item.longitude}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-[#666] hover:text-[#39FF14] transition-colors"
+                        title="Get directions"
+                      >
+                        <Navigation className="w-4 h-4" />
+                      </a>
+                    )}
                     <button onClick={() => removeItem(item.id)} className="text-[#666] hover:text-[#FF4444] transition-colors">
                       <Trash2 className="w-4 h-4" />
                     </button>

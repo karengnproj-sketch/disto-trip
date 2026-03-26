@@ -3,13 +3,14 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X, MapPin, Shield, Wallet, Globe } from "lucide-react";
+import { Menu, X, MapPin, Shield, Wallet, Globe, LayoutDashboard, Settings } from "lucide-react";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
   const { locale, setLocale, t } = useLanguage();
+  const isAr = locale === "ar";
 
   const navLinks = [
     { href: "/", label: t("home") },
@@ -73,6 +74,20 @@ export default function Navbar() {
               {locale === "en" ? "عربي" : "EN"}
             </button>
 
+            <Link
+              href="/dashboard"
+              className="px-3 py-1.5 text-xs font-medium text-[#B0B0B0] hover:text-[#39FF14] transition-colors flex items-center gap-1"
+            >
+              <LayoutDashboard className="w-3.5 h-3.5" />
+              {isAr ? "لوحتي" : "My Panel"}
+            </Link>
+            <Link
+              href="/admin"
+              className="px-3 py-1.5 text-xs font-medium text-[#B0B0B0] hover:text-[#39FF14] transition-colors flex items-center gap-1"
+            >
+              <Settings className="w-3.5 h-3.5" />
+              {isAr ? "الادارة" : "Admin"}
+            </Link>
             <Link
               href="/auth/login"
               className="px-4 py-2 text-sm font-medium text-[#B0B0B0] hover:text-white transition-colors"
