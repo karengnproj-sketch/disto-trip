@@ -8,15 +8,7 @@ import { useState } from "react";
 import { cities } from "@/data/seed-cities";
 import { attractions } from "@/data/seed-attractions";
 import { hotels } from "@/data/seed-hotels";
-
-const interests = [
-  { name: "Food", emoji: "🍽️", color: "from-orange-500 to-red-500", href: "/attractions?category=food" },
-  { name: "Trips", emoji: "✈️", color: "from-blue-500 to-cyan-500", href: "/attractions?category=adventure" },
-  { name: "Culture", emoji: "🎭", color: "from-purple-500 to-pink-500", href: "/attractions?category=cultural" },
-  { name: "History", emoji: "🏛️", color: "from-amber-500 to-yellow-500", href: "/attractions?category=historical" },
-  { name: "Nature", emoji: "🌿", color: "from-green-500 to-emerald-500", href: "/attractions?category=nature" },
-  { name: "Water Sports", emoji: "🤿", color: "from-cyan-500 to-blue-500", href: "/attractions?category=water_sports" },
-];
+import { useLanguage } from "@/lib/i18n/LanguageContext";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -31,7 +23,18 @@ export default function HomePage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [showResults, setShowResults] = useState(false);
   const router = useRouter();
+  const { t, locale } = useLanguage();
   const topAttractions = attractions.slice(0, 4);
+  const isAr = locale === "ar";
+
+  const interests = [
+    { name: t("food"), emoji: "🍽️", color: "from-orange-500 to-red-500", href: "/attractions?category=food" },
+    { name: t("trips"), emoji: "✈️", color: "from-blue-500 to-cyan-500", href: "/attractions?category=adventure" },
+    { name: t("culture"), emoji: "🎭", color: "from-purple-500 to-pink-500", href: "/attractions?category=cultural" },
+    { name: t("history"), emoji: "🏛️", color: "from-amber-500 to-yellow-500", href: "/attractions?category=historical" },
+    { name: t("nature"), emoji: "🌿", color: "from-green-500 to-emerald-500", href: "/attractions?category=nature" },
+    { name: isAr ? "رياضات مائية" : "Water Sports", emoji: "🤿", color: "from-cyan-500 to-blue-500", href: "/attractions?category=water_sports" },
+  ];
 
   // Search across all data
   const searchResults = searchQuery.length > 1
@@ -76,8 +79,8 @@ export default function HomePage() {
             transition={{ duration: 0.8 }}
             className="text-5xl md:text-7xl lg:text-8xl font-display font-bold mb-6 italic"
           >
-            <span className="text-[#39FF14]">Where</span>{" "}
-            <span className="text-white">to go?</span>
+            <span className="text-[#39FF14]">{t("heroTitle1")}</span>{" "}
+            <span className="text-white">{t("heroTitle2")}</span>
           </motion.h1>
 
           <motion.p
@@ -86,8 +89,7 @@ export default function HomePage() {
             transition={{ delay: 0.3, duration: 0.8 }}
             className="text-[#B0B0B0] text-lg md:text-xl mb-10 max-w-2xl mx-auto"
           >
-            Discover the magic of Egypt. Book hotels, explore ancient wonders,
-            and navigate with confidence.
+            {t("heroSubtitle")}
           </motion.p>
 
           {/* Search Bar */}
@@ -101,7 +103,7 @@ export default function HomePage() {
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#666] group-focus-within:text-[#39FF14] transition-colors z-10" />
               <input
                 type="text"
-                placeholder="Place where to go, things to do, hotels...etc"
+                placeholder={t("searchPlaceholder")}
                 value={searchQuery}
                 onChange={(e) => { setSearchQuery(e.target.value); setShowResults(true); }}
                 onFocus={() => setShowResults(true)}
@@ -189,14 +191,14 @@ export default function HomePage() {
             </div>
             <div className="flex-1 text-center md:text-left">
               <h2 className="text-3xl md:text-4xl font-bold mb-3">
-                FIND THINGS TO DO IN{" "}
-                <span className="text-[#39FF14]">EGYPT</span>
+                {t("findThings")}{" "}
+                <span className="text-[#39FF14]">{t("egypt")}</span>
               </h2>
               <p className="text-[#B0B0B0] mb-6">
-                Get exclusive offers in more than 40,000 Hotels in Egypt
+                {t("exclusiveOffers")}
               </p>
               <Link href="/hotels" className="inline-flex items-center gap-2 px-6 py-3 bg-[#0a0a0a] text-white rounded-full font-semibold hover:bg-[#2a2a2a] transition-all">
-                CLICK HERE <ChevronRight className="w-4 h-4" />
+                {t("clickHere")} <ChevronRight className="w-4 h-4" />
               </Link>
             </div>
           </div>
@@ -207,10 +209,10 @@ export default function HomePage() {
       <section className="px-4 py-16 max-w-7xl mx-auto">
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0} className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-display font-bold text-white mb-4">
-            Popular <span className="bg-gradient-to-r from-[#39FF14] to-[#00E676] bg-clip-text text-transparent">Destinations</span>
+            {t("popularDestinations")} <span className="bg-gradient-to-r from-[#39FF14] to-[#00E676] bg-clip-text text-transparent">{t("destinations")}</span>
           </h2>
           <p className="text-[#B0B0B0] max-w-2xl mx-auto">
-            From ancient pyramids to pristine Red Sea beaches, explore Egypt&apos;s most breathtaking destinations
+            {t("destinationsSubtitle")}
           </p>
         </motion.div>
 
@@ -221,9 +223,9 @@ export default function HomePage() {
                 <img src={city.image_url} alt={city.name} className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
                 <div className="absolute bottom-0 left-0 right-0 p-4">
-                  <h3 className="text-lg font-bold text-white">{city.name}</h3>
+                  <h3 className="text-lg font-bold text-white">{isAr ? city.name_ar : city.name}</h3>
                   <p className="text-sm text-[#B0B0B0] flex items-center gap-1">
-                    <MapPin className="w-3 h-3" /> {city.name_ar}
+                    <MapPin className="w-3 h-3" /> {isAr ? city.name : city.name_ar}
                   </p>
                 </div>
                 <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity">
@@ -241,11 +243,11 @@ export default function HomePage() {
       <section className="px-4 py-16 max-w-7xl mx-auto">
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0} className="flex items-center justify-between mb-10">
           <div>
-            <h2 className="text-3xl md:text-4xl font-display font-bold text-white mb-2">Top Attractions</h2>
-            <p className="text-[#B0B0B0]">Must-visit places in Egypt</p>
+            <h2 className="text-3xl md:text-4xl font-display font-bold text-white mb-2">{t("topAttractions")}</h2>
+            <p className="text-[#B0B0B0]">{t("mustVisit")}</p>
           </div>
           <Link href="/attractions" className="text-[#39FF14] text-sm font-medium hover:underline flex items-center gap-1">
-            Click for more <ChevronRight className="w-4 h-4" />
+            {t("clickForMore")} <ChevronRight className="w-4 h-4" />
           </Link>
         </motion.div>
 
@@ -279,8 +281,8 @@ export default function HomePage() {
       {/* Find by Interest */}
       <section className="px-4 py-16 max-w-7xl mx-auto">
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0} className="text-center mb-10">
-          <h2 className="text-[#39FF14] font-bold text-lg mb-2">Find things to do by interest</h2>
-          <p className="text-[#B0B0B0]">Whatever you&apos;re into, we&apos;ve got it</p>
+          <h2 className="text-[#39FF14] font-bold text-lg mb-2">{t("findByInterest")}</h2>
+          <p className="text-[#B0B0B0]">{t("whateverInto")}</p>
         </motion.div>
 
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
@@ -304,12 +306,12 @@ export default function HomePage() {
           <div className="absolute inset-0" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1539650116574-8efeb43e2750?w=1920')", backgroundSize: "cover", backgroundPosition: "center" }} />
           <div className="absolute inset-0 bg-black/60" />
           <div className="relative z-10 py-20 px-8 text-center">
-            <h2 className="text-4xl md:text-6xl font-bold text-white mb-4">BOOK YOUR TRIP</h2>
+            <h2 className="text-4xl md:text-6xl font-bold text-white mb-4">{t("bookYourTrip")}</h2>
             <p className="text-[#B0B0B0] text-lg mb-8 flex items-center justify-center gap-2">
-              <MapPin className="w-5 h-5" /> Place where to go, things to do, hotels...etc
+              <MapPin className="w-5 h-5" /> {t("bookCTA")}
             </p>
             <Link href="/hotels" className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-[#39FF14] to-[#00E676] text-black font-bold rounded-full text-lg hover:shadow-lg hover:shadow-[#39FF14]/25 hover:scale-105 transition-all duration-300">
-              Start Exploring <ChevronRight className="w-5 h-5" />
+              {t("startExploring")} <ChevronRight className="w-5 h-5" />
             </Link>
           </div>
         </motion.div>
@@ -320,22 +322,12 @@ export default function HomePage() {
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}>
             <h2 className="text-3xl md:text-4xl font-display font-bold text-white mb-6">
-              About <span className="bg-gradient-to-r from-[#39FF14] to-[#00E676] bg-clip-text text-transparent">Us</span>
+              {t("aboutUs")} <span className="bg-gradient-to-r from-[#39FF14] to-[#00E676] bg-clip-text text-transparent">{t("us")}</span>
             </h2>
             <div className="space-y-4 text-[#B0B0B0] leading-relaxed">
-              <p className="font-semibold text-white text-lg">At Disto-Trip</p>
-              <p>
-                we believe that travel is not just about reaching a destination; it&apos;s
-                about the experiences, connections, and memories you make along the way.
-                Our mission is to inspire and empower explorers of all kinds to discover
-                new places, create unforgettable memories, and share their love for travel
-                with others.
-              </p>
-              <p>
-                Whether you&apos;re standing in front of the Great Pyramid or diving into
-                the Red Sea, Disto-Trip is your trusted companion throughout your Egyptian
-                adventure.
-              </p>
+              <p className="font-semibold text-white text-lg">{t("atDistoTrip")}</p>
+              <p>{t("aboutText1")}</p>
+              <p>{t("aboutText2")}</p>
             </div>
           </motion.div>
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={1} className="rounded-3xl overflow-hidden aspect-[4/3]">
