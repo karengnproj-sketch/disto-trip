@@ -130,14 +130,12 @@ function HotelsContent() {
                   </div>
 
                   {/* Book Button */}
-                  <a
-                    href={hotel.booking_url}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                  <Link
+                    href={`/book?hotel=${hotel.id}`}
                     className="w-full flex items-center justify-center gap-2 py-3 bg-gradient-to-r from-[#39FF14] to-[#00E676] text-black font-semibold rounded-xl hover:shadow-lg hover:shadow-[#39FF14]/25 hover:scale-[1.02] transition-all duration-300 text-sm"
                   >
                     Book Now <ExternalLink className="w-3.5 h-3.5" />
-                  </a>
+                  </Link>
                 </div>
               </div>
             </motion.div>

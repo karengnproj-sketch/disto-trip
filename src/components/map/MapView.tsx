@@ -40,6 +40,8 @@ const icons: Record<string, L.DivIcon> = {
   hotels: createIcon("#3B82F6"),
   attractions: createIcon("#F97316"),
   emergency: createIcon("#EF4444"),
+  restaurants: createIcon("#EAB308"),
+  pharmacies: createIcon("#22C55E"),
   all: createIcon("#39FF14"),
 };
 

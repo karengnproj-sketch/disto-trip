@@ -1,21 +1,48 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Mail, Lock, Eye, EyeOff, MapPin } from "lucide-react";
+import { Mail, Lock, Eye, EyeOff, MapPin, CheckCircle, AlertCircle } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { createClient } from "@/lib/supabase/client";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
+  const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    // Supabase auth will be wired here
-    setTimeout(() => setLoading(false), 1000);
+    setMessage(null);
+
+    try {
+      const supabase = createClient();
+      const { error } = await supabase.auth.signInWithPassword({ email, password });
+
+      if (error) {
+        setMessage({ type: "error", text: error.message });
+      } else {
+        setMessage({ type: "success", text: "Logged in! Redirecting..." });
+        setTimeout(() => router.push("/"), 1000);
+      }
+    } catch {
+      setMessage({ type: "error", text: "Something went wrong. Please try again." });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleGoogleLogin = async () => {
+    const supabase = createClient();
+    await supabase.auth.signInWithOAuth({
+      provider: "google",
+      options: { redirectTo: `${window.location.origin}/auth/callback` },
+    });
   };
 
   return (
@@ -29,6 +56,15 @@ export default function LoginPage() {
         >
           <h1 className="text-4xl font-bold text-white mb-2">LOG IN</h1>
           <p className="text-[#B0B0B0] mb-8">Welcome back! Let&apos;s continue your adventure.</p>
+
+          {message && (
+            <div className={`flex items-center gap-2 p-3 rounded-xl mb-4 text-sm ${
+              message.type === "success" ? "bg-[#39FF14]/10 text-[#39FF14] border border-[#39FF14]/30" : "bg-red-500/10 text-red-400 border border-red-500/30"
+            }`}>
+              {message.type === "success" ? <CheckCircle className="w-4 h-4" /> : <AlertCircle className="w-4 h-4" />}
+              {message.text}
+            </div>
+          )}
 
           <form onSubmit={handleSubmit} className="space-y-5">
             <div>
@@ -97,7 +133,7 @@ export default function LoginPage() {
           </div>
 
           {/* Google Login */}
-          <button className="w-full flex items-center justify-center gap-3 py-3 bg-[#1a1a1a] border border-[#333] rounded-xl text-white hover:border-[#39FF14]/50 transition-all">
+          <button onClick={handleGoogleLogin} type="button" className="w-full flex items-center justify-center gap-3 py-3 bg-[#1a1a1a] border border-[#333] rounded-xl text-white hover:border-[#39FF14]/50 transition-all">
             <svg className="w-5 h-5" viewBox="0 0 24 24">
               <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" />
               <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
