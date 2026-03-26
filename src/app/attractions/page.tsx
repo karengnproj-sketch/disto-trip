@@ -11,21 +11,21 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 
-const categories = [
-  { value: "", label: "All" },
-  { value: "historical", label: "Historical" },
-  { value: "cultural", label: "Cultural" },
-  { value: "adventure", label: "Adventure" },
-  { value: "water_sports", label: "Water Sports" },
-  { value: "nature", label: "Nature" },
-  { value: "food", label: "Food & Dining" },
-];
-
 function AttractionsContent() {
   const searchParams = useSearchParams();
   const initialCategory = searchParams.get("category") || "";
   const { t, locale } = useLanguage();
   const isAr = locale === "ar";
+
+  const categories = [
+    { value: "", label: t("all") },
+    { value: "historical", label: t("historical") },
+    { value: "cultural", label: t("cultural") },
+    { value: "adventure", label: t("adventure") },
+    { value: "water_sports", label: t("waterSports") },
+    { value: "nature", label: t("nature") },
+    { value: "food", label: t("foodDining") },
+  ];
 
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState(initialCategory);
@@ -53,7 +53,7 @@ function AttractionsContent() {
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="mb-6">
         <div className="relative max-w-md mx-auto">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#666]" />
-          <input type="text" placeholder="Search attractions..." value={search} onChange={(e) => setSearch(e.target.value)}
+          <input type="text" placeholder={t("searchAttractions")} value={search} onChange={(e) => setSearch(e.target.value)}
             className="w-full pl-10 pr-4 py-3 bg-[#1a1a1a] border border-[#333] rounded-xl text-white placeholder-[#666] focus:outline-none focus:border-[#39FF14] transition-colors text-sm" />
         </div>
       </motion.div>

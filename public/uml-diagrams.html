@@ -70,8 +70,27 @@
   }
   .header-right {
     margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 12px;
     color: var(--text-muted);
     font-size: 13px;
+  }
+  .lang-toggle {
+    color: #B0B0B0;
+    text-decoration: none;
+    font-size: 12px;
+    padding: 6px 14px;
+    border-radius: 20px;
+    border: 1px solid #333;
+    transition: all 0.2s;
+    cursor: pointer;
+    background: none;
+    font-family: 'Inter', sans-serif;
+  }
+  .lang-toggle:hover {
+    color: #39FF14;
+    border-color: #39FF14;
   }
 
   /* ===== NAV ===== */
@@ -242,15 +261,20 @@
   <div class="brand">
     <span class="brand-green">Disto</span><span class="brand-white">-Trip</span>
   </div>
-  <span class="header-badge">UML Documentation</span>
-  <span class="header-right">Software Engineering Diagrams</span>
+  <span class="header-badge" data-en="UML Documentation" data-ar="توثيق UML">UML Documentation</span>
+  <div class="header-right">
+    <span data-en="Software Engineering Diagrams" data-ar="مخططات هندسة البرمجيات">Software Engineering Diagrams</span>
+    <button class="lang-toggle" id="langToggle" onclick="toggleLang()">عربي</button>
+  </div>
 </header>
 
 <!-- NAV -->
 <nav class="nav">
-  <a href="#use-case" class="active">Use Case Diagram</a>
-  <a href="#erd">Database ERD</a>
-  <a href="#notes">Notes &amp; Policies</a>
+  <a href="#use-case" class="active" data-en="Use Case Diagram" data-ar="مخطط حالات الاستخدام">Use Case Diagram</a>
+  <a href="#erd" data-en="Database ERD" data-ar="مخطط قاعدة البيانات">Database ERD</a>
+  <a href="#notes" data-en="Notes &amp; Policies" data-ar="ملاحظات وسياسات">Notes &amp; Policies</a>
+  <a href="/design-system.html" data-en="Design System" data-ar="نظام التصميم">Design System</a>
+  <a href="/" data-en="Back to Site" data-ar="العودة للموقع">Back to Site</a>
 </nav>
 
 <!-- ============================================================ -->
@@ -260,9 +284,9 @@
   <div class="section-header">
     <div class="section-title">
       <span class="icon">1</span>
-      Use Case Diagram
+      <span data-en="Use Case Diagram" data-ar="مخطط حالات الاستخدام">Use Case Diagram</span>
     </div>
-    <p class="section-subtitle">Complete system use cases showing all actor interactions with the Disto-Trip Travel System. 47 use cases across 3 primary actors.</p>
+    <p class="section-subtitle" data-en="Complete system use cases showing all actor interactions with the Disto-Trip Travel System. 47 use cases across 3 primary actors." data-ar="حالات استخدام النظام الكاملة تعرض جميع تفاعلات الفاعلين مع نظام Disto-Trip للسفر. 47 حالة استخدام عبر 3 فاعلين رئيسيين.">Complete system use cases showing all actor interactions with the Disto-Trip Travel System. 47 use cases across 3 primary actors.</p>
   </div>
 
   <div class="diagram-container">
@@ -527,7 +551,7 @@
         <text x="420" y="1295" text-anchor="middle" fill="#90FF70" font-size="11" font-weight="500">Budget Planner</text>
 
         <ellipse cx="420" cy="1345" rx="145" ry="24" fill="rgba(57,255,20,0.06)" stroke="#39FF14" stroke-width="1.5"/>
-        <text x="420" y="1350" text-anchor="middle" fill="#90FF70" font-size="11" font-weight="500">Currency Converter (7 curr. &#8594; EGP)</text>
+        <text x="420" y="1350" text-anchor="middle" fill="#90FF70" font-size="11" font-weight="500">Currency Converter (7 curr. to EGP)</text>
 
         <ellipse cx="750" cy="1290" rx="110" ry="24" fill="rgba(57,255,20,0.06)" stroke="#39FF14" stroke-width="1.5"/>
         <text x="750" y="1295" text-anchor="middle" fill="#90FF70" font-size="11" font-weight="500">Add Trip Expenses</text>
@@ -615,7 +639,7 @@
       <!-- ===== USE CASE DIAGRAM LEGEND ===== -->
       <g transform="translate(260, 1750)">
         <rect x="0" y="0" width="920" height="100" rx="12" fill="rgba(255,255,255,0.03)" stroke="#333" stroke-width="1"/>
-        <text x="20" y="28" fill="#fff" font-size="13" font-weight="700">Legend</text>
+        <text x="20" y="28" fill="#fff" font-size="13" font-weight="700" class="legend-title">Legend</text>
 
         <!-- Admin -->
         <ellipse cx="80" cy="60" rx="40" ry="14" fill="rgba(255,140,0,0.1)" stroke="#FF8C00" stroke-width="1.5"/>
@@ -644,9 +668,9 @@
   <div class="section-header">
     <div class="section-title">
       <span class="icon">2</span>
-      Database Entity-Relationship Diagram
+      <span data-en="Database Entity-Relationship Diagram" data-ar="مخطط علاقات الكيانات لقاعدة البيانات">Database Entity-Relationship Diagram</span>
     </div>
-    <p class="section-subtitle">PostgreSQL schema on Supabase. 8 tables with Row Level Security (RLS) policies. Crow's foot notation for cardinality.</p>
+    <p class="section-subtitle" data-en="PostgreSQL schema on Supabase. 8 tables with Row Level Security (RLS) policies. Crow's foot notation for cardinality." data-ar="مخطط PostgreSQL على Supabase. 8 جداول مع سياسات أمان مستوى الصف (RLS). ترميز قدم الغراب للكاردينالية.">PostgreSQL schema on Supabase. 8 tables with Row Level Security (RLS) policies. Crow's foot notation for cardinality.</p>
   </div>
 
   <div class="diagram-container">
@@ -897,13 +921,13 @@
       <!-- RELATIONSHIP LINES -->
       <!-- ======================================== -->
 
-      <!-- auth.users 1→1 profiles -->
+      <!-- auth.users 1-1 profiles -->
       <line x1="160" y1="145" x2="160" y2="220" stroke="#39FF14" stroke-width="2" opacity="0.6"/>
       <text x="170" y="175" fill="#39FF14" font-size="10" font-weight="600">1:1</text>
       <circle cx="160" cy="148" r="3" fill="#39FF14"/>
       <circle cx="160" cy="217" r="3" fill="#39FF14"/>
 
-      <!-- cities 1→N hotels -->
+      <!-- cities 1-N hotels -->
       <line x1="830" y1="120" x2="920" y2="120" stroke="#39FF14" stroke-width="2" opacity="0.6"/>
       <text x="855" y="112" fill="#39FF14" font-size="10" font-weight="600">1 : N</text>
       <circle cx="833" r="3" cy="120" fill="#39FF14"/>
@@ -912,28 +936,28 @@
       <line x1="910" y1="128" x2="920" y2="120" stroke="#39FF14" stroke-width="1.5" opacity="0.6"/>
       <line x1="910" y1="120" x2="920" y2="120" stroke="#39FF14" stroke-width="1.5" opacity="0.6"/>
 
-      <!-- cities 1→N attractions -->
+      <!-- cities 1-N attractions -->
       <line x1="770" y1="280" x2="920" y2="460" stroke="#39FF14" stroke-width="2" opacity="0.6"/>
       <text x="830" y="360" fill="#39FF14" font-size="10" font-weight="600">1 : N</text>
       <circle cx="773" cy="283" r="3" fill="#39FF14"/>
       <line x1="908" y1="450" x2="918" y2="458" stroke="#39FF14" stroke-width="1.5" opacity="0.6"/>
       <line x1="908" y1="466" x2="918" y2="458" stroke="#39FF14" stroke-width="1.5" opacity="0.6"/>
 
-      <!-- cities 1→N emergency_facilities -->
+      <!-- cities 1-N emergency_facilities -->
       <line x1="690" y1="280" x2="690" y2="350" stroke="#39FF14" stroke-width="2" opacity="0.6"/>
       <text x="698" y="315" fill="#39FF14" font-size="10" font-weight="600">1 : N</text>
       <circle cx="690" cy="283" r="3" fill="#39FF14"/>
       <line x1="682" y1="342" x2="690" y2="350" stroke="#39FF14" stroke-width="1.5" opacity="0.6"/>
       <line x1="698" y1="342" x2="690" y2="350" stroke="#39FF14" stroke-width="1.5" opacity="0.6"/>
 
-      <!-- profiles 1→N saved_places -->
+      <!-- profiles 1-N saved_places -->
       <line x1="180" y1="400" x2="180" y2="470" stroke="#39FF14" stroke-width="2" opacity="0.6"/>
       <text x="188" y="435" fill="#39FF14" font-size="10" font-weight="600">1 : N</text>
       <circle cx="180" cy="403" r="3" fill="#39FF14"/>
       <line x1="172" y1="462" x2="180" y2="470" stroke="#39FF14" stroke-width="1.5" opacity="0.6"/>
       <line x1="188" y1="462" x2="180" y2="470" stroke="#39FF14" stroke-width="1.5" opacity="0.6"/>
 
-      <!-- profiles 1→N reviews -->
+      <!-- profiles 1-N reviews -->
       <line x1="130" y1="400" x2="130" y2="700" stroke="#39FF14" stroke-width="2" opacity="0.6"/>
       <text x="138" y="550" fill="#39FF14" font-size="10" font-weight="600">1 : N</text>
       <circle cx="130" cy="403" r="3" fill="#39FF14"/>
@@ -943,30 +967,30 @@
       <!-- ===== ERD LEGEND ===== -->
       <g transform="translate(550, 660)">
         <rect width="500" height="120" rx="12" fill="rgba(255,255,255,0.03)" stroke="#333" stroke-width="1"/>
-        <text x="20" y="28" fill="#fff" font-size="13" font-weight="700">Legend</text>
+        <text x="20" y="28" fill="#fff" font-size="13" font-weight="700" class="legend-title">Legend</text>
 
         <rect x="20" y="42" width="24" height="16" rx="3" fill="#FFD700" opacity="0.2"/>
         <text x="32" y="54" text-anchor="middle" fill="#FFD700" font-size="9" font-weight="700">PK</text>
-        <text x="55" y="54" fill="#ccc" font-size="11">Primary Key</text>
+        <text x="55" y="54" fill="#ccc" font-size="11" class="legend-pk-label">Primary Key</text>
 
         <rect x="160" y="42" width="24" height="16" rx="3" fill="#FF4444" opacity="0.2"/>
         <text x="172" y="54" text-anchor="middle" fill="#FF4444" font-size="9" font-weight="700">FK</text>
-        <text x="195" y="54" fill="#ccc" font-size="11">Foreign Key</text>
+        <text x="195" y="54" fill="#ccc" font-size="11" class="legend-fk-label">Foreign Key</text>
 
         <rect x="310" y="42" width="24" height="16" rx="3" fill="#4488FF" opacity="0.2"/>
         <text x="322" y="54" text-anchor="middle" fill="#4488FF" font-size="9" font-weight="700">UK</text>
-        <text x="345" y="54" fill="#ccc" font-size="11">Unique Key</text>
+        <text x="345" y="54" fill="#ccc" font-size="11" class="legend-uk-label">Unique Key</text>
 
         <line x1="20" y1="80" x2="60" y2="80" stroke="#39FF14" stroke-width="2" opacity="0.6"/>
         <circle cx="20" cy="80" r="3" fill="#39FF14"/>
-        <text x="70" y="84" fill="#ccc" font-size="11">1 : 1 Relationship</text>
+        <text x="70" y="84" fill="#ccc" font-size="11" class="legend-rel1-label">1 : 1 Relationship</text>
 
         <line x1="220" y1="80" x2="260" y2="80" stroke="#39FF14" stroke-width="2" opacity="0.6"/>
         <line x1="252" y1="73" x2="260" y2="80" stroke="#39FF14" stroke-width="1.5" opacity="0.6"/>
         <line x1="252" y1="87" x2="260" y2="80" stroke="#39FF14" stroke-width="1.5" opacity="0.6"/>
-        <text x="270" y="84" fill="#ccc" font-size="11">1 : N Relationship</text>
+        <text x="270" y="84" fill="#ccc" font-size="11" class="legend-reln-label">1 : N Relationship</text>
 
-        <text x="20" y="108" fill="#555" font-size="10" font-style="italic">All tables use UUID primary keys. Timestamps in UTC.</text>
+        <text x="20" y="108" fill="#555" font-size="10" font-style="italic" class="legend-note">All tables use UUID primary keys. Timestamps in UTC.</text>
       </g>
     </svg>
   </div>
@@ -974,37 +998,100 @@
   <!-- NOTES SECTION -->
   <div class="notes-grid" id="notes">
     <div class="note-card">
-      <h4>Row Level Security (RLS)</h4>
-      <p>All tables have RLS enabled. Profiles are readable by the owner only. Saved places and reviews enforce user_id = auth.uid() for INSERT/UPDATE/DELETE. Hotels, attractions, cities, and emergency facilities are publicly readable.</p>
+      <h4 data-en="Row Level Security (RLS)" data-ar="أمان مستوى الصف (RLS)">Row Level Security (RLS)</h4>
+      <p data-en="All tables have RLS enabled. Profiles are readable by the owner only. Saved places and reviews enforce user_id = auth.uid() for INSERT/UPDATE/DELETE. Hotels, attractions, cities, and emergency facilities are publicly readable." data-ar="جميع الجداول لديها RLS مفعل. الملفات الشخصية قابلة للقراءة من المالك فقط. الأماكن المحفوظة والتقييمات تفرض user_id = auth.uid() لعمليات INSERT/UPDATE/DELETE. الفنادق والمعالم والمدن ومرافق الطوارئ قابلة للقراءة العامة.">All tables have RLS enabled. Profiles are readable by the owner only. Saved places and reviews enforce user_id = auth.uid() for INSERT/UPDATE/DELETE. Hotels, attractions, cities, and emergency facilities are publicly readable.</p>
     </div>
     <div class="note-card">
-      <h4>Supabase Auth Trigger</h4>
-      <p>A database trigger on auth.users automatically creates a corresponding row in the profiles table on user signup, using handle_new_user() function. The profiles.id is a foreign key referencing auth.users.id.</p>
+      <h4 data-en="Supabase Auth Trigger" data-ar="مشغل مصادقة Supabase">Supabase Auth Trigger</h4>
+      <p data-en="A database trigger on auth.users automatically creates a corresponding row in the profiles table on user signup, using handle_new_user() function. The profiles.id is a foreign key referencing auth.users.id." data-ar="مشغل قاعدة بيانات على auth.users ينشئ تلقائيا صفا مقابلا في جدول profiles عند تسجيل المستخدم، باستخدام دالة handle_new_user(). معرف profiles.id هو مفتاح أجنبي يشير إلى auth.users.id.">A database trigger on auth.users automatically creates a corresponding row in the profiles table on user signup, using handle_new_user() function. The profiles.id is a foreign key referencing auth.users.id.</p>
     </div>
     <div class="note-card">
-      <h4>Polymorphic References</h4>
-      <p>saved_places and reviews use a polymorphic pattern with place_type (enum: 'hotel' | 'attraction') and place_id (UUID) to reference either hotels or attractions without separate join tables.</p>
+      <h4 data-en="Polymorphic References" data-ar="المراجع متعددة الأشكال">Polymorphic References</h4>
+      <p data-en="saved_places and reviews use a polymorphic pattern with place_type (enum: 'hotel' | 'attraction') and place_id (UUID) to reference either hotels or attractions without separate join tables." data-ar="تستخدم saved_places وreviews نمطا متعدد الأشكال مع place_type (تعداد: 'hotel' | 'attraction') وplace_id (UUID) للإشارة إلى الفنادق أو المعالم بدون جداول ربط منفصلة.">saved_places and reviews use a polymorphic pattern with place_type (enum: 'hotel' | 'attraction') and place_id (UUID) to reference either hotels or attractions without separate join tables.</p>
     </div>
     <div class="note-card">
-      <h4>JSONB Columns</h4>
-      <p>attractions.opening_hours stores per-day schedules as JSONB. crowd_data stores hourly crowd estimates by day of week. Both support flexible querying via Supabase's .contains() and arrow operators.</p>
+      <h4 data-en="JSONB Columns" data-ar="أعمدة JSONB">JSONB Columns</h4>
+      <p data-en="attractions.opening_hours stores per-day schedules as JSONB. crowd_data stores hourly crowd estimates by day of week. Both support flexible querying via Supabase's .contains() and arrow operators." data-ar="يخزن attractions.opening_hours جداول كل يوم كـ JSONB. يخزن crowd_data تقديرات الازدحام بالساعة حسب يوم الأسبوع. كلاهما يدعم الاستعلام المرن عبر عوامل Supabase مثل .contains() وعوامل الأسهم.">attractions.opening_hours stores per-day schedules as JSONB. crowd_data stores hourly crowd estimates by day of week. Both support flexible querying via Supabase's .contains() and arrow operators.</p>
     </div>
     <div class="note-card">
-      <h4>Internationalization</h4>
-      <p>All user-facing content columns have _ar suffixes for Arabic translations. The app reads the user's preferred_language from their profile and selects the appropriate column at query time.</p>
+      <h4 data-en="Internationalization" data-ar="التدويل">Internationalization</h4>
+      <p data-en="All user-facing content columns have _ar suffixes for Arabic translations. The app reads the user's preferred_language from their profile and selects the appropriate column at query time." data-ar="جميع أعمدة المحتوى الموجهة للمستخدم لها لاحقات _ar للترجمات العربية. يقرأ التطبيق preferred_language للمستخدم من ملفه الشخصي ويختار العمود المناسب وقت الاستعلام.">All user-facing content columns have _ar suffixes for Arabic translations. The app reads the user's preferred_language from their profile and selects the appropriate column at query time.</p>
     </div>
     <div class="note-card">
-      <h4>Storage &amp; CDN</h4>
-      <p>Image URLs reference Supabase Storage buckets. Hotels use text[] arrays for multiple gallery images. Cities and attractions use single image_url fields. All served via Supabase CDN with automatic transforms.</p>
+      <h4 data-en="Storage &amp; CDN" data-ar="التخزين وشبكة CDN">Storage &amp; CDN</h4>
+      <p data-en="Image URLs reference Supabase Storage buckets. Hotels use text[] arrays for multiple gallery images. Cities and attractions use single image_url fields. All served via Supabase CDN with automatic transforms." data-ar="عناوين URL للصور تشير إلى حاويات تخزين Supabase. تستخدم الفنادق مصفوفات text[] لصور معرض متعددة. تستخدم المدن والمعالم حقول image_url مفردة. يتم تقديمها جميعا عبر Supabase CDN مع تحويلات تلقائية.">Image URLs reference Supabase Storage buckets. Hotels use text[] arrays for multiple gallery images. Cities and attractions use single image_url fields. All served via Supabase CDN with automatic transforms.</p>
     </div>
   </div>
 </section>
 
 <!-- FOOTER -->
 <footer class="footer">
-  <p>Disto-Trip &mdash; Software Engineering UML Documentation</p>
-  <p style="margin-top:8px; color:#555;">Use Case Diagram &bull; Database ERD &bull; Built for presentation</p>
+  <p>Disto-Trip - <span data-en="Software Engineering UML Documentation" data-ar="توثيق UML لهندسة البرمجيات">Software Engineering UML Documentation</span></p>
+  <p style="margin-top:8px; color:#555;"><span data-en="Use Case Diagram" data-ar="مخطط حالات الاستخدام">Use Case Diagram</span> &bull; <span data-en="Database ERD" data-ar="مخطط قاعدة البيانات">Database ERD</span> &bull; <span data-en="Built for presentation" data-ar="مصمم للعرض التقديمي">Built for presentation</span></p>
 </footer>
+
+<script>
+(function(){
+  var currentLang = 'en';
+
+  window.toggleLang = function() {
+    currentLang = currentLang === 'en' ? 'ar' : 'en';
+    applyLang();
+  };
+
+  function applyLang() {
+    var html = document.documentElement;
+    if (currentLang === 'ar') {
+      html.setAttribute('dir', 'rtl');
+      html.setAttribute('lang', 'ar');
+    } else {
+      html.setAttribute('dir', 'ltr');
+      html.setAttribute('lang', 'en');
+    }
+
+    var toggle = document.getElementById('langToggle');
+    if (toggle) {
+      toggle.textContent = currentLang === 'en' ? '\u0639\u0631\u0628\u064A' : 'EN';
+    }
+
+    // Swap textContent for elements with data-en / data-ar
+    var els = document.querySelectorAll('[data-en][data-ar]');
+    for (var i = 0; i < els.length; i++) {
+      var el = els[i];
+      if (!el.hasAttribute('data-en-html')) {
+        el.textContent = currentLang === 'en' ? el.getAttribute('data-en') : el.getAttribute('data-ar');
+      }
+    }
+
+    // Swap innerHTML for elements with data-en-html / data-ar-html
+    var htmlEls = document.querySelectorAll('[data-en-html][data-ar-html]');
+    for (var j = 0; j < htmlEls.length; j++) {
+      var hel = htmlEls[j];
+      hel.innerHTML = currentLang === 'en' ? hel.getAttribute('data-en-html') : hel.getAttribute('data-ar-html');
+    }
+
+    // Update SVG legend text based on language
+    var legendTitles = document.querySelectorAll('.legend-title');
+    for (var k = 0; k < legendTitles.length; k++) {
+      legendTitles[k].textContent = currentLang === 'en' ? 'Legend' : '\u062F\u0644\u064A\u0644 \u0627\u0644\u0631\u0645\u0648\u0632';
+    }
+
+    // ERD legend labels
+    var pkLabel = document.querySelector('.legend-pk-label');
+    if (pkLabel) pkLabel.textContent = currentLang === 'en' ? 'Primary Key' : '\u0645\u0641\u062A\u0627\u062D \u0623\u0633\u0627\u0633\u064A';
+    var fkLabel = document.querySelector('.legend-fk-label');
+    if (fkLabel) fkLabel.textContent = currentLang === 'en' ? 'Foreign Key' : '\u0645\u0641\u062A\u0627\u062D \u0623\u062C\u0646\u0628\u064A';
+    var ukLabel = document.querySelector('.legend-uk-label');
+    if (ukLabel) ukLabel.textContent = currentLang === 'en' ? 'Unique Key' : '\u0645\u0641\u062A\u0627\u062D \u0641\u0631\u064A\u062F';
+    var rel1Label = document.querySelector('.legend-rel1-label');
+    if (rel1Label) rel1Label.textContent = currentLang === 'en' ? '1 : 1 Relationship' : '\u0639\u0644\u0627\u0642\u0629 1 : 1';
+    var relNLabel = document.querySelector('.legend-reln-label');
+    if (relNLabel) relNLabel.textContent = currentLang === 'en' ? '1 : N Relationship' : '\u0639\u0644\u0627\u0642\u0629 1 : N';
+    var legendNote = document.querySelector('.legend-note');
+    if (legendNote) legendNote.textContent = currentLang === 'en' ? 'All tables use UUID primary keys. Timestamps in UTC.' : '\u062C\u0645\u064A\u0639 \u0627\u0644\u062C\u062F\u0627\u0648\u0644 \u062A\u0633\u062A\u062E\u062F\u0645 \u0645\u0641\u0627\u062A\u064A\u062D \u0623\u0633\u0627\u0633\u064A\u0629 UUID. \u0627\u0644\u0637\u0648\u0627\u0628\u0639 \u0627\u0644\u0632\u0645\u0646\u064A\u0629 \u0628\u062A\u0648\u0642\u064A\u062A UTC.';
+  }
+})();
+</script>
 
 </body>
 </html>

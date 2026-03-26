@@ -9,6 +9,7 @@ import { attractions } from "@/data/seed-attractions";
 import { emergencyFacilities } from "@/data/emergency-numbers";
 import { cities } from "@/data/seed-cities";
 import { fetchNearbyPOIs, OverpassPOI } from "@/lib/api/overpass";
+import { useLanguage } from "@/lib/i18n/LanguageContext";
 
 const MapComponent = dynamic(() => import("@/components/map/MapView"), { ssr: false });
 
@@ -30,6 +31,8 @@ export default function DiscoverPage() {
   const [selectedCity, setSelectedCity] = useState("cairo");
   const [livePOIs, setLivePOIs] = useState<OverpassPOI[]>([]);
   const [loadingPOIs, setLoadingPOIs] = useState(false);
+  const { t, locale } = useLanguage();
+  const isAr = locale === "ar";
 
   const cityData = cities.find((c) => c.slug === selectedCity);
   const center: [number, number] = cityData
@@ -106,12 +109,12 @@ export default function DiscoverPage() {
   }, [category, search, livePOIs]);
 
   const categoryButtons = [
-    { value: "all" as Category, label: "All", icon: Layers },
-    { value: "hotels" as Category, label: "Hotels", icon: Hotel },
-    { value: "attractions" as Category, label: "Attractions", icon: Landmark },
-    { value: "restaurants" as Category, label: "Food & Cafes", icon: UtensilsCrossed },
-    { value: "pharmacies" as Category, label: "Pharmacies", icon: Pill },
-    { value: "emergency" as Category, label: "Emergency", icon: Shield },
+    { value: "all" as Category, label: isAr ? "الكل" : "All", icon: Layers },
+    { value: "hotels" as Category, label: t("hotels"), icon: Hotel },
+    { value: "attractions" as Category, label: t("attractions"), icon: Landmark },
+    { value: "restaurants" as Category, label: isAr ? "مطاعم ومقاهي" : "Food & Cafes", icon: UtensilsCrossed },
+    { value: "pharmacies" as Category, label: isAr ? "صيدليات" : "Pharmacies", icon: Pill },
+    { value: "emergency" as Category, label: t("emergency"), icon: Shield },
   ];
 
   return (
@@ -121,13 +124,13 @@ export default function DiscoverPage() {
           <div className="flex flex-col md:flex-row items-center gap-4">
             <div className="relative flex-1 max-w-md">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#666]" />
-              <input type="text" placeholder="Search places..." value={search} onChange={(e) => setSearch(e.target.value)}
+              <input type="text" placeholder={t("searchPlaces")} value={search} onChange={(e) => setSearch(e.target.value)}
                 className="w-full pl-10 pr-4 py-2.5 bg-[#2a2a2a] border border-[#333] rounded-xl text-white text-sm placeholder-[#666] focus:outline-none focus:border-[#39FF14] transition-colors" />
             </div>
 
             <select value={selectedCity} onChange={(e) => setSelectedCity(e.target.value)}
               className="py-2.5 px-4 bg-[#2a2a2a] border border-[#333] rounded-xl text-white text-sm focus:outline-none focus:border-[#39FF14]">
-              {cities.map((c) => <option key={c.id} value={c.slug}>{c.name}</option>)}
+              {cities.map((c) => <option key={c.id} value={c.slug}>{isAr ? c.name_ar : c.name}</option>)}
             </select>
 
             <div className="flex gap-2 flex-wrap justify-center">
@@ -151,24 +154,24 @@ export default function DiscoverPage() {
         {/* Loading indicator for live POIs */}
         {loadingPOIs && (
           <div className="absolute top-4 left-1/2 -translate-x-1/2 z-[1000] px-4 py-2 bg-[#1a1a1a]/90 backdrop-blur-sm border border-[#39FF14]/30 rounded-xl">
-            <p className="text-xs text-[#39FF14] animate-pulse">Loading live data from OpenStreetMap...</p>
+            <p className="text-xs text-[#39FF14] animate-pulse">{isAr ? "جاري تحميل البيانات من OpenStreetMap..." : "Loading live data from OpenStreetMap..."}</p>
           </div>
         )}
 
         <div className="absolute bottom-6 left-4 z-[1000] bg-[#1a1a1a]/90 backdrop-blur-sm border border-[#333] rounded-xl p-3">
-          <p className="text-xs font-medium text-white mb-2">Legend</p>
+          <p className="text-xs font-medium text-white mb-2">{isAr ? "دليل الرموز" : "Legend"}</p>
           <div className="space-y-1.5">
-            <div className="flex items-center gap-2 text-xs text-[#B0B0B0]"><div className="w-3 h-3 rounded-full bg-blue-500" /> Hotels</div>
-            <div className="flex items-center gap-2 text-xs text-[#B0B0B0]"><div className="w-3 h-3 rounded-full bg-orange-500" /> Attractions</div>
-            <div className="flex items-center gap-2 text-xs text-[#B0B0B0]"><div className="w-3 h-3 rounded-full bg-yellow-500" /> Food & Cafes</div>
-            <div className="flex items-center gap-2 text-xs text-[#B0B0B0]"><div className="w-3 h-3 rounded-full bg-green-500" /> Pharmacies</div>
-            <div className="flex items-center gap-2 text-xs text-[#B0B0B0]"><div className="w-3 h-3 rounded-full bg-red-500" /> Emergency</div>
+            <div className="flex items-center gap-2 text-xs text-[#B0B0B0]"><div className="w-3 h-3 rounded-full bg-blue-500" /> {t("hotels")}</div>
+            <div className="flex items-center gap-2 text-xs text-[#B0B0B0]"><div className="w-3 h-3 rounded-full bg-orange-500" /> {t("attractions")}</div>
+            <div className="flex items-center gap-2 text-xs text-[#B0B0B0]"><div className="w-3 h-3 rounded-full bg-yellow-500" /> {isAr ? "مطاعم ومقاهي" : "Food & Cafes"}</div>
+            <div className="flex items-center gap-2 text-xs text-[#B0B0B0]"><div className="w-3 h-3 rounded-full bg-green-500" /> {isAr ? "صيدليات" : "Pharmacies"}</div>
+            <div className="flex items-center gap-2 text-xs text-[#B0B0B0]"><div className="w-3 h-3 rounded-full bg-red-500" /> {t("emergency")}</div>
           </div>
         </div>
 
         <div className="absolute top-4 right-4 z-[1000] px-4 py-2 bg-[#1a1a1a]/90 backdrop-blur-sm border border-[#333] rounded-xl">
           <p className="text-xs text-[#B0B0B0]">
-            <span className="text-[#39FF14] font-bold">{markers.length}</span> places found
+            <span className="text-[#39FF14] font-bold">{markers.length}</span> {t("placesFound")}
           </p>
         </div>
       </div>

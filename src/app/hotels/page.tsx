@@ -61,7 +61,7 @@ function HotelsContent() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
           <div className="relative lg:col-span-2">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#666]" />
-            <input type="text" placeholder="Search hotels..." value={search} onChange={(e) => setSearch(e.target.value)}
+            <input type="text" placeholder={t("searchHotels")} value={search} onChange={(e) => setSearch(e.target.value)}
               className="w-full pl-10 pr-4 py-3 bg-[#2a2a2a] border border-[#333] rounded-xl text-white placeholder-[#666] focus:outline-none focus:border-[#39FF14] transition-colors text-sm" />
           </div>
           <select value={cityFilter} onChange={(e) => setCityFilter(e.target.value)}
