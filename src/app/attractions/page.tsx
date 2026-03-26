@@ -156,25 +156,47 @@ function AttractionsContent() {
               </h2>
               <span className="text-xs text-[#666] bg-[#1a1a1a] px-3 py-1 rounded-full border border-[#333]">Live Data</span>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {liveAttractions.map((a: any) => (
-                <div key={a.id} className="bg-[#1a1a1a]/60 backdrop-blur-xl rounded-2xl border border-[#333]/50 p-4 hover:border-[#39FF14]/30 transition-all text-left">
-                  <h3 className="font-semibold text-white text-sm mb-1">{isAr && a.name_ar ? a.name_ar : a.name}</h3>
-                  <p className="text-[#666] text-xs mb-2 capitalize">{a.type?.replace(/_/g, " ")}</p>
-                  {a.address && <p className="text-[#888] text-xs mb-2 flex items-center gap-1"><MapPin className="w-3 h-3" /> {a.address}</p>}
-                  {a.opening_hours && <p className="text-[#888] text-xs mb-2 flex items-center gap-1"><Clock className="w-3 h-3" /> {a.opening_hours}</p>}
-                  <div className="flex gap-2 mt-3">
-                    <a href={`https://www.google.com/maps?q=${a.latitude},${a.longitude}`} target="_blank" rel="noopener noreferrer"
-                      className="flex-1 flex items-center justify-center gap-1 py-2 bg-[#2a2a2a] border border-[#333] rounded-xl text-xs text-[#B0B0B0] hover:text-[#39FF14] hover:border-[#39FF14]/30 transition-all">
-                      <MapPin className="w-3 h-3" /> {isAr ? "الخريطة" : "Map"}
-                    </a>
-                    <a href={`https://www.google.com/maps/dir/?api=1&destination=${a.latitude},${a.longitude}`} target="_blank" rel="noopener noreferrer"
-                      className="flex-1 flex items-center justify-center gap-1 py-2 bg-[#2a2a2a] border border-[#333] rounded-xl text-xs text-[#B0B0B0] hover:text-[#39FF14] hover:border-[#39FF14]/30 transition-all">
-                      <Navigation className="w-3 h-3" /> {isAr ? "اتجاهات" : "Directions"}
-                    </a>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {liveAttractions.map((a: any, i: number) => {
+                const attrImages = [
+                  "https://images.unsplash.com/photo-1503177119275-0aa32b3a9368?w=800",
+                  "https://images.unsplash.com/photo-1539650116574-8efeb43e2750?w=800",
+                  "https://images.unsplash.com/photo-1553913861-c0fddf2619ee?w=800",
+                  "https://images.unsplash.com/photo-1568322445389-f64b0f36ecd4?w=800",
+                  "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800",
+                  "https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=800",
+                ];
+                const img = attrImages[i % attrImages.length];
+
+                return (
+                  <div key={a.id} className="group bg-[#1a1a1a] rounded-2xl border border-[#333]/50 overflow-hidden hover:border-[#39FF14]/30 hover:shadow-lg hover:shadow-[#39FF14]/5 transition-all duration-300">
+                    <div className="relative aspect-[16/10] overflow-hidden">
+                      <img src={img} alt={a.name} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+                      <div className="absolute top-3 left-3 px-3 py-1 bg-black/70 backdrop-blur-sm rounded-full text-xs font-medium text-white capitalize">
+                        {a.type?.replace(/_/g, " ")}
+                      </div>
+                      <div className="absolute top-3 right-3 px-2 py-1 bg-orange-500/90 rounded-full text-[10px] font-bold text-white">
+                        OSM
+                      </div>
+                    </div>
+                    <div className="p-5">
+                      <h3 className="font-semibold text-white text-base mb-2">{isAr && a.name_ar ? a.name_ar : a.name}</h3>
+                      {a.address && <p className="text-[#888] text-xs mb-2 flex items-center gap-1"><MapPin className="w-3 h-3" /> {a.address}</p>}
+                      {a.opening_hours && <p className="text-[#888] text-xs mb-3 flex items-center gap-1"><Clock className="w-3 h-3" /> {a.opening_hours}</p>}
+                      <div className="flex gap-2">
+                        <a href={`https://www.google.com/maps?q=${a.latitude},${a.longitude}`} target="_blank" rel="noopener noreferrer"
+                          className="flex-1 flex items-center justify-center gap-1.5 py-2.5 bg-[#2a2a2a] border border-[#333] rounded-xl text-xs text-[#B0B0B0] hover:text-[#39FF14] hover:border-[#39FF14]/30 transition-all">
+                          <MapPin className="w-3 h-3" /> {isAr ? "الخريطة" : "Map"}
+                        </a>
+                        <a href={`https://www.google.com/maps/dir/?api=1&destination=${a.latitude},${a.longitude}`} target="_blank" rel="noopener noreferrer"
+                          className="flex-1 flex items-center justify-center gap-1.5 py-2.5 bg-gradient-to-r from-[#39FF14] to-[#00E676] text-black font-semibold rounded-xl text-xs hover:shadow-lg transition-all">
+                          <Navigation className="w-3 h-3" /> {isAr ? "اتجاهات" : "Directions"}
+                        </a>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         )}
