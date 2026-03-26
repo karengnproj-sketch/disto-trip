@@ -10,7 +10,7 @@ interface AuthState {
 }
 
 // Admin emails - add your admin email here
-const ADMIN_EMAILS = ["admin@distotrip.com", "fadykhaledcons@gmail.com"];
+const ADMIN_EMAILS = ["admin@distotrip.com"];
 
 export function useAuth() {
   const [state, setState] = useState<AuthState>({
