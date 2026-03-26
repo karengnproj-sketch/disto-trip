@@ -2,12 +2,15 @@
 
 import { useParams } from "next/navigation";
 import { motion } from "framer-motion";
-import { Star, MapPin, Clock, DollarSign, Users, ExternalLink, Navigation, ArrowLeft, Info } from "lucide-react";
+import { Star, MapPin, Clock, DollarSign, Users, ExternalLink, Navigation, ArrowLeft, Info, Car, Train } from "lucide-react";
 import Link from "next/link";
 import { attractions } from "@/data/seed-attractions";
 import { cities } from "@/data/seed-cities";
 import { formatPrice, getCategoryLabel, getCategoryEmoji } from "@/lib/utils/format";
 import { estimateCrowdLevel } from "@/lib/utils/crowd-estimator";
+import { estimateTransportCosts } from "@/lib/utils/transport";
+import { useGeolocation } from "@/hooks/useGeolocation";
+import { getDistance } from "@/lib/utils/distance";
 import { useState, useEffect } from "react";
 
 interface WikiData {
@@ -20,8 +23,14 @@ export default function AttractionDetailPage() {
   const attraction = attractions.find((a) => a.id === params.id);
   const city = attraction ? cities.find((c) => c.id === attraction.city_id) : null;
   const crowd = attraction ? estimateCrowdLevel(attraction.crowd_data) : null;
+  const geo = useGeolocation();
   const [wikiData, setWikiData] = useState<WikiData | null>(null);
   const [wikiLoading, setWikiLoading] = useState(false);
+
+  const distanceKm = attraction && geo.latitude
+    ? getDistance(geo.latitude, geo.longitude!, attraction.latitude, attraction.longitude)
+    : null;
+  const transportOptions = distanceKm ? estimateTransportCosts(distanceKm) : [];
 
   useEffect(() => {
     if (!attraction?.wikipedia_slug) return;
@@ -135,7 +144,7 @@ export default function AttractionDetailPage() {
           </div>
 
           {/* Opening Hours */}
-          <div className="bg-[#1a1a1a] rounded-2xl border border-[#333]/50 p-6 md:p-8">
+          <div className="bg-[#1a1a1a] rounded-2xl border border-[#333]/50 p-6 md:p-8 mb-6">
             <h2 className="text-xl font-bold text-white mb-4">Opening Hours</h2>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
               {Object.entries(attraction.opening_hours).map(([day, hours]) => (
@@ -145,6 +154,69 @@ export default function AttractionDetailPage() {
                 </div>
               ))}
             </div>
+          </div>
+
+          {/* How to Get There + Transport Estimates */}
+          <div className="bg-[#1a1a1a] rounded-2xl border border-[#333]/50 p-6 md:p-8 mb-6">
+            <h2 className="flex items-center gap-2 text-xl font-bold text-white mb-4">
+              <Car className="w-5 h-5 text-[#39FF14]" /> How to Get There
+            </h2>
+            {distanceKm !== null && (
+              <p className="text-[#B0B0B0] text-sm mb-4">
+                Approximately {distanceKm < 1 ? `${Math.round(distanceKm * 1000)}m` : `${distanceKm.toFixed(1)}km`} from your location
+              </p>
+            )}
+
+            {/* Google Maps Embed */}
+            <div className="rounded-xl overflow-hidden mb-4 border border-[#333]">
+              <iframe
+                src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8&q=${attraction.latitude},${attraction.longitude}&zoom=15&maptype=roadmap`}
+                width="100%"
+                height="250"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                className="w-full"
+              />
+            </div>
+
+            <div className="flex gap-3 mb-4">
+              <a href={`https://www.google.com/maps?q=${attraction.latitude},${attraction.longitude}`}
+                target="_blank" rel="noopener noreferrer"
+                className="flex-1 flex items-center justify-center gap-2 py-3 bg-[#2a2a2a] border border-[#333] rounded-xl text-sm text-[#B0B0B0] hover:text-[#39FF14] hover:border-[#39FF14]/30 transition-all">
+                <MapPin className="w-4 h-4" /> Open in Google Maps
+              </a>
+              <a href={`https://www.google.com/maps/dir/?api=1&destination=${attraction.latitude},${attraction.longitude}&travelmode=driving`}
+                target="_blank" rel="noopener noreferrer"
+                className="flex-1 flex items-center justify-center gap-2 py-3 bg-[#2a2a2a] border border-[#333] rounded-xl text-sm text-[#B0B0B0] hover:text-[#39FF14] hover:border-[#39FF14]/30 transition-all">
+                <Navigation className="w-4 h-4" /> Get Directions
+              </a>
+            </div>
+
+            {/* Transport Options */}
+            {transportOptions.length > 0 && (
+              <div className="space-y-3">
+                <p className="text-sm text-[#666] font-medium">Estimated transport costs:</p>
+                {transportOptions.map((opt) => (
+                  <div key={opt.type} className="flex items-center gap-3 p-3 bg-[#0a0a0a] rounded-xl">
+                    <div className="w-10 h-10 rounded-lg bg-[#2a2a2a] flex items-center justify-center">
+                      {opt.type === "metro" ? <Train className="w-5 h-5 text-[#39FF14]" /> : <Car className="w-5 h-5 text-[#39FF14]" />}
+                    </div>
+                    <div className="flex-1">
+                      <p className="text-white text-sm font-medium">{opt.name_en}</p>
+                      <p className="text-[#666] text-xs">{opt.notes_en}</p>
+                    </div>
+                    <div className="text-right">
+                      <p className="text-[#39FF14] text-sm font-bold">
+                        {opt.cost_egp_min === 0 ? "Free" : `${opt.cost_egp_min}-${opt.cost_egp_max} EGP`}
+                      </p>
+                      <p className="text-[#666] text-xs">{opt.duration_min} min</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </motion.div>
       </div>

@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from "react";
 import { motion } from "framer-motion";
-import { Search, Star, MapPin, Wifi, Waves, Dumbbell, UtensilsCrossed, Car, ChevronDown, ExternalLink } from "lucide-react";
+import { Search, Star, MapPin, Wifi, Waves, Dumbbell, UtensilsCrossed, Car, ChevronDown, ExternalLink, Navigation } from "lucide-react";
 import { hotels } from "@/data/seed-hotels";
 import { cities } from "@/data/seed-cities";
 import { formatPrice } from "@/lib/utils/format";
@@ -130,6 +130,26 @@ function HotelsContent() {
                         {amenity.replace(/_/g, " ")}
                       </span>
                     ))}
+                  </div>
+
+                  {/* Action Buttons */}
+                  <div className="flex gap-2 mb-3">
+                    <a
+                      href={`https://www.google.com/maps?q=${hotel.latitude},${hotel.longitude}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex-1 flex items-center justify-center gap-1.5 py-2 bg-[#2a2a2a] border border-[#333] rounded-xl text-xs text-[#B0B0B0] hover:text-[#39FF14] hover:border-[#39FF14]/30 transition-all"
+                    >
+                      <MapPin className="w-3 h-3" /> {isAr ? "الخريطة" : "Map"}
+                    </a>
+                    <a
+                      href={`https://www.google.com/maps/dir/?api=1&destination=${hotel.latitude},${hotel.longitude}&travelmode=driving`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex-1 flex items-center justify-center gap-1.5 py-2 bg-[#2a2a2a] border border-[#333] rounded-xl text-xs text-[#B0B0B0] hover:text-[#39FF14] hover:border-[#39FF14]/30 transition-all"
+                    >
+                      <Navigation className="w-3 h-3" /> {isAr ? "اتجاهات" : "Directions"}
+                    </a>
                   </div>
 
                   {/* Book Button */}

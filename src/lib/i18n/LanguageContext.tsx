@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useState, useCallback, ReactNode } from "react";
+import { createContext, useContext, useState, useCallback, useEffect, ReactNode } from "react";
 import { translations, Locale, TranslationKey } from "./translations";
 
 interface LanguageContextType {
@@ -17,13 +17,31 @@ const LanguageContext = createContext<LanguageContextType>({
   dir: "ltr",
 });
 
+function getStoredLocale(): Locale {
+  if (typeof window === "undefined") return "en";
+  const stored = localStorage.getItem("disto-trip-lang");
+  if (stored === "ar" || stored === "en") return stored;
+  return "en";
+}
+
 export function LanguageProvider({ children }: { children: ReactNode }) {
   const [locale, setLocaleState] = useState<Locale>("en");
+
+  // Load saved language on mount
+  useEffect(() => {
+    const saved = getStoredLocale();
+    if (saved !== "en") {
+      setLocaleState(saved);
+      document.documentElement.dir = saved === "ar" ? "rtl" : "ltr";
+      document.documentElement.lang = saved;
+    }
+  }, []);
 
   const setLocale = useCallback((newLocale: Locale) => {
     setLocaleState(newLocale);
     document.documentElement.dir = newLocale === "ar" ? "rtl" : "ltr";
     document.documentElement.lang = newLocale;
+    localStorage.setItem("disto-trip-lang", newLocale);
   }, []);
 
   const t = useCallback(
