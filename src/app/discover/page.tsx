@@ -12,6 +12,7 @@ import { fetchNearbyPOIs, OverpassPOI } from "@/lib/api/overpass";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 
 const MapComponent = dynamic(() => import("@/components/map/MapView"), { ssr: false });
+const WeatherWidget = dynamic(() => import("@/components/shared/WeatherWidget"), { ssr: false });
 
 type Category = "all" | "hotels" | "attractions" | "emergency" | "restaurants" | "pharmacies";
 
@@ -169,10 +170,13 @@ export default function DiscoverPage() {
           </div>
         </div>
 
-        <div className="absolute top-4 right-4 z-[1000] px-4 py-2 bg-[#1a1a1a]/90 backdrop-blur-sm border border-[#333] rounded-xl">
-          <p className="text-xs text-[#B0B0B0]">
-            <span className="text-[#39FF14] font-bold">{markers.length}</span> {t("placesFound")}
-          </p>
+        <div className="absolute top-4 right-4 z-[1000] flex flex-col gap-2 items-end">
+          <div className="px-4 py-2 bg-[#1a1a1a]/90 backdrop-blur-sm border border-[#333] rounded-xl">
+            <p className="text-xs text-[#B0B0B0]">
+              <span className="text-[#39FF14] font-bold">{markers.length}</span> {t("placesFound")}
+            </p>
+          </div>
+          <WeatherWidget city={cities.find(c => c.slug === selectedCity)?.name || "Cairo"} />
         </div>
       </div>
     </div>

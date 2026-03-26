@@ -10,6 +10,9 @@ import { formatPrice, getCategoryLabel, getCategoryEmoji } from "@/lib/utils/for
 import { estimateCrowdLevel } from "@/lib/utils/crowd-estimator";
 import { estimateTransportCosts } from "@/lib/utils/transport";
 import { useGeolocation } from "@/hooks/useGeolocation";
+import dynamic from "next/dynamic";
+
+const WeatherWidget = dynamic(() => import("@/components/shared/WeatherWidget"), { ssr: false });
 import { getDistance } from "@/lib/utils/distance";
 import { useState, useEffect } from "react";
 
@@ -112,6 +115,11 @@ export default function AttractionDetailPage() {
                 <Navigation className="w-4 h-4" /> Navigate Here
               </a>
             </div>
+          </div>
+
+          {/* Weather at this location */}
+          <div className="mb-6">
+            <WeatherWidget city={city?.name || "Cairo"} />
           </div>
 
           {/* Wikipedia Landmark Explainer */}
