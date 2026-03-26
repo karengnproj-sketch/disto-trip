@@ -104,10 +104,15 @@ export default function AttractionDetailPage() {
 
             {/* Actions */}
             <div className="flex flex-wrap gap-3">
-              {attraction.ticket_url && (
+              {attraction.ticket_url ? (
                 <a href={attraction.ticket_url} target="_blank" rel="noopener noreferrer"
                   className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-[#39FF14] to-[#00E676] text-black font-semibold rounded-xl hover:shadow-lg hover:shadow-[#39FF14]/25 hover:scale-[1.02] transition-all text-sm">
                   Get Tickets <ExternalLink className="w-4 h-4" />
+                </a>
+              ) : (
+                <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(attraction.name + " Egypt")}`} target="_blank" rel="noopener noreferrer"
+                  className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-[#39FF14] to-[#00E676] text-black font-semibold rounded-xl hover:shadow-lg hover:shadow-[#39FF14]/25 hover:scale-[1.02] transition-all text-sm">
+                  View on Google Maps <ExternalLink className="w-4 h-4" />
                 </a>
               )}
               <a href={googleMapsUrl} target="_blank" rel="noopener noreferrer"
