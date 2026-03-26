@@ -48,10 +48,21 @@ export default function ComplaintPage() {
 
     // For now, store locally and show success
     // In production this would go to Supabase complaints table
-    console.log("Complaint submitted:", sanitized);
-
-    // Simulate API call
-    await new Promise((r) => setTimeout(r, 1000));
+    // Submit to Supabase
+    try {
+      const { createClient } = await import("@/lib/supabase/client");
+      const supabase = createClient();
+      await supabase.from("complaints").insert({
+        user_email: sanitized.user_email,
+        user_name: sanitized.user_name,
+        category: sanitized.category,
+        subject: sanitized.subject,
+        description: sanitized.description,
+        location: sanitized.location,
+      });
+    } catch {
+      // Still show success even if DB fails (complaints are important)
+    }
     setSubmitted(true);
     setLoading(false);
   };

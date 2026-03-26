@@ -1,16 +1,39 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { User, Heart, Settings, LogOut, MapPin, Star, Globe, Moon, Sun } from "lucide-react";
+import { User, Heart, Settings, LogOut, MapPin, Star, Globe } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 import { hotels } from "@/data/seed-hotels";
 import { attractions } from "@/data/seed-attractions";
+import { useAuth } from "@/hooks/useAuth";
+import { useLanguage } from "@/lib/i18n/LanguageContext";
+import { createClient } from "@/lib/supabase/client";
 
 export default function ProfilePage() {
+  const { user, loading: authLoading } = useAuth();
+  const { locale, setLocale } = useLanguage();
+  const isAr = locale === "ar";
+
+  const handleLogout = async () => {
+    const supabase = createClient();
+    await supabase.auth.signOut();
+    window.location.href = "/";
+  };
+
+  if (!authLoading && !user) {
+    return (
+      <div className="min-h-screen pt-24 flex flex-col items-center justify-center">
+        <User className="w-16 h-16 text-[#333] mb-4" />
+        <h1 className="text-2xl font-bold text-white mb-2">{isAr ? "يجب تسجيل الدخول" : "Please Log In"}</h1>
+        <p className="text-[#666] mb-6">{isAr ? "تحتاج لتسجيل الدخول لعرض ملفك الشخصي" : "You need to be logged in to view your profile"}</p>
+        <Link href="/auth/login" className="px-6 py-3 bg-gradient-to-r from-[#39FF14] to-[#00E676] text-black font-semibold rounded-xl">
+          {isAr ? "تسجيل الدخول" : "Log In"}
+        </Link>
+      </div>
+    );
+  }
   const [activeTab, setActiveTab] = useState<"saved" | "settings">("saved");
-  const [darkMode, setDarkMode] = useState(true);
-  const [language, setLanguage] = useState("en");
 
   // Mock saved places for demo
   const savedHotels = hotels.slice(0, 2);
@@ -24,7 +47,7 @@ export default function ProfilePage() {
         <div className="w-24 h-24 rounded-full bg-gradient-to-r from-[#39FF14] to-[#00E676] mx-auto mb-4 flex items-center justify-center">
           <User className="w-12 h-12 text-black" />
         </div>
-        <h1 className="text-2xl font-bold text-white mb-1">Traveler</h1>
+        <h1 className="text-2xl font-bold text-white mb-1">{user?.name || (isAr ? "مسافر" : "Traveler")}</h1>
         <p className="text-[#B0B0B0] text-sm">Welcome to your Disto-Trip profile</p>
       </motion.div>
 
@@ -96,30 +119,16 @@ export default function ProfilePage() {
                 <p className="text-[#666] text-xs">Choose your preferred language</p>
               </div>
             </div>
-            <select value={language} onChange={(e) => setLanguage(e.target.value)}
+            <select value={locale} onChange={(e) => setLocale(e.target.value as "en" | "ar")}
               className="py-2 px-3 bg-[#2a2a2a] border border-[#333] rounded-lg text-white text-sm">
               <option value="en">English</option>
               <option value="ar">العربية</option>
             </select>
           </div>
 
-          <div className="flex items-center justify-between p-4 bg-[#1a1a1a] rounded-2xl border border-[#333]/50">
-            <div className="flex items-center gap-3">
-              {darkMode ? <Moon className="w-5 h-5 text-[#39FF14]" /> : <Sun className="w-5 h-5 text-[#39FF14]" />}
-              <div>
-                <p className="text-white text-sm font-medium">Dark Mode</p>
-                <p className="text-[#666] text-xs">Toggle dark/light theme</p>
-              </div>
-            </div>
-            <button onClick={() => setDarkMode(!darkMode)}
-              className={`w-12 h-6 rounded-full transition-colors ${darkMode ? "bg-[#39FF14]" : "bg-[#333]"}`}>
-              <div className={`w-5 h-5 rounded-full bg-white transform transition-transform ${darkMode ? "translate-x-6" : "translate-x-0.5"}`} />
-            </button>
-          </div>
-
-          <button className="flex items-center gap-3 w-full p-4 bg-[#1a1a1a] rounded-2xl border border-red-500/30 text-red-500 hover:bg-red-500/10 transition-all">
+          <button onClick={handleLogout} className="flex items-center gap-3 w-full p-4 bg-[#1a1a1a] rounded-2xl border border-red-500/30 text-red-500 hover:bg-red-500/10 transition-all">
             <LogOut className="w-5 h-5" />
-            <span className="font-medium text-sm">Log Out</span>
+            <span className="font-medium text-sm">{isAr ? "تسجيل الخروج" : "Log Out"}</span>
           </button>
         </motion.div>
       )}
