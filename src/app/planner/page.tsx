@@ -183,7 +183,15 @@ export default function PlannerPage() {
               <div>
                 <p className="text-xs text-[#666]">{isAr ? "التكلفة الإجمالية" : "Total Cost"}</p>
                 <p className="text-lg font-bold text-[#39FF14]">{totalCost.toLocaleString()} EGP</p>
-                <p className="text-xs text-[#888]">${Math.round(totalCost / USD_TO_EGP)}</p>
+                <p className="text-xs text-[#888]">${Math.round(totalCost / USD_TO_EGP)} USD</p>
+              </div>
+            </div>
+            <div className="bg-[#1a1a1a]/60 backdrop-blur-xl rounded-2xl border border-[#333]/50 px-5 py-3 flex items-center gap-3">
+              <DollarSign className="w-5 h-5 text-[#FFB300]" />
+              <div>
+                <p className="text-xs text-[#666]">{isAr ? "المعدل اليومي" : "Daily Average"}</p>
+                <p className="text-lg font-bold text-white">{numDays > 0 ? Math.round(totalCost / numDays).toLocaleString() : 0} EGP</p>
+                <p className="text-xs text-[#888]">${numDays > 0 ? Math.round(totalCost / numDays / USD_TO_EGP) : 0}/day</p>
               </div>
             </div>
             <div className="bg-[#1a1a1a]/60 backdrop-blur-xl rounded-2xl border border-[#333]/50 px-5 py-3 flex items-center gap-3">
@@ -198,6 +206,11 @@ export default function PlannerPage() {
               {shared ? <Check className="w-4 h-4 text-[#39FF14]" /> : <Share2 className="w-4 h-4" />}
               <span className="text-sm">{shared ? (isAr ? "تم النسخ!" : "Copied!") : (isAr ? "مشاركة" : "Share")}</span>
             </button>
+            <Link href="/budget"
+              className="bg-[#1a1a1a]/60 backdrop-blur-xl rounded-2xl border border-[#333]/50 px-5 py-3 flex items-center gap-2 text-[#B0B0B0] hover:text-[#39FF14] hover:border-[#39FF14]/30 transition-all">
+              <Wallet className="w-4 h-4" />
+              <span className="text-sm">{isAr ? "محول العملات" : "Currency Converter"}</span>
+            </Link>
           </div>
         )}
 

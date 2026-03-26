@@ -20,10 +20,8 @@ export default function Navbar() {
     { href: "/discover", label: t("discover") },
     { href: "/hotels", label: t("hotels") },
     { href: "/attractions", label: t("attractions") },
-    { href: "/planner", label: isAr ? "خطط رحلتك" : "Trip Planner", icon: CalendarDays },
-    { href: "/budget", label: isAr ? "الميزانية" : "Budget", icon: Wallet },
+    { href: "/planner", label: isAr ? "خطط رحلتك" : "Plan & Budget", icon: CalendarDays },
     { href: "/emergency", label: t("emergency"), icon: Shield },
-    { href: "/about", label: isAr ? "من نحن" : "About" },
   ];
 
   const toggleLanguage = () => {
