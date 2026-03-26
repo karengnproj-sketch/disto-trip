@@ -2,7 +2,7 @@
 
 import { useState, useMemo, Suspense } from "react";
 import { motion } from "framer-motion";
-import { Search, Star, MapPin, Clock, DollarSign, Users, ExternalLink, ChevronRight } from "lucide-react";
+import { Search, Star, MapPin, Clock, DollarSign, Users, ExternalLink, ChevronRight, Loader2, Navigation, Landmark as LandmarkIcon } from "lucide-react";
 import { attractions } from "@/data/seed-attractions";
 import { cities } from "@/data/seed-cities";
 import { formatPrice, getCategoryLabel, getCategoryEmoji } from "@/lib/utils/format";
@@ -30,6 +30,29 @@ function AttractionsContent() {
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState(initialCategory);
   const [sortBy, setSortBy] = useState("rating");
+  const [liveAttractions, setLiveAttractions] = useState<any[]>([]);
+  const [loadingLive, setLoadingLive] = useState(false);
+  const [showLive, setShowLive] = useState(false);
+
+  const loadLiveAttractions = () => {
+    setLoadingLive(true);
+    // Fetch attractions + historic sites for Cairo area (biggest concentration)
+    Promise.all([
+      fetch("/api/places?lat=30.0444&lon=31.2357&type=attractions&radius=30000").then(r => r.json()),
+      fetch("/api/places?lat=30.0444&lon=31.2357&type=historic&radius=30000").then(r => r.json()),
+      fetch("/api/places?lat=25.6872&lon=32.6396&type=attractions&radius=20000").then(r => r.json()),
+      fetch("/api/places?lat=27.2579&lon=33.8116&type=attractions&radius=20000").then(r => r.json()),
+    ])
+      .then(([cairo, historic, luxor, hurghada]) => {
+        const all = [...(cairo.places || []), ...(historic.places || []), ...(luxor.places || []), ...(hurghada.places || [])];
+        // Dedupe by id
+        const unique = Array.from(new Map(all.map((p: any) => [p.id, p])).values());
+        setLiveAttractions(unique);
+        setShowLive(true);
+      })
+      .catch(() => {})
+      .finally(() => setLoadingLive(false));
+  };
 
   const filtered = useMemo(() => {
     let result = [...attractions];
@@ -111,6 +134,50 @@ function AttractionsContent() {
             </motion.div>
           );
         })}
+      </div>
+
+      {/* Load More from OpenStreetMap */}
+      <div className="mt-10 text-center">
+        {!showLive ? (
+          <button onClick={loadLiveAttractions} disabled={loadingLive}
+            className="inline-flex items-center gap-2 px-8 py-4 bg-[#1a1a1a] border border-[#39FF14]/30 text-[#39FF14] font-semibold rounded-2xl hover:bg-[#39FF14]/10 transition-all disabled:opacity-50">
+            {loadingLive ? <Loader2 className="w-5 h-5 animate-spin" /> : <LandmarkIcon className="w-5 h-5" />}
+            {loadingLive
+              ? (isAr ? "جاري التحميل..." : "Loading real attractions...")
+              : (isAr ? "تحميل المزيد من المعالم من OpenStreetMap" : "Load More Attractions from OpenStreetMap")}
+          </button>
+        ) : null}
+
+        {showLive && liveAttractions.length > 0 && (
+          <div className="mt-6">
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-xl font-bold text-white text-left">
+                {isAr ? `${liveAttractions.length} معلم من OpenStreetMap` : `${liveAttractions.length} Attractions from OpenStreetMap`}
+              </h2>
+              <span className="text-xs text-[#666] bg-[#1a1a1a] px-3 py-1 rounded-full border border-[#333]">Live Data</span>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {liveAttractions.map((a: any) => (
+                <div key={a.id} className="bg-[#1a1a1a]/60 backdrop-blur-xl rounded-2xl border border-[#333]/50 p-4 hover:border-[#39FF14]/30 transition-all text-left">
+                  <h3 className="font-semibold text-white text-sm mb-1">{isAr && a.name_ar ? a.name_ar : a.name}</h3>
+                  <p className="text-[#666] text-xs mb-2 capitalize">{a.type?.replace(/_/g, " ")}</p>
+                  {a.address && <p className="text-[#888] text-xs mb-2 flex items-center gap-1"><MapPin className="w-3 h-3" /> {a.address}</p>}
+                  {a.opening_hours && <p className="text-[#888] text-xs mb-2 flex items-center gap-1"><Clock className="w-3 h-3" /> {a.opening_hours}</p>}
+                  <div className="flex gap-2 mt-3">
+                    <a href={`https://www.google.com/maps?q=${a.latitude},${a.longitude}`} target="_blank" rel="noopener noreferrer"
+                      className="flex-1 flex items-center justify-center gap-1 py-2 bg-[#2a2a2a] border border-[#333] rounded-xl text-xs text-[#B0B0B0] hover:text-[#39FF14] hover:border-[#39FF14]/30 transition-all">
+                      <MapPin className="w-3 h-3" /> {isAr ? "الخريطة" : "Map"}
+                    </a>
+                    <a href={`https://www.google.com/maps/dir/?api=1&destination=${a.latitude},${a.longitude}`} target="_blank" rel="noopener noreferrer"
+                      className="flex-1 flex items-center justify-center gap-1 py-2 bg-[#2a2a2a] border border-[#333] rounded-xl text-xs text-[#B0B0B0] hover:text-[#39FF14] hover:border-[#39FF14]/30 transition-all">
+                      <Navigation className="w-3 h-3" /> {isAr ? "اتجاهات" : "Directions"}
+                    </a>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Search, Star, MapPin, Wifi, Waves, Dumbbell, UtensilsCrossed, Car, ChevronDown, ExternalLink, Navigation } from "lucide-react";
+import { Search, Star, MapPin, Wifi, Waves, Dumbbell, UtensilsCrossed, Car, ChevronDown, ExternalLink, Navigation, Loader2 } from "lucide-react";
 import { hotels } from "@/data/seed-hotels";
 import { cities } from "@/data/seed-cities";
 import { formatPrice } from "@/lib/utils/format";
@@ -30,6 +30,24 @@ function HotelsContent() {
   const [starFilter, setStarFilter] = useState<number | null>(null);
   const [priceFilter, setPriceFilter] = useState("");
   const [sortBy, setSortBy] = useState("rating");
+  const [liveHotels, setLiveHotels] = useState<any[]>([]);
+  const [loadingLive, setLoadingLive] = useState(false);
+  const [showLive, setShowLive] = useState(false);
+
+  // Fetch real hotels from OpenStreetMap
+  const loadLiveHotels = () => {
+    const city = cityFilter ? cities.find(c => c.slug === cityFilter) : cities[0];
+    if (!city) return;
+    setLoadingLive(true);
+    fetch(`/api/places?lat=${city.latitude}&lon=${city.longitude}&type=hotels&radius=20000`)
+      .then(r => r.json())
+      .then(data => {
+        setLiveHotels(data.places || []);
+        setShowLive(true);
+      })
+      .catch(() => {})
+      .finally(() => setLoadingLive(false));
+  };
 
   const filtered = useMemo(() => {
     let result = [...hotels];
@@ -173,6 +191,60 @@ function HotelsContent() {
             className="mt-4 text-[#39FF14] hover:underline">{t("clearFilters")}</button>
         </div>
       )}
+
+      {/* Load More from OpenStreetMap */}
+      <div className="mt-10 text-center">
+        {!showLive ? (
+          <button onClick={loadLiveHotels} disabled={loadingLive}
+            className="inline-flex items-center gap-2 px-8 py-4 bg-[#1a1a1a] border border-[#39FF14]/30 text-[#39FF14] font-semibold rounded-2xl hover:bg-[#39FF14]/10 transition-all disabled:opacity-50">
+            {loadingLive ? <Loader2 className="w-5 h-5 animate-spin" /> : <MapPin className="w-5 h-5" />}
+            {loadingLive
+              ? (isAr ? "جاري التحميل..." : "Loading real hotels...")
+              : (isAr ? "تحميل المزيد من الفنادق من OpenStreetMap" : "Load More Hotels from OpenStreetMap")}
+          </button>
+          ) : null}
+
+        {showLive && liveHotels.length > 0 && (
+          <div className="mt-6">
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-xl font-bold text-white text-left">
+                {isAr ? `${liveHotels.length} فندق من OpenStreetMap` : `${liveHotels.length} Hotels from OpenStreetMap`}
+              </h2>
+              <span className="text-xs text-[#666] bg-[#1a1a1a] px-3 py-1 rounded-full border border-[#333]">Live Data</span>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {liveHotels.map((h: any) => (
+                <div key={h.id} className="bg-[#1a1a1a]/60 backdrop-blur-xl rounded-2xl border border-[#333]/50 p-4 hover:border-[#39FF14]/30 transition-all">
+                  <h3 className="font-semibold text-white text-sm mb-1">{isAr && h.name_ar ? h.name_ar : h.name}</h3>
+                  <p className="text-[#666] text-xs mb-2">{h.type?.replace(/_/g, " ")} {h.stars ? `${"*".repeat(h.stars)}` : ""}</p>
+                  {h.address && <p className="text-[#888] text-xs mb-2 flex items-center gap-1"><MapPin className="w-3 h-3" /> {h.address}</p>}
+                  {h.phone && <p className="text-[#888] text-xs mb-2">{h.phone}</p>}
+                  <div className="flex gap-2 mt-3">
+                    <a href={`https://www.google.com/maps?q=${h.latitude},${h.longitude}`} target="_blank" rel="noopener noreferrer"
+                      className="flex-1 flex items-center justify-center gap-1 py-2 bg-[#2a2a2a] border border-[#333] rounded-xl text-xs text-[#B0B0B0] hover:text-[#39FF14] hover:border-[#39FF14]/30 transition-all">
+                      <MapPin className="w-3 h-3" /> {isAr ? "الخريطة" : "Map"}
+                    </a>
+                    <a href={`https://www.google.com/maps/dir/?api=1&destination=${h.latitude},${h.longitude}`} target="_blank" rel="noopener noreferrer"
+                      className="flex-1 flex items-center justify-center gap-1 py-2 bg-[#2a2a2a] border border-[#333] rounded-xl text-xs text-[#B0B0B0] hover:text-[#39FF14] hover:border-[#39FF14]/30 transition-all">
+                      <Navigation className="w-3 h-3" /> {isAr ? "اتجاهات" : "Directions"}
+                    </a>
+                    {h.website && (
+                      <a href={h.website} target="_blank" rel="noopener noreferrer"
+                        className="flex-1 flex items-center justify-center gap-1 py-2 bg-gradient-to-r from-[#39FF14] to-[#00E676] text-black rounded-xl text-xs font-semibold">
+                        <ExternalLink className="w-3 h-3" /> {isAr ? "الموقع" : "Website"}
+                      </a>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {showLive && liveHotels.length === 0 && !loadingLive && (
+          <p className="text-[#666] text-sm mt-4">{isAr ? "لم يتم العثور على فنادق إضافية" : "No additional hotels found in this area"}</p>
+        )}
+      </div>
     </div>
   );
 }
