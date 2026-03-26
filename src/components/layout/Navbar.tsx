@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X, MapPin, Shield, Wallet, Globe, LayoutDashboard, Settings, User, LogOut } from "lucide-react";
+import { Menu, X, MapPin, Shield, Wallet, Globe, LayoutDashboard, Settings, User, LogOut, CalendarDays } from "lucide-react";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 import { useAuth } from "@/hooks/useAuth";
 import { createClient } from "@/lib/supabase/client";
@@ -20,6 +20,7 @@ export default function Navbar() {
     { href: "/discover", label: t("discover") },
     { href: "/hotels", label: t("hotels") },
     { href: "/attractions", label: t("attractions") },
+    { href: "/planner", label: isAr ? "خطط رحلتك" : "Trip Planner", icon: CalendarDays },
     { href: "/budget", label: isAr ? "الميزانية" : "Budget", icon: Wallet },
     { href: "/emergency", label: t("emergency"), icon: Shield },
     { href: "/about", label: isAr ? "من نحن" : "About" },
