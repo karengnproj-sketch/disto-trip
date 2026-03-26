@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Disto-Trip — UML Diagrams</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #0f1220;
+    color: #c8d6e5;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Header */
+  .header {
+    background: linear-gradient(135deg, #0d1b2a, #1b2838);
+    border-bottom: 1px solid #1e3a5f;
+    padding: 24px 40px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .logo {
+    width: 40px; height: 40px; border-radius: 50%;
+    background: linear-gradient(135deg, #39FF14, #00E676);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; color: #000; font-weight: 700;
+  }
+  .brand { font-size: 22px; font-weight: 700; }
+  .brand span:first-child { color: #39FF14; }
+  .brand span:last-child { color: #fff; }
+  .header-sub { color: #5a7a9a; font-size: 14px; margin-left: auto; }
+
+  /* Section */
+  .section {
+    max-width: 1400px;
+    margin: 40px auto;
+    padding: 0 24px;
+  }
+  .section-title {
+    font-size: 28px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .section-title .badge {
+    background: linear-gradient(135deg, #00d4aa, #00b894);
+    color: #000;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .section-sub {
+    color: #5a7a9a;
+    font-size: 14px;
+    margin-bottom: 32px;
+  }
+
+  /* Use Case Diagram */
+  .uc-container {
+    background: linear-gradient(145deg, #131a2e, #0f1525);
+    border: 1px solid #1e2d4a;
+    border-radius: 16px;
+    padding: 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  .uc-container::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(0,212,170,0.03), transparent);
+    border-radius: 50%;
+  }
+
+  .uc-system-box {
+    border: 2px dashed #1e3a5f;
+    border-radius: 16px;
+    padding: 32px;
+    margin: 0 120px;
+    position: relative;
+  }
+  .uc-system-label {
+    position: absolute;
+    top: -14px;
+    left: 24px;
+    background: #131a2e;
+    padding: 0 12px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #00d4aa;
+  }
+
+  .uc-layout {
+    display: flex;
+    gap: 40px;
+  }
+
+  .uc-actors {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 120px;
+    flex-shrink: 0;
+    width: 100px;
+    padding-top: 40px;
+  }
+
+  .actor {
+    text-align: center;
+  }
+  .actor-icon {
+    width: 50px;
+    height: 80px;
+    margin: 0 auto 8px;
+    position: relative;
+  }
+  .actor-head {
+    width: 20px; height: 20px;
+    border: 2px solid #00d4aa;
+    border-radius: 50%;
+    margin: 0 auto;
+  }
+  .actor-body {
+    width: 2px; height: 20px;
+    background: #00d4aa;
+    margin: 0 auto;
+  }
+  .actor-arms {
+    width: 30px; height: 2px;
+    background: #00d4aa;
+    margin: -14px auto 0;
+  }
+  .actor-legs {
+    width: 24px; height: 20px;
+    border-left: 2px solid #00d4aa;
+    border-right: 2px solid #00d4aa;
+    border-bottom: none;
+    margin: 0 auto;
+  }
+  .actor-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #00d4aa;
+    margin-top: 4px;
+  }
+
+  .uc-cases {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .uc-group-title {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #5a7a9a;
+    margin-bottom: 12px;
+    padding-left: 8px;
+    border-left: 3px solid #f39c12;
+  }
+  .uc-group-title.user-group {
+    border-left-color: #00d4aa;
+  }
+
+  .uc-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .use-case {
+    background: linear-gradient(135deg, #162035, #1a2540);
+    border: 1.5px solid #1e3a5f;
+    border-radius: 30px;
+    padding: 10px 20px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #e0e8f0;
+    white-space: nowrap;
+    transition: all 0.2s;
+    cursor: default;
+  }
+  .use-case:hover {
+    border-color: #00d4aa;
+    background: linear-gradient(135deg, #1a2840, #1e3050);
+    color: #fff;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0,212,170,0.1);
+  }
+  .use-case.primary {
+    border-color: #00d4aa;
+    background: linear-gradient(135deg, #0a2020, #0d2830);
+    color: #00d4aa;
+  }
+
+  .uc-relation {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    color: #5a7a9a;
+    margin: 4px 12px;
+  }
+  .uc-relation .tag {
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-weight: 500;
+  }
+  .tag-include {
+    background: rgba(0,212,170,0.15);
+    color: #00d4aa;
+    border: 1px solid rgba(0,212,170,0.3);
+  }
+  .tag-extend {
+    background: rgba(243,156,18,0.15);
+    color: #f39c12;
+    border: 1px solid rgba(243,156,18,0.3);
+  }
+
+  /* Database Schema */
+  .db-container {
+    background: linear-gradient(145deg, #131a2e, #0f1525);
+    border: 1px solid #1e2d4a;
+    border-radius: 16px;
+    padding: 40px;
+    overflow-x: auto;
+  }
+
+  .db-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 24px;
+  }
+
+  .db-table {
+    background: #0d1525;
+    border: 1px solid #1e2d4a;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.2s;
+  }
+  .db-table:hover {
+    border-color: #00d4aa;
+    box-shadow: 0 4px 20px rgba(0,212,170,0.08);
+  }
+
+  .db-table-header {
+    background: linear-gradient(135deg, #0d3b66, #0a2d4f);
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #1e3a5f;
+  }
+  .db-table-name {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    font-weight: 600;
+    color: #00d4aa;
+  }
+  .db-table-icon {
+    font-size: 16px;
+  }
+
+  .db-columns {
+    padding: 4px 0;
+  }
+  .db-row {
+    display: flex;
+    align-items: center;
+    padding: 6px 16px;
+    font-size: 12px;
+    border-bottom: 1px solid #0f1a2e;
+    transition: background 0.15s;
+  }
+  .db-row:last-child { border-bottom: none; }
+  .db-row:hover { background: rgba(0,212,170,0.03); }
+
+  .db-badge {
+    width: 24px;
+    height: 18px;
+    border-radius: 4px;
+    font-size: 9px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+    flex-shrink: 0;
+  }
+  .badge-pk { background: rgba(243,156,18,0.2); color: #f39c12; border: 1px solid rgba(243,156,18,0.3); }
+  .badge-fk { background: rgba(231,76,60,0.2); color: #e74c3c; border: 1px solid rgba(231,76,60,0.3); }
+  .badge-uk { background: rgba(52,152,219,0.2); color: #3498db; border: 1px solid rgba(52,152,219,0.3); }
+  .badge-empty { background: transparent; border: 1px solid transparent; }
+
+  .db-col-name {
+    font-family: 'JetBrains Mono', monospace;
+    color: #e0e8f0;
+    flex: 1;
+    font-weight: 500;
+  }
+  .db-col-type {
+    font-family: 'JetBrains Mono', monospace;
+    color: #5a7a9a;
+    font-size: 11px;
+    text-align: right;
+  }
+
+  /* Relationships section */
+  .db-relations {
+    margin-top: 32px;
+    padding: 24px;
+    background: #0d1525;
+    border: 1px solid #1e2d4a;
+    border-radius: 12px;
+  }
+  .db-relations h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 16px;
+  }
+  .relation-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 0;
+    font-size: 13px;
+    color: #8899aa;
+    border-bottom: 1px solid #0f1a2e;
+  }
+  .relation-item:last-child { border-bottom: none; }
+  .rel-arrow {
+    color: #f39c12;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 600;
+  }
+  .rel-table {
+    color: #00d4aa;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 500;
+  }
+  .rel-type {
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 10px;
+    background: rgba(0,212,170,0.1);
+    color: #00d4aa;
+    border: 1px solid rgba(0,212,170,0.2);
+  }
+
+  /* Note */
+  .note-box {
+    margin-top: 24px;
+    padding: 16px 20px;
+    background: rgba(243,156,18,0.05);
+    border: 1px solid rgba(243,156,18,0.2);
+    border-left: 3px solid #f39c12;
+    border-radius: 0 8px 8px 0;
+    font-size: 12px;
+    color: #b8c6d4;
+  }
+  .note-box strong {
+    color: #f39c12;
+  }
+
+  /* Print */
+  @media print {
+    body { background: #fff; color: #333; }
+    .uc-container, .db-container { border: 1px solid #ddd; background: #fff; }
+    .db-table { border: 1px solid #ddd; }
+    .db-table-header { background: #f0f4f8; }
+    .use-case { border-color: #ccc; background: #f8f9fa; color: #333; }
+  }
+
+  @media (max-width: 768px) {
+    .uc-system-box { margin: 0; padding: 16px; }
+    .uc-layout { flex-direction: column; }
+    .uc-actors { flex-direction: row; width: 100%; justify-content: center; gap: 40px; padding: 0; }
+    .db-grid { grid-template-columns: 1fr; }
+    .section { padding: 0 12px; }
+    .header { padding: 16px; flex-wrap: wrap; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="logo">D</div>
+  <div class="brand"><span>Disto</span><span>-Trip</span></div>
+  <div class="header-sub">System Architecture — UML Documentation</div>
+</div>
+
+<!-- USE CASE DIAGRAM -->
+<div class="section">
+  <div class="section-title">
+    USE CASE DIAGRAM
+    <span class="badge">Trip Planning System</span>
+  </div>
+  <div class="section-sub">Actors, system boundaries, and functional use cases for the Disto-Trip travel companion platform</div>
+
+  <div class="uc-container">
+    <div style="display: flex; gap: 40px; align-items: flex-start;">
+
+      <!-- Actors -->
+      <div style="display: flex; flex-direction: column; gap: 80px; padding-top: 20px; flex-shrink: 0;">
+        <div class="actor">
+          <div class="actor-icon">
+            <div class="actor-head"></div>
+            <div class="actor-body"></div>
+            <div class="actor-arms"></div>
+            <div class="actor-legs"></div>
+          </div>
+          <div class="actor-label">Admin</div>
+        </div>
+        <div class="actor">
+          <div class="actor-icon">
+            <div class="actor-head"></div>
+            <div class="actor-body"></div>
+            <div class="actor-arms"></div>
+            <div class="actor-legs"></div>
+          </div>
+          <div class="actor-label">Tourist / User</div>
+        </div>
+      </div>
+
+      <!-- System Boundary -->
+      <div class="uc-system-box" style="flex: 1;">
+        <div class="uc-system-label">Disto-Trip Travel System</div>
+
+        <!-- Admin Cases -->
+        <div style="margin-bottom: 28px;">
+          <div class="uc-group-title">Admin Use Cases</div>
+          <div class="uc-grid">
+            <div class="use-case">Manage Hotels</div>
+            <span class="uc-relation"><span class="tag tag-include">&laquo;include&raquo;</span></span>
+            <div class="use-case">Upload Images</div>
+          </div>
+          <div class="uc-grid" style="margin-top: 8px;">
+            <div class="use-case">Manage Attractions</div>
+            <span class="uc-relation"><span class="tag tag-include">&laquo;include&raquo;</span></span>
+            <div class="use-case">Set Crowd Data</div>
+          </div>
+          <div class="uc-grid" style="margin-top: 8px;">
+            <div class="use-case">Manage Emergency Facilities</div>
+            <div class="use-case">Manage Users</div>
+            <div class="use-case">View System Analytics</div>
+          </div>
+        </div>
+
+        <hr style="border: none; border-top: 1px dashed #1e3a5f; margin: 24px 0;">
+
+        <!-- User Cases -->
+        <div>
+          <div class="uc-group-title user-group">Tourist / User Use Cases</div>
+          <div class="uc-grid">
+            <div class="use-case primary">Register / Login</div>
+            <div class="use-case primary">Search Hotels & Filter</div>
+          </div>
+          <div class="uc-grid" style="margin-top: 8px;">
+            <div class="use-case primary">Book Hotel</div>
+            <span class="uc-relation"><span class="tag tag-include">&laquo;include&raquo;</span></span>
+            <div class="use-case">Process Payment</div>
+            <span class="uc-relation"><span class="tag tag-extend">&laquo;extend&raquo;</span></span>
+            <div class="use-case">Apply Discount</div>
+          </div>
+          <div class="uc-grid" style="margin-top: 8px;">
+            <div class="use-case primary">Browse Attractions</div>
+            <div class="use-case primary">View Landmark Info</div>
+            <span class="uc-relation"><span class="tag tag-include">&laquo;include&raquo;</span></span>
+            <div class="use-case">Fetch Wikipedia Data</div>
+          </div>
+          <div class="uc-grid" style="margin-top: 8px;">
+            <div class="use-case primary">View Interactive Map</div>
+            <div class="use-case primary">Emergency SOS Call</div>
+            <div class="use-case primary">View Weather Info</div>
+          </div>
+          <div class="uc-grid" style="margin-top: 8px;">
+            <div class="use-case primary">Save Favorite Places</div>
+            <div class="use-case primary">Create Trip Itinerary</div>
+            <div class="use-case primary">Switch Language (EN/AR)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="note-box" style="margin-top: 24px;">
+      <strong>Note:</strong> Primary use cases (teal border) represent core user-facing features. Secondary use cases are included/extended behaviors triggered by system logic. Admin actors manage content via a back-office dashboard.
+    </div>
+  </div>
+</div>
+
+<!-- DATABASE SCHEMA -->
+<div class="section">
+  <div class="section-title">
+    PHYSICAL DATABASE SCHEMA
+    <span class="badge">PostgreSQL + Supabase</span>
+  </div>
+  <div class="section-sub">Entity-Relationship model with primary keys, foreign keys, and data types for the Disto-Trip system</div>
+
+  <div class="db-container">
+    <div class="db-grid">
+
+      <!-- PROFILES -->
+      <div class="db-table">
+        <div class="db-table-header">
+          <span class="db-table-name">[PROFILES]</span>
+          <span class="db-table-icon">👤</span>
+        </div>
+        <div class="db-columns">
+          <div class="db-row"><span class="db-badge badge-pk">PK</span><span class="db-col-name">id</span><span class="db-col-type">UUID</span></div>
+          <div class="db-row"><span class="db-badge badge-empty"></span><span class="db-col-name">full_name</span><span class="db-col-type">text</span></div>
+          <div class="db-row"><span class="db-badge badge-empty"></span><span class="db-col-name">avatar_url</span><span class="db-col-type">text</span></div>
+          <div class="db-row"><span class="db-badge badge-empty"></span><span class="db-col-name">preferred_language</span><span class="db-col-type">text</span></div>
+          <div class="db-row"><span class="db-badge badge-empty"></span><span class="db-col-name">preferred_currency</span><span class="db-col-type">text</span></div>
+          <div class="db-row"><span class="db-badge badge-empty"></span><span class="db-col-name">created_at</span><span class="db-col-type">timestamptz</span></div>
+          <div class="db-row"><span class="db-badge badge-empty"></span><span class="db-col-name">updated_at</span><span class="db-col-type">timestamptz</span></div>
+        </div>
+      </div>
+
+      <!-- CITIES -->
+      <div class="db-table">
+        <div class="db-table-header">
+          <span class="db-table-name">[CITIES]</span>
+          <span class="db-table-icon">🏙️</span>
+        </div>
+        <div class="db-columns">
+          <div class="db-row"><span class="db-badge badge-pk">PK</span><span class="db-col-name">id</span><span class="db-col-type">text</span></div>
+          <div class="db-row"><span class="db-badge badge-uk">UK</span><span class="db-col-name">slug</span><span class="db-col-type">text</span></div>
+          <div class="db-row"><span class="db-badge badge-empty"></span><span class="db-col-name">name</span><span class="db-col-type">text</span></div>
+          <div class="db-row"><span class="db-badge badge-empty"></span><span class="db-col-name">name_ar</span><span class="db-col-type">text</span></div>
+          <div class="db-row"><span class="db-badge badge-empty"></span><span class="db-col-name">description</span><span class="db-col-type">text</span></div>
+          <div class="db-row"><span class="db-badge badge-empty"></span><span class="db-col-name">description_ar</span><span class="db-col-type">text</span></div>
+          <div class="db-row"><span class="db-badge badge-empty"></span><span class="db-col-name">image_url</span><span class="db-col-type">text</span></div>
+          <div class="db-row"><span class="db-badge badge-empty"></span><span class="db-col-name">latitude</span><span class="db-col-type">float8</span></div>
+          <div class="db-row"><span class="db-badge badge-empty"></span><span class="db-col-name">longitude</span><span class="db-col-type">float8</span></div>
+        </div>
+      </div>
+
+      <!-- HOTELS -->
+      <div class="db-table">
+        <div class="db-table-header">
+          <span class="db-table-name">[HOTELS]</span>
+          <span class="db-table-icon">🏨</span>
+        </div>
+        <div class="db-columns">
+          <div class="db-row"><span class="db-badge badge-pk">PK</span><span class="db-col-name">id</span><span class="db-col-type">text</span></div>
+          <div class="db-row"><span class="db-badge badge-fk">FK</span><span class="db-col-name">city_id</span><span class="db-col-type">text → cities</span></div>
+          <div class="db-row"><span class="db-badge badge-empty"></span><span class="db-col-name">name</span><span class="db-col-type">text</span></div>
+          <div class="db-row"><span class="db-badge badge-empty"></span><span class="db-col-name">name_ar</span><span class="db-col-type">text</span></div>
+          <div class="db-row"><span class="db-badge badge-empty"></span><span class="db-col-name">star_rating</span><span class="db-col-type">integer</span></div>
+          <div class="db-row"><span class="db-badge badge-empty"></span><span class="db-col-name">price_per_night_usd</span><span class="db-col-type">numeric</span></div>
+          <div class="db-row"><span class="db-badge badge-empty"></span><span class="db-col-name">latitude</span><span class="db-col-type">float8</span></div>
+          <div class="db-row"><span class="db-badge badge-empty"></span><span class="db-col-name">longitude</span><span class="db-col-type">float8</span></div>
+          <div class="db-row"><span class="db-badge badge-empty"></span><span class="db-col-name">amenities</span><span class="db-col-type">text[]</span></div>
+          <div class="db-row"><span class="db-badge badge-empty"></span><span class="db-col-name">image_urls</span><span class="db-col-type">text[]</span></div>
+          <div class="db-row"><span class="db-badge badge-empty"></span><span class="db-col-name">booking_url</span><span class="db-col-type">text</span></div>
+          <div class="db-row"><span class="db-badge badge-empty"></span><span class="db-col-name">rating</span><span class="db-col-type">numeric(2,1)</span></div>
+          <div class="db-row"><span class="db-badge badge-empty"></span><span class="db-col-name">review_count</span><span class="db-col-type">integer</span></div>
+        </div>
+      </div>
+
+      <!-- ATTRACTIONS -->
+      <div class="db-table">
+        <div class="db-table-header">
+          <span class="db-table-name">[ATTRACTIONS]</span>
+          <span class="db-table-icon">🏛️</span>
+        </div>
+        <div class="db-columns">
+          <div class="db-row"><span class="db-badge badge-pk">PK</span><span class="db-col-name">id</span><span class="db-col-type">text</span></div>
+          <div class="db-row"><span class="db-badge badge-fk">FK</span><span class="db-col-name">city_id</span><span class="db-col-type">text → cities</span></div>
+          <div class="db-row"><span class="db-badge badge-empty"></span><span class="db-col-name">name</span><span class="db-col-type">text</span></div>
+          <div class="db-row"><span class="db-badge badge-empty"></span><span class="db-col-name">name_ar</span><span class="db-col-type">text</span></div>
+          <div class="db-row"><span class="db-badge badge-empty"></span><span class="db-col-name">category</span><span class="db-col-type">text</span></div>
+          <div class="db-row"><span class="db-badge badge-empty"></span><span class="db-col-name">entry_fee_usd</span><span class="db-col-type">numeric</span></div>
+          <div class="db-row"><span class="db-badge badge-empty"></span><span class="db-col-name">duration_hours</span><span class="db-col-type">numeric</span></div>
+          <div class="db-row"><span class="db-badge badge-empty"></span><span class="db-col-name">opening_hours</span><span class="db-col-type">jsonb</span></div>
+          <div class="db-row"><span class="db-badge badge-empty"></span><span class="db-col-name">crowd_data</span><span class="db-col-type">jsonb</span></div>
+          <div class="db-row"><span class="db-badge badge-empty"></span><span class="db-col-name">wikipedia_slug</span><span class="db-col-type">text</span></div>
+          <div class="db-row"><span class="db-badge badge-empty"></span><span class="db-col-name">rating</span><span class="db-col-type">numeric(2,1)</span></div>
+        </div>
+      </div>
+
+      <!-- EMERGENCY_FACILITIES -->
+      <div class="db-table">
+        <div class="db-table-header">
+          <span class="db-table-name">[EMERGENCY_FACILITIES]</span>
+          <span class="db-table-icon">🚨</span>
+        </div>
+        <div class="db-columns">
+          <div class="db-row"><span class="db-badge badge-pk">PK</span><span class="db-col-name">id</span><span class="db-col-type">text</span></div>
+          <div class="db-row"><span class="db-badge badge-fk">FK</span><span class="db-col-name">city_id</span><span class="db-col-type">text → cities</span></div>
+          <div class="db-row"><span class="db-badge badge-empty"></span><span class="db-col-name">name</span><span class="db-col-type">text</span></div>
+          <div class="db-row"><span class="db-badge badge-empty"></span><span class="db-col-name">name_ar</span><span class="db-col-type">text</span></div>
+          <div class="db-row"><span class="db-badge badge-empty"></span><span class="db-col-name">type</span><span class="db-col-type">text</span></div>
+          <div class="db-row"><span class="db-badge badge-empty"></span><span class="db-col-name">phone</span><span class="db-col-type">text</span></div>
+          <div class="db-row"><span class="db-badge badge-empty"></span><span class="db-col-name">latitude</span><span class="db-col-type">float8</span></div>
+          <div class="db-row"><span class="db-badge badge-empty"></span><span class="db-col-name">longitude</span><span class="db-col-type">float8</span></div>
+          <div class="db-row"><span class="db-badge badge-empty"></span><span class="db-col-name">is_24h</span><span class="db-col-type">boolean</span></div>
+        </div>
+      </div>
+
+      <!-- SAVED_PLACES -->
+      <div class="db-table">
+        <div class="db-table-header">
+          <span class="db-table-name">[SAVED_PLACES]</span>
+          <span class="db-table-icon">❤️</span>
+        </div>
+        <div class="db-columns">
+          <div class="db-row"><span class="db-badge badge-pk">PK</span><span class="db-col-name">id</span><span class="db-col-type">UUID</span></div>
+          <div class="db-row"><span class="db-badge badge-fk">FK</span><span class="db-col-name">user_id</span><span class="db-col-type">UUID → profiles</span></div>
+          <div class="db-row"><span class="db-badge badge-empty"></span><span class="db-col-name">place_type</span><span class="db-col-type">text</span></div>
+          <div class="db-row"><span class="db-badge badge-empty"></span><span class="db-col-name">place_id</span><span class="db-col-type">text</span></div>
+          <div class="db-row"><span class="db-badge badge-uk">UK</span><span class="db-col-name">(user_id, place_type, place_id)</span><span class="db-col-type">composite</span></div>
+          <div class="db-row"><span class="db-badge badge-empty"></span><span class="db-col-name">created_at</span><span class="db-col-type">timestamptz</span></div>
+        </div>
+      </div>
+
+      <!-- REVIEWS -->
+      <div class="db-table">
+        <div class="db-table-header">
+          <span class="db-table-name">[REVIEWS]</span>
+          <span class="db-table-icon">⭐</span>
+        </div>
+        <div class="db-columns">
+          <div class="db-row"><span class="db-badge badge-pk">PK</span><span class="db-col-name">id</span><span class="db-col-type">UUID</span></div>
+          <div class="db-row"><span class="db-badge badge-fk">FK</span><span class="db-col-name">user_id</span><span class="db-col-type">UUID → profiles</span></div>
+          <div class="db-row"><span class="db-badge badge-empty"></span><span class="db-col-name">place_type</span><span class="db-col-type">text</span></div>
+          <div class="db-row"><span class="db-badge badge-empty"></span><span class="db-col-name">place_id</span><span class="db-col-type">text</span></div>
+          <div class="db-row"><span class="db-badge badge-empty"></span><span class="db-col-name">rating</span><span class="db-col-type">integer (1-5)</span></div>
+          <div class="db-row"><span class="db-badge badge-empty"></span><span class="db-col-name">comment</span><span class="db-col-type">text</span></div>
+          <div class="db-row"><span class="db-badge badge-empty"></span><span class="db-col-name">created_at</span><span class="db-col-type">timestamptz</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Relationships -->
+    <div class="db-relations">
+      <h3>Table Relationships</h3>
+      <div class="relation-item">
+        <span class="rel-table">cities</span>
+        <span class="rel-arrow">1 ──→ N</span>
+        <span class="rel-table">hotels</span>
+        <span class="rel-type">city_id FK</span>
+      </div>
+      <div class="relation-item">
+        <span class="rel-table">cities</span>
+        <span class="rel-arrow">1 ──→ N</span>
+        <span class="rel-table">attractions</span>
+        <span class="rel-type">city_id FK</span>
+      </div>
+      <div class="relation-item">
+        <span class="rel-table">cities</span>
+        <span class="rel-arrow">1 ──→ N</span>
+        <span class="rel-table">emergency_facilities</span>
+        <span class="rel-type">city_id FK</span>
+      </div>
+      <div class="relation-item">
+        <span class="rel-table">profiles</span>
+        <span class="rel-arrow">1 ──→ N</span>
+        <span class="rel-table">saved_places</span>
+        <span class="rel-type">user_id FK</span>
+      </div>
+      <div class="relation-item">
+        <span class="rel-table">profiles</span>
+        <span class="rel-arrow">1 ──→ N</span>
+        <span class="rel-table">reviews</span>
+        <span class="rel-type">user_id FK</span>
+      </div>
+      <div class="relation-item">
+        <span class="rel-table">auth.users</span>
+        <span class="rel-arrow">1 ──→ 1</span>
+        <span class="rel-table">profiles</span>
+        <span class="rel-type">id FK (Supabase Auth)</span>
+      </div>
+    </div>
+
+    <div class="note-box">
+      <strong>Note:</strong> JSON stores location snapshots in saved_places and crowd_data in attractions — no strict FK constraint for flexible querying. The profiles table extends Supabase's built-in auth.users with a trigger that auto-creates a profile on signup. RLS (Row Level Security) is enabled on all tables.
+    </div>
+  </div>
+</div>
+
+<div style="text-align: center; padding: 40px; color: #3a4a5a; font-size: 12px;">
+  &copy; 2026 Disto-Trip — System Architecture Documentation<br>
+  Generated for project presentation
+</div>
+
+</body>
+</html>
