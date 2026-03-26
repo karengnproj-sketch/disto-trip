@@ -177,28 +177,29 @@ export default function BudgetPage() {
 
           {/* Budget Cards */}
           <div className="grid grid-cols-3 gap-4">
-            <div className="bg-[#1a1a1a] rounded-2xl border border-[#333]/50 p-5 text-center">
-              <p className="text-xs text-[#666] mb-1">Budget</p>
-              <p className="text-2xl font-bold text-[#39FF14]">{budgetEGP.toLocaleString()}</p>
-              <p className="text-xs text-[#666]">EGP</p>
-              <input
-                type="range"
-                min={1000}
-                max={100000}
-                step={1000}
-                value={budgetEGP}
-                onChange={(e) => setBudgetEGP(Number(e.target.value))}
-                className="w-full mt-2 accent-[#39FF14]"
-              />
-              <p className="text-xs text-[#B0B0B0] mt-1">{symbol}{(budgetEGP / rate).toFixed(0)}</p>
+            <div className="bg-[#1a1a1a]/60 backdrop-blur-xl rounded-2xl border border-[#333]/50 p-5 text-center">
+              <p className="text-xs text-[#666] mb-2">Budget</p>
+              <div className="flex items-center gap-2 mb-2">
+                <span className="text-xs text-[#666]">{symbol}</span>
+                <input
+                  type="number"
+                  value={Math.round(budgetEGP / rate)}
+                  onChange={(e) => setBudgetEGP(Math.round(Number(e.target.value) * rate))}
+                  className="w-full px-2 py-1.5 bg-[#0a0a0a] border border-[#333] rounded-lg text-center text-lg font-bold text-[#39FF14] focus:outline-none focus:border-[#39FF14]"
+                  placeholder="0"
+                  min={0}
+                />
+              </div>
+              <p className="text-lg font-bold text-white">{budgetEGP.toLocaleString()} EGP</p>
+              <p className="text-[10px] text-[#666] mt-1">Type your budget in {currency}</p>
             </div>
-            <div className="bg-[#1a1a1a] rounded-2xl border border-[#333]/50 p-5 text-center">
+            <div className="bg-[#1a1a1a]/60 backdrop-blur-xl rounded-2xl border border-[#333]/50 p-5 text-center">
               <p className="text-xs text-[#666] mb-1">Estimated Cost</p>
               <p className="text-2xl font-bold text-[#FFB300]">{totalSpent.toLocaleString()}</p>
               <p className="text-xs text-[#666]">EGP</p>
               <p className="text-xs text-[#B0B0B0] mt-3">{symbol}{(totalSpent / rate).toFixed(0)}</p>
             </div>
-            <div className="bg-[#1a1a1a] rounded-2xl border border-[#333]/50 p-5 text-center">
+            <div className="bg-[#1a1a1a]/60 backdrop-blur-xl rounded-2xl border border-[#333]/50 p-5 text-center">
               <p className="text-xs text-[#666] mb-1">Remaining</p>
               <p className={`text-2xl font-bold ${remaining >= 0 ? "text-[#00E676]" : "text-[#FF4444]"}`}>{remaining.toLocaleString()}</p>
               <p className="text-xs text-[#666]">EGP</p>

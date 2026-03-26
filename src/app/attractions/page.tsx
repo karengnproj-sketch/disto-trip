@@ -88,7 +88,7 @@ function AttractionsContent() {
                   <div className="absolute top-3 left-3 px-3 py-1 bg-black/70 backdrop-blur-sm rounded-full text-xs font-medium text-white">
                     {getCategoryEmoji(attr.category)} {getCategoryLabel(attr.category)}
                   </div>
-                  <div className="absolute top-3 right-3 px-3 py-1 rounded-full text-xs font-bold" style={{ backgroundColor: crowd.color + "20", color: crowd.color }}>
+                  <div className="absolute top-3 right-3 px-3 py-1.5 rounded-full text-xs font-bold backdrop-blur-md border border-white/10" style={{ backgroundColor: crowd.color + "30", color: crowd.color }}>
                     {crowd.label}
                   </div>
                 </div>

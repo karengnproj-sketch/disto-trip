@@ -9,6 +9,9 @@ import { cities } from "@/data/seed-cities";
 import { attractions } from "@/data/seed-attractions";
 import { hotels } from "@/data/seed-hotels";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
+import dynamic from "next/dynamic";
+
+const WeatherWidget = dynamic(() => import("@/components/shared/WeatherWidget"), { ssr: false });
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -158,6 +161,16 @@ export default function HomePage() {
             ))}
           </motion.div>
         </div>
+
+        {/* Weather Widget */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1, duration: 0.6 }}
+          className="mt-8"
+        >
+          <WeatherWidget city="Cairo" />
+        </motion.div>
 
         {/* Scroll Indicator */}
         <motion.div
