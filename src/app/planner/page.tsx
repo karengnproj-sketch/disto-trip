@@ -217,7 +217,7 @@ export default function PlannerPage() {
         {/* Day Plans */}
         <div className="space-y-4">
           {days.map((day) => (
-            <div key={day.id} className="bg-[#1a1a1a] rounded-2xl border border-[#333]/50 overflow-hidden">
+            <div key={day.id} className="bg-[#1a1a1a] rounded-2xl border border-[#333]/50">
               {/* Day Header */}
               <button onClick={() => toggleDay(day.id)}
                 className="w-full flex items-center justify-between p-5 hover:bg-[#2a2a2a]/50 transition-colors">
@@ -274,7 +274,7 @@ export default function PlannerPage() {
                     </button>
 
                     {showAddMenu === day.id && (
-                      <div className="absolute left-0 top-full mt-2 w-80 bg-[#1a1a1a] border border-[#333] rounded-xl shadow-2xl z-50 max-h-72 overflow-y-auto">
+                      <div className="absolute left-0 bottom-full mb-2 w-80 bg-[#1a1a1a] border border-[#333] rounded-xl shadow-2xl z-50 max-h-72 overflow-y-auto">
                         {/* Hotels */}
                         <div className="p-3 border-b border-[#333]">
                           <p className="text-xs text-[#666] font-medium mb-2">{isAr ? "فنادق" : "Hotels"}</p>
