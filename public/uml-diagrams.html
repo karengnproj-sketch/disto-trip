@@ -6,7 +6,7 @@
 <title>Disto-Trip - UML Diagrams</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+Arabic:wght@300;400;500;600;700;800&family=Cairo:wght@300;400;500;600;700;800&family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -28,7 +28,7 @@
   }
 
   body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: 'Inter', 'Noto Sans Arabic', 'Cairo', 'Tajawal', -apple-system, BlinkMacSystemFont, sans-serif;
     background: var(--bg);
     color: var(--text);
     min-height: 100vh;
@@ -312,7 +312,7 @@
 
       <!-- System Boundary -->
       <rect x="230" y="30" width="1030" height="2140" rx="20" fill="none" stroke="#39FF14" stroke-width="2" stroke-dasharray="8,4" opacity="0.4"/>
-      <text x="745" y="65" text-anchor="middle" fill="#39FF14" font-size="18" font-weight="700" opacity="0.9">Disto-Trip Travel System</text>
+      <text x="745" y="65" text-anchor="middle" fill="#39FF14" font-size="18" font-weight="700" opacity="0.9" data-en="Disto-Trip Travel System" data-ar="نظام ديستو-تريب للسفر">Disto-Trip Travel System</text>
 
       <!-- ===== ACTOR: ADMIN (top-left) ===== -->
       <g transform="translate(100, 200)">
@@ -322,7 +322,7 @@
         <line x1="-20" y1="30" x2="20" y2="30" stroke="#FF8C00" stroke-width="2.5"/>
         <line x1="0" y1="50" x2="-15" y2="72" stroke="#FF8C00" stroke-width="2.5"/>
         <line x1="0" y1="50" x2="15" y2="72" stroke="#FF8C00" stroke-width="2.5"/>
-        <text x="0" y="92" text-anchor="middle" fill="#FF8C00" font-size="14" font-weight="700">Admin</text>
+        <text x="0" y="92" text-anchor="middle" fill="#FF8C00" font-size="14" font-weight="700" data-en="Admin" data-ar="المسؤول">Admin</text>
       </g>
 
       <!-- ===== ACTOR: TOURIST/USER (bottom-left) ===== -->
@@ -332,14 +332,14 @@
         <line x1="-20" y1="30" x2="20" y2="30" stroke="#39FF14" stroke-width="2.5"/>
         <line x1="0" y1="50" x2="-15" y2="72" stroke="#39FF14" stroke-width="2.5"/>
         <line x1="0" y1="50" x2="15" y2="72" stroke="#39FF14" stroke-width="2.5"/>
-        <text x="0" y="92" text-anchor="middle" fill="#39FF14" font-size="14" font-weight="700">Tourist / User</text>
+        <text x="0" y="92" text-anchor="middle" fill="#39FF14" font-size="14" font-weight="700" data-en="Tourist / User" data-ar="السائح / المستخدم">Tourist / User</text>
       </g>
 
       <!-- ===== ACTOR: EXTERNAL APIs (right) ===== -->
       <g transform="translate(1400, 600)">
         <rect x="-50" y="-20" width="100" height="40" rx="6" fill="none" stroke="#4488FF" stroke-width="2"/>
         <text x="0" y="5" text-anchor="middle" fill="#4488FF" font-size="11" font-weight="600">&lt;&lt;system&gt;&gt;</text>
-        <text x="0" y="35" text-anchor="middle" fill="#4488FF" font-size="12" font-weight="700">External APIs</text>
+        <text x="0" y="35" text-anchor="middle" fill="#4488FF" font-size="12" font-weight="700" data-en="External APIs" data-ar="واجهات API الخارجية">External APIs</text>
         <text x="0" y="55" text-anchor="middle" fill="#6aa4e0" font-size="10">Google Maps</text>
         <text x="0" y="68" text-anchor="middle" fill="#6aa4e0" font-size="10">Wikipedia</text>
         <text x="0" y="81" text-anchor="middle" fill="#6aa4e0" font-size="10">OpenWeather</text>
@@ -351,55 +351,55 @@
       <!-- ======================================== -->
       <g id="admin-cases">
         <!-- Category Label -->
-        <text x="500" y="110" fill="#FF8C00" font-size="14" font-weight="700" opacity="0.8">ADMIN USE CASES</text>
+        <text x="500" y="110" fill="#FF8C00" font-size="14" font-weight="700" opacity="0.8" data-en="ADMIN USE CASES" data-ar="حالات استخدام المسؤول">ADMIN USE CASES</text>
 
         <!-- UC1: Manage Hotels -->
         <ellipse cx="460" cy="160" rx="120" ry="24" fill="rgba(255,140,0,0.08)" stroke="#FF8C00" stroke-width="1.5"/>
-        <text x="460" y="165" text-anchor="middle" fill="#FFB366" font-size="11" font-weight="500">Manage Hotels (CRUD)</text>
+        <text x="460" y="165" text-anchor="middle" fill="#FFB366" font-size="11" font-weight="500" data-en="Manage Hotels (CRUD)" data-ar="إدارة الفنادق (CRUD)">Manage Hotels (CRUD)</text>
 
         <!-- UC2: Manage Attractions -->
         <ellipse cx="460" cy="220" rx="130" ry="24" fill="rgba(255,140,0,0.08)" stroke="#FF8C00" stroke-width="1.5"/>
-        <text x="460" y="225" text-anchor="middle" fill="#FFB366" font-size="11" font-weight="500">Manage Attractions (CRUD)</text>
+        <text x="460" y="225" text-anchor="middle" fill="#FFB366" font-size="11" font-weight="500" data-en="Manage Attractions (CRUD)" data-ar="إدارة المعالم السياحية (CRUD)">Manage Attractions (CRUD)</text>
 
         <!-- UC3: Manage Emergency Facilities -->
         <ellipse cx="460" cy="280" rx="140" ry="24" fill="rgba(255,140,0,0.08)" stroke="#FF8C00" stroke-width="1.5"/>
-        <text x="460" y="285" text-anchor="middle" fill="#FFB366" font-size="11" font-weight="500">Manage Emergency Facilities</text>
+        <text x="460" y="285" text-anchor="middle" fill="#FFB366" font-size="11" font-weight="500" data-en="Manage Emergency Facilities" data-ar="إدارة مرافق الطوارئ">Manage Emergency Facilities</text>
 
         <!-- UC4: Manage Cities & Regions -->
         <ellipse cx="460" cy="340" rx="130" ry="24" fill="rgba(255,140,0,0.08)" stroke="#FF8C00" stroke-width="1.5"/>
-        <text x="460" y="345" text-anchor="middle" fill="#FFB366" font-size="11" font-weight="500">Manage Cities &amp; Regions</text>
+        <text x="460" y="345" text-anchor="middle" fill="#FFB366" font-size="11" font-weight="500" data-en="Manage Cities &amp; Regions" data-ar="إدارة المدن والمناطق">Manage Cities &amp; Regions</text>
 
         <!-- UC5: Manage Users & Roles -->
         <ellipse cx="460" cy="400" rx="125" ry="24" fill="rgba(255,140,0,0.08)" stroke="#FF8C00" stroke-width="1.5"/>
-        <text x="460" y="405" text-anchor="middle" fill="#FFB366" font-size="11" font-weight="500">Manage Users &amp; Roles</text>
+        <text x="460" y="405" text-anchor="middle" fill="#FFB366" font-size="11" font-weight="500" data-en="Manage Users &amp; Roles" data-ar="إدارة المستخدمين والأدوار">Manage Users &amp; Roles</text>
 
         <!-- UC6: Moderate Reviews -->
         <ellipse cx="460" cy="460" rx="110" ry="24" fill="rgba(255,140,0,0.08)" stroke="#FF8C00" stroke-width="1.5"/>
-        <text x="460" y="465" text-anchor="middle" fill="#FFB366" font-size="11" font-weight="500">Moderate Reviews</text>
+        <text x="460" y="465" text-anchor="middle" fill="#FFB366" font-size="11" font-weight="500" data-en="Moderate Reviews" data-ar="مراجعة التقييمات">Moderate Reviews</text>
 
         <!-- UC7: View System Analytics -->
         <ellipse cx="800" cy="160" rx="120" ry="24" fill="rgba(255,140,0,0.08)" stroke="#FF8C00" stroke-width="1.5"/>
-        <text x="800" y="165" text-anchor="middle" fill="#FFB366" font-size="11" font-weight="500">View System Analytics</text>
+        <text x="800" y="165" text-anchor="middle" fill="#FFB366" font-size="11" font-weight="500" data-en="View System Analytics" data-ar="عرض تحليلات النظام">View System Analytics</text>
 
         <!-- UC8: Upload Images & Media -->
         <ellipse cx="800" cy="220" rx="120" ry="24" fill="rgba(255,140,0,0.08)" stroke="#FF8C00" stroke-width="1.5"/>
-        <text x="800" y="225" text-anchor="middle" fill="#FFB366" font-size="11" font-weight="500">Upload Images &amp; Media</text>
+        <text x="800" y="225" text-anchor="middle" fill="#FFB366" font-size="11" font-weight="500" data-en="Upload Images &amp; Media" data-ar="رفع الصور والوسائط">Upload Images &amp; Media</text>
 
         <!-- UC9: Set Crowd Heuristics -->
         <ellipse cx="800" cy="280" rx="115" ry="24" fill="rgba(255,140,0,0.08)" stroke="#FF8C00" stroke-width="1.5"/>
-        <text x="800" y="285" text-anchor="middle" fill="#FFB366" font-size="11" font-weight="500">Set Crowd Heuristics</text>
+        <text x="800" y="285" text-anchor="middle" fill="#FFB366" font-size="11" font-weight="500" data-en="Set Crowd Heuristics" data-ar="ضبط معايير الازدحام">Set Crowd Heuristics</text>
 
         <!-- UC10: Manage Translations -->
         <ellipse cx="800" cy="340" rx="130" ry="24" fill="rgba(255,140,0,0.08)" stroke="#FF8C00" stroke-width="1.5"/>
-        <text x="800" y="345" text-anchor="middle" fill="#FFB366" font-size="11" font-weight="500">Manage Translations (EN/AR)</text>
+        <text x="800" y="345" text-anchor="middle" fill="#FFB366" font-size="11" font-weight="500" data-en="Manage Translations (EN/AR)" data-ar="إدارة الترجمات (EN/AR)">Manage Translations (EN/AR)</text>
 
         <!-- UC11: Process Booking Requests -->
         <ellipse cx="800" cy="400" rx="130" ry="24" fill="rgba(255,140,0,0.08)" stroke="#FF8C00" stroke-width="1.5"/>
-        <text x="800" y="405" text-anchor="middle" fill="#FFB366" font-size="11" font-weight="500">Process Booking Requests</text>
+        <text x="800" y="405" text-anchor="middle" fill="#FFB366" font-size="11" font-weight="500" data-en="Process Booking Requests" data-ar="معالجة طلبات الحجز">Process Booking Requests</text>
 
         <!-- UC12: Update Exchange Rates -->
         <ellipse cx="800" cy="460" rx="125" ry="24" fill="rgba(255,140,0,0.08)" stroke="#FF8C00" stroke-width="1.5"/>
-        <text x="800" y="465" text-anchor="middle" fill="#FFB366" font-size="11" font-weight="500">Update Exchange Rates</text>
+        <text x="800" y="465" text-anchor="middle" fill="#FFB366" font-size="11" font-weight="500" data-en="Update Exchange Rates" data-ar="تحديث أسعار الصرف">Update Exchange Rates</text>
 
         <!-- Include arrows from UC1 to UC8 -->
         <line x1="575" y1="158" x2="680" y2="218" stroke="#FF8C00" stroke-width="1" stroke-dasharray="6,3" marker-end="url(#arrowhead-orange)" opacity="0.6"/>
@@ -428,47 +428,47 @@
       <!-- USER: AUTHENTICATION (Green) -->
       <!-- ======================================== -->
       <g id="auth-cases">
-        <text x="350" y="540" fill="#39FF14" font-size="14" font-weight="700" opacity="0.8">AUTHENTICATION</text>
+        <text x="350" y="540" fill="#39FF14" font-size="14" font-weight="700" opacity="0.8" data-en="AUTHENTICATION" data-ar="المصادقة">AUTHENTICATION</text>
 
         <ellipse cx="420" cy="580" rx="120" ry="24" fill="rgba(57,255,20,0.06)" stroke="#39FF14" stroke-width="1.5"/>
-        <text x="420" y="585" text-anchor="middle" fill="#90FF70" font-size="11" font-weight="500">Register (Email/Password)</text>
+        <text x="420" y="585" text-anchor="middle" fill="#90FF70" font-size="11" font-weight="500" data-en="Register (Email/Password)" data-ar="تسجيل (بريد/كلمة مرور)">Register (Email/Password)</text>
 
         <ellipse cx="420" cy="635" rx="115" ry="24" fill="rgba(57,255,20,0.06)" stroke="#39FF14" stroke-width="1.5"/>
-        <text x="420" y="640" text-anchor="middle" fill="#90FF70" font-size="11" font-weight="500">Login (Email/Password)</text>
+        <text x="420" y="640" text-anchor="middle" fill="#90FF70" font-size="11" font-weight="500" data-en="Login (Email/Password)" data-ar="دخول (بريد/كلمة مرور)">Login (Email/Password)</text>
 
         <ellipse cx="420" cy="690" rx="120" ry="24" fill="rgba(57,255,20,0.06)" stroke="#39FF14" stroke-width="1.5"/>
-        <text x="420" y="695" text-anchor="middle" fill="#90FF70" font-size="11" font-weight="500">Login with Google OAuth</text>
+        <text x="420" y="695" text-anchor="middle" fill="#90FF70" font-size="11" font-weight="500" data-en="Login with Google OAuth" data-ar="دخول عبر Google OAuth">Login with Google OAuth</text>
 
         <ellipse cx="750" cy="580" rx="120" ry="24" fill="rgba(57,255,20,0.06)" stroke="#39FF14" stroke-width="1.5"/>
-        <text x="750" y="585" text-anchor="middle" fill="#90FF70" font-size="11" font-weight="500">Forgot / Reset Password</text>
+        <text x="750" y="585" text-anchor="middle" fill="#90FF70" font-size="11" font-weight="500" data-en="Forgot / Reset Password" data-ar="نسيت / إعادة تعيين كلمة المرور">Forgot / Reset Password</text>
 
         <ellipse cx="750" cy="635" rx="130" ry="24" fill="rgba(57,255,20,0.06)" stroke="#39FF14" stroke-width="1.5"/>
-        <text x="750" y="640" text-anchor="middle" fill="#90FF70" font-size="11" font-weight="500">Manage Profile &amp; Settings</text>
+        <text x="750" y="640" text-anchor="middle" fill="#90FF70" font-size="11" font-weight="500" data-en="Manage Profile &amp; Settings" data-ar="إدارة الملف الشخصي والإعدادات">Manage Profile &amp; Settings</text>
 
         <ellipse cx="750" cy="690" rx="125" ry="24" fill="rgba(57,255,20,0.06)" stroke="#39FF14" stroke-width="1.5"/>
-        <text x="750" y="695" text-anchor="middle" fill="#90FF70" font-size="11" font-weight="500">Switch Language (EN/AR)</text>
+        <text x="750" y="695" text-anchor="middle" fill="#90FF70" font-size="11" font-weight="500" data-en="Switch Language (EN/AR)" data-ar="تبديل اللغة (EN/AR)">Switch Language (EN/AR)</text>
       </g>
 
       <!-- ======================================== -->
       <!-- USER: HOTEL DISCOVERY & BOOKING -->
       <!-- ======================================== -->
       <g id="hotel-cases">
-        <text x="350" y="755" fill="#39FF14" font-size="14" font-weight="700" opacity="0.8">HOTEL DISCOVERY &amp; BOOKING</text>
+        <text x="350" y="755" fill="#39FF14" font-size="14" font-weight="700" opacity="0.8" data-en="HOTEL DISCOVERY &amp; BOOKING" data-ar="اكتشاف الفنادق والحجز">HOTEL DISCOVERY &amp; BOOKING</text>
 
         <ellipse cx="420" cy="795" rx="115" ry="24" fill="rgba(57,255,20,0.06)" stroke="#39FF14" stroke-width="1.5"/>
-        <text x="420" y="800" text-anchor="middle" fill="#90FF70" font-size="11" font-weight="500">Search &amp; Filter Hotels</text>
+        <text x="420" y="800" text-anchor="middle" fill="#90FF70" font-size="11" font-weight="500" data-en="Search &amp; Filter Hotels" data-ar="البحث والتصفية بين الفنادق">Search &amp; Filter Hotels</text>
 
         <ellipse cx="420" cy="850" rx="125" ry="24" fill="rgba(57,255,20,0.06)" stroke="#39FF14" stroke-width="1.5"/>
-        <text x="420" y="855" text-anchor="middle" fill="#90FF70" font-size="11" font-weight="500">View Hotel Details &amp; Gallery</text>
+        <text x="420" y="855" text-anchor="middle" fill="#90FF70" font-size="11" font-weight="500" data-en="View Hotel Details &amp; Gallery" data-ar="عرض تفاصيل الفندق والمعرض">View Hotel Details &amp; Gallery</text>
 
         <ellipse cx="750" cy="795" rx="140" ry="24" fill="rgba(57,255,20,0.06)" stroke="#39FF14" stroke-width="1.5"/>
-        <text x="750" y="800" text-anchor="middle" fill="#90FF70" font-size="11" font-weight="500">Book Hotel (3-Step Form)</text>
+        <text x="750" y="800" text-anchor="middle" fill="#90FF70" font-size="11" font-weight="500" data-en="Book Hotel (3-Step Form)" data-ar="حجز فندق (نموذج 3 خطوات)">Book Hotel (3-Step Form)</text>
 
         <ellipse cx="750" cy="850" rx="145" ry="24" fill="rgba(57,255,20,0.06)" stroke="#39FF14" stroke-width="1.5"/>
-        <text x="750" y="855" text-anchor="middle" fill="#90FF70" font-size="11" font-weight="500">Choose Payment (InstaPay/Cash/Card)</text>
+        <text x="750" y="855" text-anchor="middle" fill="#90FF70" font-size="11" font-weight="500" data-en="Choose Payment (InstaPay/Cash/Card)" data-ar="اختيار الدفع (InstaPay/نقدي/بطاقة)">Choose Payment (InstaPay/Cash/Card)</text>
 
         <ellipse cx="1050" cy="822" rx="115" ry="24" fill="rgba(57,255,20,0.06)" stroke="#39FF14" stroke-width="1.5"/>
-        <text x="1050" y="827" text-anchor="middle" fill="#90FF70" font-size="11" font-weight="500">Submit Booking Request</text>
+        <text x="1050" y="827" text-anchor="middle" fill="#90FF70" font-size="11" font-weight="500" data-en="Submit Booking Request" data-ar="إرسال طلب الحجز">Submit Booking Request</text>
 
         <!-- Include from Book Hotel to Choose Payment -->
         <line x1="830" y1="815" x2="830" y2="830" stroke="#39FF14" stroke-width="1" stroke-dasharray="5,3" marker-end="url(#arrowhead-green)" opacity="0.5"/>
@@ -483,26 +483,26 @@
       <!-- USER: ATTRACTIONS & LANDMARKS -->
       <!-- ======================================== -->
       <g id="attraction-cases">
-        <text x="350" y="920" fill="#39FF14" font-size="14" font-weight="700" opacity="0.8">ATTRACTIONS &amp; LANDMARKS</text>
+        <text x="350" y="920" fill="#39FF14" font-size="14" font-weight="700" opacity="0.8" data-en="ATTRACTIONS &amp; LANDMARKS" data-ar="المعالم السياحية والمواقع">ATTRACTIONS &amp; LANDMARKS</text>
 
         <ellipse cx="420" cy="960" rx="140" ry="24" fill="rgba(57,255,20,0.06)" stroke="#39FF14" stroke-width="1.5"/>
-        <text x="420" y="965" text-anchor="middle" fill="#90FF70" font-size="11" font-weight="500">Browse Attractions by Category</text>
+        <text x="420" y="965" text-anchor="middle" fill="#90FF70" font-size="11" font-weight="500" data-en="Browse Attractions by Category" data-ar="تصفح المعالم حسب الفئة">Browse Attractions by Category</text>
 
         <ellipse cx="420" cy="1015" rx="120" ry="24" fill="rgba(57,255,20,0.06)" stroke="#39FF14" stroke-width="1.5"/>
-        <text x="420" y="1020" text-anchor="middle" fill="#90FF70" font-size="11" font-weight="500">View Attraction Details</text>
+        <text x="420" y="1020" text-anchor="middle" fill="#90FF70" font-size="11" font-weight="500" data-en="View Attraction Details" data-ar="عرض تفاصيل المعلم">View Attraction Details</text>
 
         <ellipse cx="750" cy="960" rx="130" ry="24" fill="rgba(57,255,20,0.06)" stroke="#39FF14" stroke-width="1.5"/>
-        <text x="750" y="965" text-anchor="middle" fill="#90FF70" font-size="11" font-weight="500">View Landmark Explainer</text>
+        <text x="750" y="965" text-anchor="middle" fill="#90FF70" font-size="11" font-weight="500" data-en="View Landmark Explainer" data-ar="عرض شرح الموقع">View Landmark Explainer</text>
 
         <ellipse cx="750" cy="1015" rx="115" ry="24" fill="rgba(57,255,20,0.06)" stroke="#39FF14" stroke-width="1.5"/>
-        <text x="750" y="1020" text-anchor="middle" fill="#90FF70" font-size="11" font-weight="500">Get Tickets (Affiliate)</text>
+        <text x="750" y="1020" text-anchor="middle" fill="#90FF70" font-size="11" font-weight="500" data-en="Get Tickets (Affiliate)" data-ar="الحصول على تذاكر (شراكة)">Get Tickets (Affiliate)</text>
 
         <!-- System cases (gray) -->
         <ellipse cx="1060" cy="960" rx="125" ry="24" fill="rgba(136,136,136,0.06)" stroke="#888" stroke-width="1.5" stroke-dasharray="4,2"/>
-        <text x="1060" y="965" text-anchor="middle" fill="#aaa" font-size="11" font-weight="500">Fetch Wikipedia Content</text>
+        <text x="1060" y="965" text-anchor="middle" fill="#aaa" font-size="11" font-weight="500" data-en="Fetch Wikipedia Content" data-ar="جلب محتوى Wikipedia">Fetch Wikipedia Content</text>
 
         <ellipse cx="1060" cy="1015" rx="125" ry="24" fill="rgba(136,136,136,0.06)" stroke="#888" stroke-width="1.5" stroke-dasharray="4,2"/>
-        <text x="1060" y="1020" text-anchor="middle" fill="#aaa" font-size="11" font-weight="500">Estimate Crowd Level</text>
+        <text x="1060" y="1020" text-anchor="middle" fill="#aaa" font-size="11" font-weight="500" data-en="Estimate Crowd Level" data-ar="تقدير مستوى الازدحام">Estimate Crowd Level</text>
 
         <!-- Include from Landmark to Wikipedia -->
         <line x1="875" y1="958" x2="940" y2="958" stroke="#888" stroke-width="1" stroke-dasharray="5,3" marker-end="url(#arrowhead)" opacity="0.5"/>
@@ -516,25 +516,25 @@
       <!-- USER: MAP & NAVIGATION -->
       <!-- ======================================== -->
       <g id="map-cases">
-        <text x="350" y="1085" fill="#39FF14" font-size="14" font-weight="700" opacity="0.8">MAP &amp; NAVIGATION</text>
+        <text x="350" y="1085" fill="#39FF14" font-size="14" font-weight="700" opacity="0.8" data-en="MAP &amp; NAVIGATION" data-ar="الخريطة والملاحة">MAP &amp; NAVIGATION</text>
 
         <ellipse cx="420" cy="1125" rx="115" ry="24" fill="rgba(57,255,20,0.06)" stroke="#39FF14" stroke-width="1.5"/>
-        <text x="420" y="1130" text-anchor="middle" fill="#90FF70" font-size="11" font-weight="500">View Interactive Map</text>
+        <text x="420" y="1130" text-anchor="middle" fill="#90FF70" font-size="11" font-weight="500" data-en="View Interactive Map" data-ar="عرض الخريطة التفاعلية">View Interactive Map</text>
 
         <ellipse cx="420" cy="1180" rx="115" ry="24" fill="rgba(57,255,20,0.06)" stroke="#39FF14" stroke-width="1.5"/>
-        <text x="420" y="1185" text-anchor="middle" fill="#90FF70" font-size="11" font-weight="500">Filter Map by Category</text>
+        <text x="420" y="1185" text-anchor="middle" fill="#90FF70" font-size="11" font-weight="500" data-en="Filter Map by Category" data-ar="تصفية الخريطة حسب الفئة">Filter Map by Category</text>
 
         <ellipse cx="750" cy="1125" rx="120" ry="24" fill="rgba(57,255,20,0.06)" stroke="#39FF14" stroke-width="1.5"/>
-        <text x="750" y="1130" text-anchor="middle" fill="#90FF70" font-size="11" font-weight="500">Find Nearby Restaurants</text>
+        <text x="750" y="1130" text-anchor="middle" fill="#90FF70" font-size="11" font-weight="500" data-en="Find Nearby Restaurants" data-ar="العثور على مطاعم قريبة">Find Nearby Restaurants</text>
 
         <ellipse cx="750" cy="1180" rx="120" ry="24" fill="rgba(57,255,20,0.06)" stroke="#39FF14" stroke-width="1.5"/>
-        <text x="750" y="1185" text-anchor="middle" fill="#90FF70" font-size="11" font-weight="500">Find Nearby Pharmacies</text>
+        <text x="750" y="1185" text-anchor="middle" fill="#90FF70" font-size="11" font-weight="500" data-en="Find Nearby Pharmacies" data-ar="العثور على صيدليات قريبة">Find Nearby Pharmacies</text>
 
         <ellipse cx="1050" cy="1125" rx="115" ry="24" fill="rgba(57,255,20,0.06)" stroke="#39FF14" stroke-width="1.5"/>
-        <text x="1050" y="1130" text-anchor="middle" fill="#90FF70" font-size="11" font-weight="500">Get Directions to Place</text>
+        <text x="1050" y="1130" text-anchor="middle" fill="#90FF70" font-size="11" font-weight="500" data-en="Get Directions to Place" data-ar="الحصول على اتجاهات للمكان">Get Directions to Place</text>
 
         <ellipse cx="1050" cy="1180" rx="140" ry="24" fill="rgba(136,136,136,0.06)" stroke="#888" stroke-width="1.5" stroke-dasharray="4,2"/>
-        <text x="1050" y="1185" text-anchor="middle" fill="#aaa" font-size="11" font-weight="500">Fetch Live POIs via Overpass</text>
+        <text x="1050" y="1185" text-anchor="middle" fill="#aaa" font-size="11" font-weight="500" data-en="Fetch Live POIs via Overpass" data-ar="جلب النقاط الحية عبر Overpass">Fetch Live POIs via Overpass</text>
 
         <!-- External API lines -->
         <line x1="1160" y1="1123" x2="1355" y2="660" stroke="#4488FF" stroke-width="1" stroke-dasharray="5,3" marker-end="url(#arrowhead-blue)" opacity="0.3"/>
@@ -545,61 +545,61 @@
       <!-- USER: BUDGET & PLANNING -->
       <!-- ======================================== -->
       <g id="budget-cases">
-        <text x="350" y="1250" fill="#39FF14" font-size="14" font-weight="700" opacity="0.8">BUDGET &amp; PLANNING</text>
+        <text x="350" y="1250" fill="#39FF14" font-size="14" font-weight="700" opacity="0.8" data-en="BUDGET &amp; PLANNING" data-ar="الميزانية والتخطيط">BUDGET &amp; PLANNING</text>
 
         <ellipse cx="420" cy="1290" rx="100" ry="24" fill="rgba(57,255,20,0.06)" stroke="#39FF14" stroke-width="1.5"/>
-        <text x="420" y="1295" text-anchor="middle" fill="#90FF70" font-size="11" font-weight="500">Budget Planner</text>
+        <text x="420" y="1295" text-anchor="middle" fill="#90FF70" font-size="11" font-weight="500" data-en="Budget Planner" data-ar="مخطط الميزانية">Budget Planner</text>
 
         <ellipse cx="420" cy="1345" rx="145" ry="24" fill="rgba(57,255,20,0.06)" stroke="#39FF14" stroke-width="1.5"/>
-        <text x="420" y="1350" text-anchor="middle" fill="#90FF70" font-size="11" font-weight="500">Currency Converter (7 curr. to EGP)</text>
+        <text x="420" y="1350" text-anchor="middle" fill="#90FF70" font-size="11" font-weight="500" data-en="Currency Converter (7 curr. to EGP)" data-ar="محول العملات (7 عملات إلى الجنيه)">Currency Converter (7 curr. to EGP)</text>
 
         <ellipse cx="750" cy="1290" rx="110" ry="24" fill="rgba(57,255,20,0.06)" stroke="#39FF14" stroke-width="1.5"/>
-        <text x="750" y="1295" text-anchor="middle" fill="#90FF70" font-size="11" font-weight="500">Add Trip Expenses</text>
+        <text x="750" y="1295" text-anchor="middle" fill="#90FF70" font-size="11" font-weight="500" data-en="Add Trip Expenses" data-ar="إضافة مصاريف الرحلة">Add Trip Expenses</text>
 
         <ellipse cx="750" cy="1345" rx="120" ry="24" fill="rgba(57,255,20,0.06)" stroke="#39FF14" stroke-width="1.5"/>
-        <text x="750" y="1350" text-anchor="middle" fill="#90FF70" font-size="11" font-weight="500">View Daily Cost Estimates</text>
+        <text x="750" y="1350" text-anchor="middle" fill="#90FF70" font-size="11" font-weight="500" data-en="View Daily Cost Estimates" data-ar="عرض تقديرات التكلفة اليومية">View Daily Cost Estimates</text>
       </g>
 
       <!-- ======================================== -->
       <!-- USER: SAFETY & EMERGENCY -->
       <!-- ======================================== -->
       <g id="safety-cases">
-        <text x="350" y="1415" fill="#39FF14" font-size="14" font-weight="700" opacity="0.8">SAFETY &amp; EMERGENCY</text>
+        <text x="350" y="1415" fill="#39FF14" font-size="14" font-weight="700" opacity="0.8" data-en="SAFETY &amp; EMERGENCY" data-ar="السلامة والطوارئ">SAFETY &amp; EMERGENCY</text>
 
         <ellipse cx="420" cy="1455" rx="130" ry="24" fill="rgba(57,255,20,0.06)" stroke="#39FF14" stroke-width="1.5"/>
-        <text x="420" y="1460" text-anchor="middle" fill="#90FF70" font-size="11" font-weight="500">Emergency SOS One-Tap Call</text>
+        <text x="420" y="1460" text-anchor="middle" fill="#90FF70" font-size="11" font-weight="500" data-en="Emergency SOS One-Tap Call" data-ar="اتصال SOS بنقرة واحدة">Emergency SOS One-Tap Call</text>
 
         <ellipse cx="420" cy="1510" rx="140" ry="24" fill="rgba(57,255,20,0.06)" stroke="#39FF14" stroke-width="1.5"/>
-        <text x="420" y="1515" text-anchor="middle" fill="#90FF70" font-size="11" font-weight="500">Find Nearest Hospital/Pharmacy</text>
+        <text x="420" y="1515" text-anchor="middle" fill="#90FF70" font-size="11" font-weight="500" data-en="Find Nearest Hospital/Pharmacy" data-ar="البحث عن أقرب مستشفى/صيدلية">Find Nearest Hospital/Pharmacy</text>
 
         <ellipse cx="750" cy="1455" rx="120" ry="24" fill="rgba(57,255,20,0.06)" stroke="#39FF14" stroke-width="1.5"/>
-        <text x="750" y="1460" text-anchor="middle" fill="#90FF70" font-size="11" font-weight="500">View Embassy Contacts</text>
+        <text x="750" y="1460" text-anchor="middle" fill="#90FF70" font-size="11" font-weight="500" data-en="View Embassy Contacts" data-ar="عرض جهات اتصال السفارات">View Embassy Contacts</text>
 
         <ellipse cx="750" cy="1510" rx="110" ry="24" fill="rgba(57,255,20,0.06)" stroke="#39FF14" stroke-width="1.5"/>
-        <text x="750" y="1515" text-anchor="middle" fill="#90FF70" font-size="11" font-weight="500">View Safety Tips</text>
+        <text x="750" y="1515" text-anchor="middle" fill="#90FF70" font-size="11" font-weight="500" data-en="View Safety Tips" data-ar="عرض نصائح السلامة">View Safety Tips</text>
       </g>
 
       <!-- ======================================== -->
       <!-- USER: ENGAGEMENT -->
       <!-- ======================================== -->
       <g id="engagement-cases">
-        <text x="350" y="1580" fill="#39FF14" font-size="14" font-weight="700" opacity="0.8">ENGAGEMENT</text>
+        <text x="350" y="1580" fill="#39FF14" font-size="14" font-weight="700" opacity="0.8" data-en="ENGAGEMENT" data-ar="التفاعل">ENGAGEMENT</text>
 
         <ellipse cx="420" cy="1620" rx="110" ry="24" fill="rgba(57,255,20,0.06)" stroke="#39FF14" stroke-width="1.5"/>
-        <text x="420" y="1625" text-anchor="middle" fill="#90FF70" font-size="11" font-weight="500">Save Favorite Places</text>
+        <text x="420" y="1625" text-anchor="middle" fill="#90FF70" font-size="11" font-weight="500" data-en="Save Favorite Places" data-ar="حفظ الأماكن المفضلة">Save Favorite Places</text>
 
         <ellipse cx="420" cy="1675" rx="110" ry="24" fill="rgba(57,255,20,0.06)" stroke="#39FF14" stroke-width="1.5"/>
-        <text x="420" y="1680" text-anchor="middle" fill="#90FF70" font-size="11" font-weight="500">Write Review &amp; Rate</text>
+        <text x="420" y="1680" text-anchor="middle" fill="#90FF70" font-size="11" font-weight="500" data-en="Write Review &amp; Rate" data-ar="كتابة تقييم وتقدير">Write Review &amp; Rate</text>
 
         <ellipse cx="750" cy="1620" rx="125" ry="24" fill="rgba(57,255,20,0.06)" stroke="#39FF14" stroke-width="1.5"/>
-        <text x="750" y="1625" text-anchor="middle" fill="#90FF70" font-size="11" font-weight="500">View Weather Forecast</text>
+        <text x="750" y="1625" text-anchor="middle" fill="#90FF70" font-size="11" font-weight="500" data-en="View Weather Forecast" data-ar="عرض توقعات الطقس">View Weather Forecast</text>
 
         <ellipse cx="750" cy="1675" rx="110" ry="24" fill="rgba(57,255,20,0.06)" stroke="#39FF14" stroke-width="1.5"/>
-        <text x="750" y="1680" text-anchor="middle" fill="#90FF70" font-size="11" font-weight="500">View Crowd Levels</text>
+        <text x="750" y="1680" text-anchor="middle" fill="#90FF70" font-size="11" font-weight="500" data-en="View Crowd Levels" data-ar="عرض مستويات الازدحام">View Crowd Levels</text>
 
         <!-- Include from Weather to API -->
         <ellipse cx="1060" cy="1620" rx="120" ry="24" fill="rgba(136,136,136,0.06)" stroke="#888" stroke-width="1.5" stroke-dasharray="4,2"/>
-        <text x="1060" y="1625" text-anchor="middle" fill="#aaa" font-size="11" font-weight="500">Fetch Weather API</text>
+        <text x="1060" y="1625" text-anchor="middle" fill="#aaa" font-size="11" font-weight="500" data-en="Fetch Weather API" data-ar="جلب بيانات API الطقس">Fetch Weather API</text>
 
         <line x1="870" y1="1618" x2="945" y2="1618" stroke="#888" stroke-width="1" stroke-dasharray="5,3" marker-end="url(#arrowhead)" opacity="0.5"/>
         <text x="895" y="1610" fill="#888" font-size="9" font-style="italic" opacity="0.7">&lt;&lt;include&gt;&gt;</text>
@@ -643,15 +643,15 @@
 
         <!-- Admin -->
         <ellipse cx="80" cy="60" rx="40" ry="14" fill="rgba(255,140,0,0.1)" stroke="#FF8C00" stroke-width="1.5"/>
-        <text x="135" y="65" fill="#FFB366" font-size="11">Admin Use Case</text>
+        <text x="135" y="65" fill="#FFB366" font-size="11" data-en="Admin Use Case" data-ar="حالة استخدام المسؤول">Admin Use Case</text>
 
         <!-- User -->
         <ellipse cx="310" cy="60" rx="40" ry="14" fill="rgba(57,255,20,0.06)" stroke="#39FF14" stroke-width="1.5"/>
-        <text x="365" y="65" fill="#90FF70" font-size="11">User Use Case</text>
+        <text x="365" y="65" fill="#90FF70" font-size="11" data-en="User Use Case" data-ar="حالة استخدام المستخدم">User Use Case</text>
 
         <!-- System -->
         <ellipse cx="540" cy="60" rx="40" ry="14" fill="rgba(136,136,136,0.06)" stroke="#888" stroke-width="1.5" stroke-dasharray="4,2"/>
-        <text x="595" y="65" fill="#aaa" font-size="11">System (Auto)</text>
+        <text x="595" y="65" fill="#aaa" font-size="11" data-en="System (Auto)" data-ar="النظام (تلقائي)">System (Auto)</text>
 
         <!-- Include arrow -->
         <line x1="720" y1="55" x2="790" y2="55" stroke="#888" stroke-width="1" stroke-dasharray="5,3" marker-end="url(#arrowhead)"/>
@@ -1034,61 +1034,78 @@
 (function(){
   var currentLang = 'en';
 
+  var EN_FONT = "'Inter', 'Noto Sans Arabic', 'Cairo', 'Tajawal', -apple-system, BlinkMacSystemFont, sans-serif";
+  var AR_FONT = "'Noto Sans Arabic', 'Cairo', 'Tajawal', 'Inter', sans-serif";
+
   window.toggleLang = function() {
     currentLang = currentLang === 'en' ? 'ar' : 'en';
     applyLang();
   };
 
   function applyLang() {
+    var isAr = currentLang === 'ar';
     var html = document.documentElement;
-    if (currentLang === 'ar') {
-      html.setAttribute('dir', 'rtl');
-      html.setAttribute('lang', 'ar');
-    } else {
-      html.setAttribute('dir', 'ltr');
-      html.setAttribute('lang', 'en');
-    }
 
+    // 1. Set dir and lang on <html>
+    html.setAttribute('dir', isAr ? 'rtl' : 'ltr');
+    html.setAttribute('lang', isAr ? 'ar' : 'en');
+
+    // 2. Switch body font-family
+    document.body.style.fontFamily = isAr ? AR_FONT : EN_FONT;
+
+    // 3. Update toggle button label
     var toggle = document.getElementById('langToggle');
-    if (toggle) {
-      toggle.textContent = currentLang === 'en' ? '\u0639\u0631\u0628\u064A' : 'EN';
-    }
+    if (toggle) toggle.textContent = isAr ? 'EN' : '\u0639\u0631\u0628\u064A';
 
-    // Swap textContent for elements with data-en / data-ar
+    // 4. Swap textContent for ALL elements with data-en / data-ar
+    //    This covers both HTML elements and SVG <text> elements
     var els = document.querySelectorAll('[data-en][data-ar]');
     for (var i = 0; i < els.length; i++) {
       var el = els[i];
-      if (!el.hasAttribute('data-en-html')) {
-        el.textContent = currentLang === 'en' ? el.getAttribute('data-en') : el.getAttribute('data-ar');
-      }
+      el.textContent = isAr ? el.getAttribute('data-ar') : el.getAttribute('data-en');
     }
 
-    // Swap innerHTML for elements with data-en-html / data-ar-html
+    // 5. Swap innerHTML for elements with data-en-html / data-ar-html
     var htmlEls = document.querySelectorAll('[data-en-html][data-ar-html]');
     for (var j = 0; j < htmlEls.length; j++) {
       var hel = htmlEls[j];
-      hel.innerHTML = currentLang === 'en' ? hel.getAttribute('data-en-html') : hel.getAttribute('data-ar-html');
+      hel.innerHTML = isAr ? hel.getAttribute('data-ar-html') : hel.getAttribute('data-en-html');
     }
 
-    // Update SVG legend text based on language
+    // 6. SVG legend labels handled by data-en/data-ar above,
+    //    but class-based ones (legend-title etc.) are also covered if they have data-en/data-ar.
+    //    Keep class-based fallbacks for backward compatibility:
     var legendTitles = document.querySelectorAll('.legend-title');
     for (var k = 0; k < legendTitles.length; k++) {
-      legendTitles[k].textContent = currentLang === 'en' ? 'Legend' : '\u062F\u0644\u064A\u0644 \u0627\u0644\u0631\u0645\u0648\u0632';
+      if (!legendTitles[k].hasAttribute('data-en')) {
+        legendTitles[k].textContent = isAr ? '\u062F\u0644\u064A\u0644 \u0627\u0644\u0631\u0645\u0648\u0632' : 'Legend';
+      }
     }
 
-    // ERD legend labels
     var pkLabel = document.querySelector('.legend-pk-label');
-    if (pkLabel) pkLabel.textContent = currentLang === 'en' ? 'Primary Key' : '\u0645\u0641\u062A\u0627\u062D \u0623\u0633\u0627\u0633\u064A';
+    if (pkLabel && !pkLabel.hasAttribute('data-en')) pkLabel.textContent = isAr ? '\u0645\u0641\u062A\u0627\u062D \u0623\u0633\u0627\u0633\u064A' : 'Primary Key';
     var fkLabel = document.querySelector('.legend-fk-label');
-    if (fkLabel) fkLabel.textContent = currentLang === 'en' ? 'Foreign Key' : '\u0645\u0641\u062A\u0627\u062D \u0623\u062C\u0646\u0628\u064A';
+    if (fkLabel && !fkLabel.hasAttribute('data-en')) fkLabel.textContent = isAr ? '\u0645\u0641\u062A\u0627\u062D \u0623\u062C\u0646\u0628\u064A' : 'Foreign Key';
     var ukLabel = document.querySelector('.legend-uk-label');
-    if (ukLabel) ukLabel.textContent = currentLang === 'en' ? 'Unique Key' : '\u0645\u0641\u062A\u0627\u062D \u0641\u0631\u064A\u062F';
+    if (ukLabel && !ukLabel.hasAttribute('data-en')) ukLabel.textContent = isAr ? '\u0645\u0641\u062A\u0627\u062D \u0641\u0631\u064A\u062F' : 'Unique Key';
     var rel1Label = document.querySelector('.legend-rel1-label');
-    if (rel1Label) rel1Label.textContent = currentLang === 'en' ? '1 : 1 Relationship' : '\u0639\u0644\u0627\u0642\u0629 1 : 1';
+    if (rel1Label && !rel1Label.hasAttribute('data-en')) rel1Label.textContent = isAr ? '\u0639\u0644\u0627\u0642\u0629 1 : 1' : '1 : 1 Relationship';
     var relNLabel = document.querySelector('.legend-reln-label');
-    if (relNLabel) relNLabel.textContent = currentLang === 'en' ? '1 : N Relationship' : '\u0639\u0644\u0627\u0642\u0629 1 : N';
+    if (relNLabel && !relNLabel.hasAttribute('data-en')) relNLabel.textContent = isAr ? '\u0639\u0644\u0627\u0642\u0629 1 : N' : '1 : N Relationship';
     var legendNote = document.querySelector('.legend-note');
-    if (legendNote) legendNote.textContent = currentLang === 'en' ? 'All tables use UUID primary keys. Timestamps in UTC.' : '\u062C\u0645\u064A\u0639 \u0627\u0644\u062C\u062F\u0627\u0648\u0644 \u062A\u0633\u062A\u062E\u062F\u0645 \u0645\u0641\u0627\u062A\u064A\u062D \u0623\u0633\u0627\u0633\u064A\u0629 UUID. \u0627\u0644\u0637\u0648\u0627\u0628\u0639 \u0627\u0644\u0632\u0645\u0646\u064A\u0629 \u0628\u062A\u0648\u0642\u064A\u062A UTC.';
+    if (legendNote && !legendNote.hasAttribute('data-en')) legendNote.textContent = isAr ? '\u062C\u0645\u064A\u0639 \u0627\u0644\u062C\u062F\u0627\u0648\u0644 \u062A\u0633\u062A\u062E\u062F\u0645 \u0645\u0641\u0627\u062A\u064A\u062D \u0623\u0633\u0627\u0633\u064A\u0629 UUID. \u0627\u0644\u0637\u0648\u0627\u0628\u0639 \u0627\u0644\u0632\u0645\u0646\u064A\u0629 \u0628\u062A\u0648\u0642\u064A\u062A UTC.' : 'All tables use UUID primary keys. Timestamps in UTC.';
+
+    // 7. Switch font-family on all SVG elements
+    var svgs = document.querySelectorAll('svg');
+    for (var s = 0; s < svgs.length; s++) {
+      svgs[s].setAttribute('font-family', isAr ? AR_FONT : "'Inter', sans-serif");
+    }
+
+    // 8. For SVG text elements that have left-aligned text-anchor="start" (none here,
+    //    all use middle or no anchor), nothing needs to change — all centered text
+    //    with text-anchor="middle" stays as "middle" in both directions.
+    //    Non-anchored labels (section headers) already flow with the SVG coordinate system
+    //    and only their textContent changes, not their position.
   }
 })();
 </script>
