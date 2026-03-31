@@ -5,8 +5,8 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
 export const metadata: Metadata = {
-  title: "Disto-Trip | Paused",
-  description: "Project is currently paused.",
+  title: "404 - Page Not Found",
+  description: "The requested page could not be found.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
